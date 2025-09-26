@@ -74,7 +74,6 @@ export default function SeekerProfilePage() {
         
         if (response.success && response.data) {
           const profile = response.data;
-          console.log("Fetched profile:", profile);
           setFormData({
             full_name: profile?.user.full_name || '',
             email: profile?.user.email || '',
@@ -182,7 +181,7 @@ export default function SeekerProfilePage() {
           <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
             Profile Settings
           </h1>
-          <p className="text-xl text-black/80 max-w-2xl mx-auto">
+          <p className="text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular">
             Manage your account information and preferences
           </p>
         </div>

@@ -54,15 +54,11 @@ function SignupForm() {
   // Detect role from query parameters and pre-select user_type
   useEffect(() => {
     const role = searchParams.get('role');
-    console.log('Role from URL:', role);
     if (role === 'seeker') {
       setFormData(prev => ({ ...prev, user_type: 'seeker' }));
-      console.log('Pre-selected role: seeker');
     } else if (role === 'listener') {
       setFormData(prev => ({ ...prev, user_type: 'listener' }));
-      console.log('Pre-selected role: listener');
     } else {
-      console.log('No role parameter, keeping default state');
     }
   }, [searchParams]);
 
@@ -84,12 +80,10 @@ function SignupForm() {
           }));
           setCategories(mappedCategories);
         } else {
-          console.error('Failed to fetch categories:', response.error);
           // Fallback to empty array if API fails - categories are optional
           setCategories([]);
         }
       } catch (error) {
-        console.error('Error fetching categories:', error);
         // Fallback to empty array if API fails - categories are optional
         setCategories([]);
       } finally {
@@ -121,7 +115,6 @@ function SignupForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted with data:", formData);
     setError("");
     setSuccess("");
     
@@ -170,7 +163,6 @@ function SignupForm() {
     setError("");
     
     try {
-      console.log("Sending OTP to:", formData.email);
       const response = await registerUser({
         // u_id: formData.u_id,
         full_name: formData.full_name,
@@ -190,7 +182,6 @@ function SignupForm() {
         setError(response.error || "Failed to send OTP. Please try again.");
       }
     } catch (err) {
-      console.error("OTP send error:", err);
       setError("Failed to send OTP. Please try again.");
     } finally {
       setOtpLoading(false);
@@ -207,7 +198,6 @@ function SignupForm() {
     
     try {
       // First verify OTP
-      console.log("Verifying OTP:", formData.otp, "for email:", formData.email);
       const otpResponse = await verifyOTP(formData.email, formData.otp);
       
       if (!otpResponse.success) {
@@ -216,7 +206,6 @@ function SignupForm() {
       }
 
       // If OTP is valid, proceed with registration
-      console.log("OTP verified successfully, proceeding with registration...");
      
       if (otpResponse.success) {
         // Auto-login after successful registration
@@ -231,14 +220,12 @@ function SignupForm() {
         localStorage.setItem("adminToken", otpResponse.data?.access);
         setTimeout(() => {
           const dashboardUrl = getDashboardUrl(formData.user_type);
-          console.log('Signup successful, redirecting to:', dashboardUrl, 'for user type:', formData.user_type);
           router.push(dashboardUrl);
         }, 2000);
       } else {
         setError(otpResponse.error || "Registration failed. Please try again.");
       }
     } catch (err) {
-      console.error("Registration error:", err);
       setError("An unexpected error occurred. Please try again.");
     } finally {
       setIsLoading(false);

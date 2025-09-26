@@ -50,7 +50,6 @@ export default function CategoryCarousel() {
         }
       } catch (err) {
         setError('Network error occurred while fetching categories');
-        console.error('Error fetching categories:', err);
       } finally {
         setLoading(false);
       }
@@ -170,11 +169,11 @@ export default function CategoryCarousel() {
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         {/* Header section */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6 leading-tight">
+        <div className="text-center mb-12 sm:mb-16 px-4">
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-4 sm:mb-6 leading-tight">
             Explore Support Categories 
           </h2>
-          <p className="text-2xl text-black max-w-2xl mx-auto leading-relaxed font-semibold">
+          <p className="text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular">
             Connect with compassionate listeners who understand your unique needs and experiences
           </p>
         </div>
@@ -186,11 +185,11 @@ export default function CategoryCarousel() {
             onClick={prevSlide}
             onMouseEnter={() => setIsAutoPlaying(false)}
             onMouseLeave={() => setIsAutoPlaying(true)}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-white/50 flex items-center justify-center hover:bg-white hover:shadow-xl transition-all duration-300 group -translate-x-6"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-white/50 flex items-center justify-center hover:bg-white hover:shadow-xl transition-all duration-300 group -translate-x-3 sm:-translate-x-4 lg:-translate-x-6"
             disabled={currentIndex === 0 && !isAutoPlaying}
           >
             <svg 
-              className="w-6 h-6 text-slate-600 group-hover:text-slate-800 transform group-hover:-translate-x-0.5 transition-all" 
+              className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-slate-600 group-hover:text-slate-800 transform group-hover:-translate-x-0.5 transition-all" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -203,11 +202,11 @@ export default function CategoryCarousel() {
             onClick={nextSlide}
             onMouseEnter={() => setIsAutoPlaying(false)}
             onMouseLeave={() => setIsAutoPlaying(true)}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-white/50 flex items-center justify-center hover:bg-white hover:shadow-xl transition-all duration-300 group translate-x-6"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-white/50 flex items-center justify-center hover:bg-white hover:shadow-xl transition-all duration-300 group translate-x-3 sm:translate-x-4 lg:translate-x-6"
             disabled={currentIndex === maxIndex && !isAutoPlaying}
           >
             <svg 
-              className="w-6 h-6 text-slate-600 group-hover:text-slate-800 transform group-hover:translate-x-0.5 transition-all" 
+              className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-slate-600 group-hover:text-slate-800 transform group-hover:translate-x-0.5 transition-all" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -229,10 +228,10 @@ export default function CategoryCarousel() {
               {categories.map((cat, index) => (
                 <div
                   key={cat.id}
-                  className="flex-shrink-0 px-3"
+                  className="flex-shrink-0 px-2 sm:px-3"
                   style={{ width: `${100 / itemsPerView}%` }}
                 >
-                  <div className="group transform transition-all duration-300 hover:scale-105">
+                  <div className="group transform transition-all duration-300 ">
                     <div className="relative">
                       {/* Glow effect */}
                       <div className="absolute -inset-1 bg-gradient-to-r from-blue-200 to-purple-200 rounded-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 blur pointer-events-none"></div>
@@ -250,14 +249,14 @@ export default function CategoryCarousel() {
           </div>
 
           {/* Dots Indicator */}
-          <div className="flex justify-center items-center mt-8 gap-2">
+          <div className="flex justify-center items-center mt-6 sm:mt-8 gap-1.5 sm:gap-2">
             {Array.from({ length: maxIndex + 1 }).map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
                 onMouseEnter={() => setIsAutoPlaying(false)}
                 onMouseLeave={() => setIsAutoPlaying(true)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
                   currentIndex === index
                     ? 'bg-white shadow-lg scale-110'
                     : 'bg-white/50 hover:bg-white/70'

@@ -44,7 +44,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setUser(userData);
       }
     } catch (error) {
-      console.error('Error checking auth status:', error);
       // Clear invalid data
       localStorage.removeItem('elysian_user');
       localStorage.removeItem('elysian_token');
@@ -57,7 +56,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const login = (userData: User, accessToken?: string) => {
     setUser(userData);
     // Store user data and token in localStorage
-    console.log('Storing user data:', userData);
     localStorage.setItem('elysian_user', JSON.stringify(userData));
     if (accessToken) {
       localStorage.setItem('elysian_token', accessToken);

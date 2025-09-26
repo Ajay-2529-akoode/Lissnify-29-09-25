@@ -2,7 +2,7 @@
 
 export const API_CONFIG = {
   // Update this URL to match your backend server
-  BASE_URL: "http://localhost:8000", // Real backend URL
+  BASE_URL: "https://lissnify-v2.onrender.com", // Real backend URL
   
   // API Endpoints
   ENDPOINTS: {
@@ -59,5 +59,13 @@ export const API_CONFIG = {
 // Helper function to get full API URL
 export const getApiUrl = (endpoint: string): string => {
   return `${API_CONFIG.BASE_URL}${endpoint}`;
+};
+
+// Helper function to ensure API URL has /api prefix
+export const ensureApiPrefix = (url: string): string => {
+  if (url.endsWith('/api')) {
+    return url;
+  }
+  return `${url}/api`;
 };
 

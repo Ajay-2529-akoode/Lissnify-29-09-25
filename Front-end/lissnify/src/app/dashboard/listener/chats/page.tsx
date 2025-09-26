@@ -62,7 +62,6 @@ export default function ListenerChatsPage() {
     // Try to get full_name from localStorage first
     const storedUser = localStorage.getItem('full_name');
     if (storedUser) {
-      console.log('Current user from full_name:', storedUser);
       return storedUser;
     }
     
@@ -72,15 +71,13 @@ export default function ListenerChatsPage() {
       try {
         const userData = JSON.parse(storedUserData);
         const userName = userData.full_name || userData.name || 'listener';
-        console.log('Current user from elysian_user:', userName);
         return userName;
       } catch (error) {
-        console.error('Error parsing stored user data:', error);
+        // Error parsing stored user data
       }
     }
     
     // Fallback to 'listener' if nothing is found
-    console.log('Using fallback user: listener');
     return 'listener';
   };
 
@@ -92,7 +89,7 @@ export default function ListenerChatsPage() {
         setUnreadCounts(response.data);
       }
     } catch (error) {
-      console.error("Error fetching unread counts:", error);
+      // Error fetching unread counts
     }
   };
 
@@ -110,9 +107,7 @@ export default function ListenerChatsPage() {
   //   const accessToken = localStorage.getItem('adminToken');
   //   
   //   // Debug: Check all localStorage keys
-  //   console.log("🔍 All localStorage keys:", Object.keys(localStorage));
-  //   console.log("🔍 All localStorage values:", Object.fromEntries(Object.entries(localStorage)));
-  //   
+  //
   //   // Try multiple possible user ID keys
   //   const userId = localStorage.getItem('userId') || 
   //                 localStorage.getItem('adminUserId') || 
@@ -125,29 +120,27 @@ export default function ListenerChatsPage() {
   //   }
   //   
   //   if (!userId) {
-  //     console.error("❌ No user ID found for notifications");
-  //     console.log("Available keys:", Object.keys(localStorage));
+  
+     
   //     return;
   //   }
 
   //   const wsUrl = `ws://localhost:8000/ws/notifications/${userId}/?token=${accessToken}`;
-  //   console.log(`🔔 Connecting to notifications: ${wsUrl}`);
+ 
 
   //   const notificationWs = new WebSocket(wsUrl);
 
   //   notificationWs.onopen = () => {
-  //     console.log("✅ Notification WebSocket connected");
+ 
+  
   //   };
 
   //   notificationWs.onmessage = (event) => {
   //     try {
-  //       const data = JSON.parse(event.data);
-  //       console.log("🔔 Received notification:", data);
-  //       
+  //       const data = JSON.parse(event.data);       
   //       if (data.type === 'message_read') {
   //         // Update message status to read
   //         const messageIds = data.message_ids || [];
-  //         console.log('📖 Received read receipt via notifications:', messageIds);
   //         setMessages(prev => prev.map(msg => 
   //           messageIds.includes(msg.id) ? { ...msg, is_read: true } : msg
   //         ));
@@ -162,7 +155,6 @@ export default function ListenerChatsPage() {
   //   };
 
   //   notificationWs.onclose = (event) => {
-  //     console.log(`🔔 Notification WebSocket closed. Code: ${event.code}`);
   //   };
 
   //   return () => {
@@ -176,13 +168,13 @@ export default function ListenerChatsPage() {
         setLoading(true);
         setError(null);
         
-        // Set current user
+   
         const user = getCurrentUser();
         setCurrentUser(user);
         
         const connectedUsers = await connectedListeners();
         if (connectedUsers.success && connectedUsers.data) {
-          // Transform the backend response to match frontend interface
+          
           const transformedConnections = connectedUsers.data.map((conn: any) => ({
             connection_id: conn.connection_id,
             user_id: conn.user_id,
@@ -191,7 +183,7 @@ export default function ListenerChatsPage() {
             status: conn.status,
             seeker_profile: {
               s_id: conn.id,
-              specialty: conn.specialty || "General Support", // Use actual specialty if available
+              specialty: conn.specialty || "General Support", 
               avatar: conn.avatar || conn.full_name.charAt(0).toUpperCase(),
             }
           }));
@@ -199,7 +191,7 @@ export default function ListenerChatsPage() {
           // Filter out pending connections - only show accepted connections in conversations
           const acceptedConnections = transformedConnections.filter((conn: any) => conn.status === 'Accepted');
           setConnectedSeekers(acceptedConnections);
-          console.log("Accepted Seekers for Conversations:", acceptedConnections);
+          // Accepted Seekers for Conversations
           
           // Fetch unread counts
           await fetchUnreadCounts();
@@ -207,7 +199,6 @@ export default function ListenerChatsPage() {
           setError("Failed to fetch connected seekers");
         }
       } catch (err) {
-        console.error("Error fetching connected seekers:", err);
         setError("Error fetching connected seekers");
       } finally {
         setLoading(false);
@@ -216,7 +207,7 @@ export default function ListenerChatsPage() {
     fetchData();
   }, []);
 
-  // Handle URL parameter for pre-selected chat
+  
   useEffect(() => {
     const connectionId = searchParams.get('connectionId');
     if (connectionId && connectedSeekersData.length > 0) {
@@ -228,7 +219,7 @@ export default function ListenerChatsPage() {
     }
   }, [searchParams, connectedSeekersData]);
 
-  // WebSocket connection function with retry logic
+  
   const connectToChat = (roomId: number, retryCount = 0) => {
     const accessToken = localStorage.getItem('adminToken');
     
@@ -242,17 +233,16 @@ export default function ListenerChatsPage() {
       chatSocket.close();
     }
 
-    console.log(`🔄 Attempting to connect to chat room ${roomId} (attempt ${retryCount + 1})`);
+    // Attempting to connect to chat room
 
     // Add a small delay before creating the WebSocket connection
     setTimeout(() => {
       // Create new WebSocket connection
       const socket = new WebSocket(
-        `ws://localhost:8000/ws/chat/${roomId}/?token=${accessToken}`
+        `wss://lissnify-v2.onrender.com/ws/chat/${roomId}/?token=${accessToken}`
       );
 
     socket.onopen = () => {
-      console.log("✅ Connected to chat room:", roomId);
       setIsConnected(true);
       setError(null);
     };
@@ -260,19 +250,14 @@ export default function ListenerChatsPage() {
     socket.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
-        console.log("📨 Received message:", data);
+        // Received message
         
         // Determine if this message is from the current user or the other user
         // Backend sends author.full_name, so we need to handle both formats
         const messageAuthor = data.author?.full_name || data.author_full_name || data.author;
         const isFromCurrentUser = messageAuthor?.trim().toLowerCase() === currentUser?.trim().toLowerCase();
         
-        console.log('WebSocket message alignment check:', {
-          messageAuthor: messageAuthor?.trim().toLowerCase(),
-          currentUser: currentUser?.trim().toLowerCase(),
-          isFromCurrentUser,
-          message: data.message
-        });
+        // WebSocket message alignment check
         
         // Handle different message types
         if (data.type === 'message_delivered') {
@@ -283,7 +268,7 @@ export default function ListenerChatsPage() {
         } else if (data.type === 'message_read') {
           // Update existing message to read status
           const messageIds = data.message_ids || [data.message_id];
-          console.log('📖 Received read receipt for messages:', messageIds);
+          // Received read receipt for messages
           setMessages(prev => prev.map(msg => 
             messageIds.includes(msg.id) ? { ...msg, is_read: true } : msg
           ));
@@ -337,18 +322,17 @@ export default function ListenerChatsPage() {
         // Don't automatically mark own messages as read
         // They should only show "Read" when the receiver actually opens the chat
       } catch (error) {
-        console.error("❌ Error parsing WebSocket message:", error);
+        // Error parsing WebSocket message
       }
     };
 
     socket.onclose = (event) => {
-      console.log("🔌 Chat socket closed:", event.code, event.reason);
       setIsConnected(false);
       
       // Only attempt reconnection if it's not a normal closure and we haven't exceeded max retries
       if (event.code !== 1000 && retryCount < 3) {
         const delay = Math.pow(2, retryCount) * 1000; // Exponential backoff: 1s, 2s, 4s
-        console.log(`🔄 Connection lost. Retrying in ${delay}ms (attempt ${retryCount + 1}/3)`);
+        // Connection lost, retrying
         setTimeout(() => {
           connectToChat(roomId, retryCount + 1);
         }, delay);
@@ -358,10 +342,9 @@ export default function ListenerChatsPage() {
     };
 
     socket.onerror = (error) => {
-      console.error("❌ WebSocket error:", error);
       // Don't set error immediately on first attempt - let onclose handle retry logic
       if (retryCount === 0) {
-        console.log("🔄 Initial connection failed, will retry...");
+        // Initial connection failed, will retry
       } else {
         setError("Connection error occurred");
         setIsConnected(false);
@@ -398,7 +381,7 @@ export default function ListenerChatsPage() {
       }
       setLoading(true);
       setError(null);
-      console.log("Starting chat with seeker:", seeker);
+      // Starting chat with seeker
       const rooms = await startDirectChat(seeker.user_id);
 
       if (rooms.success) {
@@ -423,7 +406,7 @@ export default function ListenerChatsPage() {
             return message; // Keep our own messages unchanged
           });
           setMessages(messagesWithReadStatus);
-          console.log("Chat room created or fetched successfully:", messagesWithReadStatus);
+          // Chat room created or fetched successfully
           
           // Mark messages as read when opening chat
           await markMessagesAsRead(roomId);
@@ -436,11 +419,8 @@ export default function ListenerChatsPage() {
             .filter((msg: Message) => !msg.is_read && msg.author_full_name !== currentUser)
             .map((msg: Message) => msg.id);
           
-          console.log('🔍 Found unread messages from others:', unreadMessageIds);
           if (unreadMessageIds.length > 0) {
             sendReadReceipt(roomId, unreadMessageIds);
-          } else {
-            console.log('ℹ️ No unread messages to mark as read');
           }
           
           // Update unread counts
@@ -455,10 +435,10 @@ export default function ListenerChatsPage() {
         }, 800);
       } else {
         setError("Failed to start chat");
-        console.error("Failed to start chat:", rooms);
+        // Failed to start chat
       }
     } catch (error) {
-      console.error("Error starting chat:", error);
+      // Error starting chat
       setError("Error starting chat");
     } finally {
       setLoading(false);
@@ -579,9 +559,7 @@ export default function ListenerChatsPage() {
   // Function to send read receipt to sender
   const sendReadReceipt = (roomId: number, messageIds: number[]) => {
     if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
-      console.log('📤 Sending read receipt for messages:', messageIds, 'in room:', roomId);
-      console.log('📤 Current user:', currentUser);
-      console.log('📤 WebSocket state:', chatSocket.readyState);
+      // Sending read receipt for messages
       
       chatSocket.send(JSON.stringify({
         type: 'mark_messages_read',
@@ -589,10 +567,9 @@ export default function ListenerChatsPage() {
         message_ids: messageIds
       }));
       
-      console.log('✅ Read receipt sent successfully');
+      // Read receipt sent successfully
     } else {
-      console.log('❌ WebSocket not connected, cannot send read receipt');
-      console.log('❌ WebSocket state:', chatSocket?.readyState);
+      // WebSocket not connected, cannot send read receipt
     }
   };
 
@@ -634,7 +611,7 @@ export default function ListenerChatsPage() {
       // Clear the input field immediately for better UX
       setNewMessage('');
     } catch (error) {
-      console.error("Error sending message:", error);
+      
       setError("Failed to send message");
     } finally {
       setLoading(false);
@@ -677,9 +654,9 @@ export default function ListenerChatsPage() {
           </div>
         </div> */}
         
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100%-120px)]">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 h-[calc(100%-120px)]">
                 {/* Left Panel - Chat List */}
-                <div className="lg:col-span-1">
+                <div className={`lg:col-span-1 ${selectedChat ? 'hidden lg:block' : 'block'}`}>
                   <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-orange-100 h-full flex flex-col">
                     <div className="mb-6">
                       <h3 className="text-xl font-bold text-gray-800 mb-4">Active Conversations</h3>
@@ -753,12 +730,19 @@ export default function ListenerChatsPage() {
                 </div>
 
                 {/* Right Panel - Chat Area */}
-                <div className="lg:col-span-2 h-full">
+                <div className={`lg:col-span-2 h-full ${selectedChat ? 'block' : 'hidden lg:block'}`}>
                   {selectedChat ? (
                     /* Chat Interface */
                     <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/50 h-full flex flex-col">
                       {/* Chat Header */}
-                      <div className="bg-gradient-to-r from-orange-400 to-orange-300 p-6 border-b border-orange-200 flex-shrink-0 shadow-sm">
+                      <div className="bg-gradient-to-r from-orange-400 to-orange-300 p-4 lg:p-6 border-b border-orange-200 flex-shrink-0 shadow-sm">
+                        {/* Mobile Back Button */}
+                        <button
+                          onClick={handleCloseChat}
+                          className="lg:hidden mb-4 p-2 bg-white/20 rounded-lg hover:bg-white/30 transition-colors"
+                        >
+                          <X className="w-5 h-5 text-white" />
+                        </button>
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-4">
                             <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-orange-500 font-bold text-lg shadow-md">

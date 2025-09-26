@@ -104,11 +104,9 @@ const TestimonialCarousel = () => {
           }));
           setTestimonials(transformedTestimonials);
         } else {
-          console.warn('Failed to fetch testimonials, using fallback data:', response.error);
           setTestimonials(fallbackTestimonials);
         }
       } catch (err) {
-        console.error('Error fetching testimonials:', err);
         setError(err.message);
         setTestimonials(fallbackTestimonials);
       } finally {
@@ -160,7 +158,7 @@ const TestimonialCarousel = () => {
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
               Healing Journeys
             </h2>
-            <p className="text-2xl md:text-2xl text-black max-w-3xl mx-auto leading-relaxed font-semibold">
+            <p className="jsx-869f5ade3fca233 text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular">
               Real stories from real people who found hope, healing, and connection in our supportive community.
             </p>
           </div>
@@ -182,7 +180,7 @@ const TestimonialCarousel = () => {
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
               Healing Journeys
             </h2>
-            <p className="text-2xl md:text-2xl text-black max-w-3xl mx-auto leading-relaxed font-semibold">
+            <p className="text-lg md:text-xl text-black max-w-3xl mx-auto leading-relaxed font-regular">
               Real stories from real people who found hope, healing, and connection in our supportive community.
             </p>
           </div>
@@ -205,7 +203,7 @@ const TestimonialCarousel = () => {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
             Healing Journeys
           </h2>
-          <p className="text-2xl md:text-2xl text-black max-w-3xl mx-auto leading-relaxed font-semibold">
+          <p className="text-lg md:text-xl text-black max-w-3xl mx-auto leading-relaxed font-regular">
             Real stories from real people who found hope, healing, and connection in our supportive community.
           </p>
           {error && (

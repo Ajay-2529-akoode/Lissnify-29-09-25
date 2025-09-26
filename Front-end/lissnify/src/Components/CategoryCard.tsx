@@ -33,7 +33,7 @@ export default function CategoryCard({ category, href, className }: Props) {
           transition-all duration-300 ease-out 
           cursor-pointer border border-gray-100 
           hover:border-gray-200
-          hover:-translate-y-2 hover:scale-[1.02]
+
           overflow-hidden h-full
           ${className ?? ''}
         `}
@@ -42,11 +42,11 @@ export default function CategoryCard({ category, href, className }: Props) {
         <div className={`h-1 w-full ${category.colors.borderTop}`} />
         
         {/* Card content */}
-        <div className="p-6 h-full flex flex-col">
+        <div className="p-4 sm:p-6 h-full flex flex-col">
           {/* Icon container */}
           <div className="flex justify-center mb-6">
             <div className={`
-              w-16 h-16 rounded-full ${category.colors.bg} 
+              w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full ${category.colors.bg} 
               flex items-center justify-center 
               shadow-sm group-hover:shadow-md transition-shadow duration-300
             `}>
@@ -54,12 +54,12 @@ export default function CategoryCard({ category, href, className }: Props) {
                 <img 
                   src={`${category.iconSrc}`} 
                   alt={category.title}
-                  className="w-8 h-8 object-contain"
+                  className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 object-contain"
                 />
               ) : category.Icon ? (
-                <category.Icon className={`w-8 h-8 ${category.colors.icon}`} />
+                <category.Icon className={`w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 ${category.colors.icon}`} />
               ) : (
-                <div className={`w-8 h-8 rounded-full ${category.colors.icon}`} />
+                <div className={`w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 rounded-full ${category.colors.icon}`} />
               )}
             </div>
           </div>
@@ -68,7 +68,7 @@ export default function CategoryCard({ category, href, className }: Props) {
           <div className="text-center flex-grow flex flex-col">
             {/* Title */}
             <h3 className={`
-              text-xl font-bold mb-3 
+              text-lg sm:text-xl font-bold mb-3 
               ${category.colors.accent} 
               group-hover:scale-105 transition-transform duration-300
             `}>

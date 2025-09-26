@@ -39,7 +39,6 @@ const AuthProvider = ({ children })=>{
                 setUser(userData);
             }
         } catch (error) {
-            console.error('Error checking auth status:', error);
             // Clear invalid data
             localStorage.removeItem('elysian_user');
             localStorage.removeItem('elysian_token');
@@ -51,7 +50,6 @@ const AuthProvider = ({ children })=>{
     const login = (userData, accessToken)=>{
         setUser(userData);
         // Store user data and token in localStorage
-        console.log('Storing user data:', userData);
         localStorage.setItem('elysian_user', JSON.stringify(userData));
         if (accessToken) {
             localStorage.setItem('elysian_token', accessToken);
@@ -89,7 +87,7 @@ const AuthProvider = ({ children })=>{
         children: children
     }, void 0, false, {
         fileName: "[project]/src/contexts/AuthContext.tsx",
-        lineNumber: 95,
+        lineNumber: 93,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };

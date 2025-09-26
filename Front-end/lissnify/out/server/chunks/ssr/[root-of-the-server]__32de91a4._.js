@@ -30,11 +30,12 @@ module.exports = mod;
 // API Configuration
 __turbopack_context__.s({
     "API_CONFIG": ()=>API_CONFIG,
+    "ensureApiPrefix": ()=>ensureApiPrefix,
     "getApiUrl": ()=>getApiUrl
 });
 const API_CONFIG = {
     // Update this URL to match your backend server
-    BASE_URL: "http://localhost:8000",
+    BASE_URL: "https://lissnify-v2.onrender.com",
     // API Endpoints
     ENDPOINTS: {
         // Auth endpoints
@@ -81,6 +82,12 @@ const API_CONFIG = {
 };
 const getApiUrl = (endpoint)=>{
     return `${API_CONFIG.BASE_URL}${endpoint}`;
+};
+const ensureApiPrefix = (url)=>{
+    if (url.endsWith('/api')) {
+        return url;
+    }
+    return `${url}/api`;
 };
 }),
 "[project]/src/utils/api.ts [app-ssr] (ecmascript)": ((__turbopack_context__) => {
@@ -171,7 +178,6 @@ const loginUser = async (credentials)=>{
     });
 };
 const sendOTP = async (email)=>{
-    console.log("Sending OTP request to:", (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getApiUrl"])('/api/send-otp/'));
     return apiCall('/api/send-otp/', {
         method: 'POST',
         body: JSON.stringify({
@@ -197,7 +203,6 @@ const getDashboardUrl = (userType)=>{
         case 'listener':
             return '/dashboard/listener';
         default:
-            console.warn('Unknown or invalid user type:', userType, 'redirecting to seeker dashboard as fallback');
             return '/dashboard/seeker';
     }
 };
@@ -214,7 +219,6 @@ const listenerCarouselData = async ()=>{
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error("Error fetching listener carousel data:", error);
         return [];
     }
 };
@@ -594,8 +598,10 @@ __turbopack_context__.s({
     "useNotifications": ()=>useNotifications
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/api.ts [app-ssr] (ecmascript)");
 ;
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+;
+const API_BASE_URL = ("TURBOPACK compile-time truthy", 1) ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ensureApiPrefix"])(("TURBOPACK compile-time value", "https://lissnify-v2.onrender.com")) : "TURBOPACK unreachable";
 const useNotifications = ()=>{
     const [notifications, setNotifications] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [stats, setStats] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
@@ -636,7 +642,6 @@ const useNotifications = ()=>{
     }, []);
     const fetchStats = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(async ()=>{
         try {
-            console.log('📊 Fetching notification stats...');
             const response = await fetch(`${API_BASE_URL}/notifications/stats/`, {
                 headers: getAuthHeaders()
             });
@@ -644,11 +649,9 @@ const useNotifications = ()=>{
                 throw new Error('Failed to fetch notification stats');
             }
             const data = await response.json();
-            console.log('📊 Stats received:', data);
             setStats(data);
             return data;
         } catch (err) {
-            console.error('❌ Error fetching stats:', err);
             setError(err instanceof Error ? err.message : 'An error occurred');
             throw err;
         }
@@ -773,7 +776,6 @@ const useNotifications = ()=>{
     ]);
     // Load initial data
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        console.log('🔔 Loading initial notification data...');
         fetchNotifications();
         fetchStats();
         fetchSettings();
@@ -813,7 +815,7 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 ;
-const WS_BASE_URL = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8000';
+const WS_BASE_URL = process.env.NEXT_PUBLIC_WS_URL || 'wss://lissnify-v2.onrender.com';
 const useNotificationWebSocket = (onNotificationReceived)=>{
     const [socket, setSocket] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [isConnected, setIsConnected] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
@@ -825,15 +827,12 @@ const useNotificationWebSocket = (onNotificationReceived)=>{
     const connect = ()=>{
         const token = localStorage.getItem('adminToken');
         if (!token) {
-            console.error('No access token found');
             return;
         }
         try {
             const wsUrl = `${WS_BASE_URL}/ws/notifications/?token=${token}`;
-            console.log(`🔔 Attempting to connect to notification WebSocket (attempt ${reconnectAttempts.current + 1})`);
             const newSocket = new WebSocket(wsUrl);
             newSocket.onopen = ()=>{
-                console.log('✅ Notification WebSocket connected');
                 setIsConnected(true);
                 reconnectAttempts.current = 0;
                 // Request initial unread count
@@ -842,49 +841,34 @@ const useNotificationWebSocket = (onNotificationReceived)=>{
             newSocket.onmessage = (event)=>{
                 try {
                     const data = JSON.parse(event.data);
-                    console.log('🔔 WebSocket message received:', data);
                     if (data.type === 'notification' && data.notification) {
-                        console.log('📬 New notification received:', data.notification);
                         setNewNotification(data.notification);
                         // Call the callback to refresh stats
                         if (onNotificationReceived) {
                             onNotificationReceived();
                         }
-                        console.log('📬 Notification received, API stats will be refreshed');
                     } else if (data.type === 'unread_count' && data.count !== undefined) {
-                        console.log('📊 Unread count updated:', data.count);
                         setUnreadCount(data.count);
                     }
-                } catch (error) {
-                    console.error('❌ Error parsing WebSocket message:', error);
-                }
+                } catch (error) {}
             };
             newSocket.onclose = (event)=>{
-                console.log('🔌 Notification WebSocket disconnected:', event.code, event.reason);
                 setIsConnected(false);
                 // Attempt to reconnect if not a manual close
                 if (event.code !== 1000 && reconnectAttempts.current < maxReconnectAttempts) {
                     const delay = Math.pow(2, reconnectAttempts.current) * 1000; // Exponential backoff
-                    console.log(`🔄 Reconnecting in ${delay}ms (attempt ${reconnectAttempts.current + 1}/${maxReconnectAttempts})`);
                     reconnectTimeoutRef.current = setTimeout(()=>{
                         reconnectAttempts.current++;
                         connect();
                     }, delay);
-                } else if (reconnectAttempts.current >= maxReconnectAttempts) {
-                    console.error('❌ Max reconnection attempts reached for notification WebSocket');
-                }
+                } else if (reconnectAttempts.current >= maxReconnectAttempts) {}
             };
             newSocket.onerror = (error)=>{
-                console.error('❌ Notification WebSocket error:', error);
                 // Don't show error immediately on first attempt - let onclose handle retry logic
-                if (reconnectAttempts.current === 0) {
-                    console.log('🔄 Initial notification connection failed, will retry...');
-                }
+                if (reconnectAttempts.current === 0) {}
             };
             setSocket(newSocket);
-        } catch (error) {
-            console.error('❌ Error creating notification WebSocket:', error);
-        }
+        } catch (error) {}
     };
     const disconnect = ()=>{
         if (reconnectTimeoutRef.current) {
@@ -957,7 +941,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-ssr] (ecmascript) <export default as Trash2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useNotifications$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/useNotifications.ts [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useNotificationWebSocket$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/useNotificationWebSocket.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/api.ts [app-ssr] (ecmascript)");
 'use client';
+;
 ;
 ;
 ;
@@ -974,10 +960,7 @@ function NotificationBell({ className = '' }) {
     });
     // Debug logging
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        console.log('🔔 NotificationBell - isConnected:', isConnected);
-        console.log('🔔 NotificationBell - unreadCount (WebSocket):', unreadCount);
-        console.log('🔔 NotificationBell - stats (API):', stats);
-        console.log('🔔 NotificationBell - final count:', unreadCount || stats?.unread_notifications || 0);
+    // NotificationBell state updated
     }, [
         isConnected,
         unreadCount,
@@ -997,8 +980,7 @@ function NotificationBell({ className = '' }) {
     // Show new notification toast
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         if (newNotification) {
-            // You can implement a toast notification here
-            console.log('New notification:', newNotification);
+        // You can implement a toast notification here
         }
     }, [
         newNotification
@@ -1007,28 +989,28 @@ function NotificationBell({ className = '' }) {
         try {
             await markAsRead(notificationId);
         } catch (error) {
-            console.error('Error marking notification as read:', error);
+        // Error marking notification as read
         }
     };
     const handleMarkAllAsRead = async ()=>{
         try {
             await markAllAsRead();
         } catch (error) {
-            console.error('Error marking all notifications as read:', error);
+        // Error marking all notifications as read
         }
     };
     const handleDeleteNotification = async (notificationId)=>{
         try {
             await deleteNotification(notificationId);
         } catch (error) {
-            console.error('Error deleting notification:', error);
+        // Error deleting notification
         }
     };
     const handleUpdateSettings = async (newSettings)=>{
         try {
             await updateSettings(newSettings);
         } catch (error) {
-            console.error('Error updating settings:', error);
+        // Error updating settings
         }
     };
     const handleDropdownToggle = async ()=>{
@@ -1036,19 +1018,18 @@ function NotificationBell({ className = '' }) {
         setIsOpen(newIsOpen);
         // If opening the dropdown, refresh notifications
         if (newIsOpen) {
-            console.log('🔔 Opening notification dropdown, refreshing notifications...');
             try {
                 await fetchNotifications();
                 await refreshStats();
             } catch (error) {
-                console.error('❌ Error refreshing notifications:', error);
+            // Error refreshing notifications
             }
         }
     };
     const handleTestNotification = async ()=>{
         try {
-            console.log('🧪 Creating test notification...');
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://elysian-birt.onrender.com/api'}/notifications/test/`, {
+            const apiUrl = ("TURBOPACK compile-time truthy", 1) ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ensureApiPrefix"])(("TURBOPACK compile-time value", "https://lissnify-v2.onrender.com")) : "TURBOPACK unreachable";
+            const response = await fetch(`${apiUrl}/notifications/test/`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
@@ -1057,16 +1038,11 @@ function NotificationBell({ className = '' }) {
             });
             if (response.ok) {
                 const data = await response.json();
-                console.log('✅ Test notification created:', data);
                 // Refresh notifications
                 fetchNotifications();
                 refreshStats();
-            } else {
-                console.error('❌ Failed to create test notification:', response.status);
-            }
-        } catch (error) {
-            console.error('❌ Error creating test notification:', error);
-        }
+            } else {}
+        } catch (error) {}
     };
     const getNotificationIcon = (type)=>{
         switch(type){
@@ -1105,7 +1081,7 @@ function NotificationBell({ className = '' }) {
                         className: "w-6 h-6"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 177,
+                        lineNumber: 172,
                         columnNumber: 9
                     }, this),
                     (()=>{
@@ -1115,7 +1091,7 @@ function NotificationBell({ className = '' }) {
                             children: count > 99 ? '99+' : count
                         }, void 0, false, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 181,
+                            lineNumber: 176,
                             columnNumber: 13
                         }, this);
                     })(),
@@ -1123,13 +1099,13 @@ function NotificationBell({ className = '' }) {
                         className: "absolute -bottom-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full border-2 border-white"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 187,
+                        lineNumber: 182,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                lineNumber: 173,
+                lineNumber: 168,
                 columnNumber: 7
             }, this),
             isOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1153,13 +1129,13 @@ function NotificationBell({ className = '' }) {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 200,
+                                            lineNumber: 195,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 197,
+                                    lineNumber: 192,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1172,7 +1148,7 @@ function NotificationBell({ className = '' }) {
                                             children: "🧪"
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 206,
+                                            lineNumber: 201,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1182,12 +1158,12 @@ function NotificationBell({ className = '' }) {
                                                 className: "w-4 h-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                lineNumber: 217,
+                                                lineNumber: 212,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 213,
+                                            lineNumber: 208,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1197,29 +1173,29 @@ function NotificationBell({ className = '' }) {
                                                 className: "w-4 h-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                lineNumber: 223,
+                                                lineNumber: 218,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 219,
+                                            lineNumber: 214,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 205,
+                                    lineNumber: 200,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 196,
+                            lineNumber: 191,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 195,
+                        lineNumber: 190,
                         columnNumber: 11
                     }, this),
                     showSettings && settings && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1230,7 +1206,7 @@ function NotificationBell({ className = '' }) {
                                 children: "Notification Settings"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                lineNumber: 232,
+                                lineNumber: 227,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1247,7 +1223,7 @@ function NotificationBell({ className = '' }) {
                                                 className: "rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                lineNumber: 236,
+                                                lineNumber: 231,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1255,24 +1231,24 @@ function NotificationBell({ className = '' }) {
                                                 children: key.replace('_', ' ')
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                lineNumber: 242,
+                                                lineNumber: 237,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, key, true, {
                                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                                        lineNumber: 235,
+                                        lineNumber: 230,
                                         columnNumber: 19
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                lineNumber: 233,
+                                lineNumber: 228,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 231,
+                        lineNumber: 226,
                         columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1282,14 +1258,14 @@ function NotificationBell({ className = '' }) {
                             children: "Loading..."
                         }, void 0, false, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 254,
+                            lineNumber: 249,
                             columnNumber: 15
                         }, this) : notifications.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "p-4 text-center text-gray-500",
                             children: "No notifications"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 256,
+                            lineNumber: 251,
                             columnNumber: 15
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                             children: [
@@ -1301,12 +1277,12 @@ function NotificationBell({ className = '' }) {
                                         children: "Mark all as read"
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                                        lineNumber: 261,
+                                        lineNumber: 256,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 260,
+                                    lineNumber: 255,
                                     columnNumber: 15
                                 }, this),
                                 notifications.map((notification)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1319,7 +1295,7 @@ function NotificationBell({ className = '' }) {
                                                     children: getNotificationIcon(notification.notification_type)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                    lineNumber: 277,
+                                                    lineNumber: 272,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1333,7 +1309,7 @@ function NotificationBell({ className = '' }) {
                                                                     children: notification.title
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                    lineNumber: 282,
+                                                                    lineNumber: 277,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1347,12 +1323,12 @@ function NotificationBell({ className = '' }) {
                                                                                 className: "w-3 h-3"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                                lineNumber: 292,
+                                                                                lineNumber: 287,
                                                                                 columnNumber: 33
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                            lineNumber: 287,
+                                                                            lineNumber: 282,
                                                                             columnNumber: 31
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1363,24 +1339,24 @@ function NotificationBell({ className = '' }) {
                                                                                 className: "w-3 h-3"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                                lineNumber: 300,
+                                                                                lineNumber: 295,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                            lineNumber: 295,
+                                                                            lineNumber: 290,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                    lineNumber: 285,
+                                                                    lineNumber: 280,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                            lineNumber: 281,
+                                                            lineNumber: 276,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1388,7 +1364,7 @@ function NotificationBell({ className = '' }) {
                                                             children: notification.message
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                            lineNumber: 304,
+                                                            lineNumber: 299,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1399,7 +1375,7 @@ function NotificationBell({ className = '' }) {
                                                                     children: formatTimeAgo(notification.created_at)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                    lineNumber: 308,
+                                                                    lineNumber: 303,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 notification.sender_username && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1410,37 +1386,37 @@ function NotificationBell({ className = '' }) {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                    lineNumber: 312,
+                                                                    lineNumber: 307,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                            lineNumber: 307,
+                                                            lineNumber: 302,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                    lineNumber: 280,
+                                                    lineNumber: 275,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 276,
+                                            lineNumber: 271,
                                             columnNumber: 21
                                         }, this)
                                     }, notification.id, false, {
                                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                                        lineNumber: 270,
+                                        lineNumber: 265,
                                         columnNumber: 19
                                     }, this))
                             ]
                         }, void 0, true)
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 252,
+                        lineNumber: 247,
                         columnNumber: 11
                     }, this),
                     stats && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1455,7 +1431,7 @@ function NotificationBell({ className = '' }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 329,
+                                    lineNumber: 324,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1465,30 +1441,30 @@ function NotificationBell({ className = '' }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 330,
+                                    lineNumber: 325,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 328,
+                            lineNumber: 323,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 327,
+                        lineNumber: 322,
                         columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                lineNumber: 193,
+                lineNumber: 188,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/Components/NotificationBell.tsx",
-        lineNumber: 171,
+        lineNumber: 166,
         columnNumber: 5
     }, this);
 }
@@ -1593,14 +1569,14 @@ function Navbar() {
                 className: "jsx-35ae1f5326cd5ae3" + " " + "container mx-auto flex justify-between items-center relative z-10",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center gap-4 ",
+                        className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center gap-2 sm:gap-4",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                             href: "/",
                             className: "flex items-center hover:opacity-60 transition-opacity duration-600",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                 src: "/logo.png",
                                 alt: "Lissnify Logo",
-                                className: "jsx-35ae1f5326cd5ae3" + " " + "h-16 w-auto"
+                                className: "jsx-35ae1f5326cd5ae3" + " " + "h-12 w-auto sm:h-14 md:h-16"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/Navbar.jsx",
                                 lineNumber: 51,
@@ -1617,18 +1593,18 @@ function Navbar() {
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-35ae1f5326cd5ae3" + " " + "hidden md:flex items-center space-x-2",
+                        className: "jsx-35ae1f5326cd5ae3" + " " + "hidden lg:flex items-center space-x-1 xl:space-x-2",
                         children: [
                             navItems.map((item, index)=>{
                                 const IconComponent = item.icon;
                                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                     href: item.href,
-                                    className: "group relative px-5 py-3 rounded-2xl text-black font-bold transition-all duration-300 hover:bg-white/70",
+                                    className: "group relative px-3 xl:px-5 py-2 xl:py-3 rounded-2xl text-black font-bold transition-all duration-300 hover:bg-white/70",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center gap-3",
+                                            className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center gap-2 xl:gap-3",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "jsx-35ae1f5326cd5ae3" + " " + "transition-colors duration-300 text-lg",
+                                                className: "jsx-35ae1f5326cd5ae3" + " " + "transition-colors duration-300 text-sm xl:text-lg",
                                                 children: item.name
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/Navbar.jsx",
@@ -1655,7 +1631,7 @@ function Navbar() {
                                 }, this);
                             }),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-35ae1f5326cd5ae3" + " " + "ml-8 pl-4 border-l-3 border-[#FFB88C]/40 flex items-center gap-3 relative",
+                                className: "jsx-35ae1f5326cd5ae3" + " " + "ml-4 xl:ml-8 pl-2 xl:pl-4 border-l-2 xl:border-l-3 border-[#FFB88C]/40 flex items-center gap-2 xl:gap-3 relative",
                                 children: !isLoading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                     children: isAuthenticated ? // Show notification bell and user dropdown when logged in
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -1677,9 +1653,9 @@ function Navbar() {
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                                 href: "/login",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "group relative px-6 py-2 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 transform hover:scale-110 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30",
+                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "group relative px-3 xl:px-6 py-1.5 xl:py-2 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 transform hover:scale-110 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30 text-xs xl:text-sm",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center gap-2",
+                                                        className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center gap-1 xl:gap-2",
                                                         children: "Login"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/Navbar.jsx",
@@ -1699,7 +1675,7 @@ function Navbar() {
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                                 href: "/signup",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "group relative px-6 py-2 rounded-2xl text-white font-bold bg-gradient-to-r from-[#CD853F] to-[#D2691E] hover:from-[#D2691E] hover:to-[#CD853F] transition-all duration-300 transform hover:scale-110 shadow-2xl hover:shadow-3xl overflow-hidden border-2 border-white/30",
+                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "group relative px-3 xl:px-6 py-1.5 xl:py-2 rounded-2xl text-white font-bold bg-gradient-to-r from-[#CD853F] to-[#D2691E] hover:from-[#D2691E] hover:to-[#CD853F] transition-all duration-300 transform hover:scale-110 shadow-2xl hover:shadow-3xl overflow-hidden border-2 border-white/30 text-xs xl:text-sm",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "jsx-35ae1f5326cd5ae3" + " " + "absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"
@@ -1709,7 +1685,7 @@ function Navbar() {
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center gap-2",
+                                                            className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center gap-1 xl:gap-2",
                                                             children: "Sign Up"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/Navbar.jsx",
@@ -1743,7 +1719,7 @@ function Navbar() {
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>setIsOpen(!isOpen),
-                        className: "jsx-35ae1f5326cd5ae3" + " " + "md:hidden relative w-14 h-14 bg-white/70 backdrop-blur-sm rounded-2xl flex items-center justify-center hover:bg-white/90 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#FFB88C]/30 group shadow-lg border-2 border-[#FFB88C]/20",
+                        className: "jsx-35ae1f5326cd5ae3" + " " + "lg:hidden relative w-10 h-10 sm:w-12 sm:h-12 bg-white/70 backdrop-blur-sm rounded-2xl flex items-center justify-center hover:bg-white/90 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#FFB88C]/30 group shadow-lg border-2 border-[#FFB88C]/20",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "jsx-35ae1f5326cd5ae3" + " " + "absolute inset-0 bg-gradient-to-br from-[#FFF8B5]/10 to-[#FFB88C]/5 rounded-2xl"
@@ -1753,13 +1729,13 @@ function Navbar() {
                                 columnNumber: 11
                             }, this),
                             isOpen ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                                className: "w-7 h-7 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10"
+                                className: "w-5 h-5 sm:w-6 sm:h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/Navbar.jsx",
                                 lineNumber: 119,
                                 columnNumber: 13
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
-                                className: "w-7 h-7 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10"
+                                className: "w-5 h-5 sm:w-6 sm:h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/Navbar.jsx",
                                 lineNumber: 121,
@@ -1778,7 +1754,7 @@ function Navbar() {
                 columnNumber: 7
             }, this),
             isOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-35ae1f5326cd5ae3" + " " + "md:hidden mt-6 bg-white/95 backdrop-blur-md rounded-3xl border-3 border-[#FFB88C]/30 shadow-2xl p-6 mx-4 animate-fadeIn relative overflow-hidden",
+                className: "jsx-35ae1f5326cd5ae3" + " " + "lg:hidden mt-4 sm:mt-6 bg-white/95 backdrop-blur-md rounded-3xl border-3 border-[#FFB88C]/30 shadow-2xl p-4 sm:p-6 mx-2 sm:mx-4 animate-fadeIn relative overflow-hidden",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "jsx-35ae1f5326cd5ae3" + " " + "absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#FFF8B5]/20 to-[#F9E79F]/10 rounded-full blur-2xl"
@@ -1795,18 +1771,18 @@ function Navbar() {
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-35ae1f5326cd5ae3" + " " + "space-y-3 relative z-10",
+                        className: "jsx-35ae1f5326cd5ae3" + " " + "space-y-2 sm:space-y-3 relative z-10",
                         children: navItems.map((item, index)=>{
                             const IconComponent = item.icon;
                             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                 href: item.href,
-                                className: "group flex items-center gap-4 px-5 py-4 rounded-2xl text-[#8B4513] font-bold hover:bg-gradient-to-r hover:from-[#FFF8B5]/20 hover:to-[#FFB88C]/15 transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 border-transparent hover:border-[#FFB88C]/20",
+                                className: "group flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-3 sm:py-4 rounded-2xl text-[#8B4513] font-bold hover:bg-gradient-to-r hover:from-[#FFF8B5]/20 hover:to-[#FFB88C]/15 transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 border-transparent hover:border-[#FFB88C]/20",
                                 onClick: ()=>setIsOpen(false),
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "jsx-35ae1f5326cd5ae3" + " " + "w-12 h-12 bg-gradient-to-br from-[#FFF8B5]/30 to-[#F9E79F]/20 rounded-2xl flex items-center justify-center group-hover:from-[#FFB88C]/30 group-hover:to-[#F9E79F]/30 transition-all duration-300 group-hover:scale-110 shadow-lg",
+                                        className: "jsx-35ae1f5326cd5ae3" + " " + "w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#FFF8B5]/30 to-[#F9E79F]/20 rounded-2xl flex items-center justify-center group-hover:from-[#FFB88C]/30 group-hover:to-[#F9E79F]/30 transition-all duration-300 group-hover:scale-110 shadow-lg",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(IconComponent, {
-                                            className: "jsx-35ae1f5326cd5ae3" + " " + "w-6 h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300"
+                                            className: "jsx-35ae1f5326cd5ae3" + " " + "w-5 h-5 sm:w-6 sm:h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300"
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/Navbar.jsx",
                                             lineNumber: 145,
@@ -1818,7 +1794,7 @@ function Navbar() {
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "jsx-35ae1f5326cd5ae3" + " " + "group-hover:text-[#A0522D] transition-colors duration-300 text-xl",
+                                        className: "jsx-35ae1f5326cd5ae3" + " " + "group-hover:text-[#A0522D] transition-colors duration-300 text-lg sm:text-xl",
                                         children: item.name
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/Navbar.jsx",
@@ -1845,14 +1821,14 @@ function Navbar() {
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-35ae1f5326cd5ae3" + " " + "mt-8 pt-6 border-t-2 border-[#FFB88C]/30 relative z-10 space-y-3",
+                        className: "jsx-35ae1f5326cd5ae3" + " " + "mt-6 sm:mt-8 pt-4 sm:pt-6 border-t-2 border-[#FFB88C]/30 relative z-10 space-y-2 sm:space-y-3",
                         children: !isLoading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                             children: isAuthenticated ? // Show user info in mobile menu when logged in
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "jsx-35ae1f5326cd5ae3" + " " + "text-center",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center justify-center gap-4 mb-4",
+                                        className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 onClick: ()=>{
@@ -1860,9 +1836,9 @@ function Navbar() {
                                                     router.push(profileUrl);
                                                     setIsOpen(false);
                                                 },
-                                                className: "jsx-35ae1f5326cd5ae3" + " " + "w-16 h-16 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-200",
+                                                className: "jsx-35ae1f5326cd5ae3" + " " + "w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-200",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
-                                                    className: "w-8 h-8 text-white"
+                                                    className: "w-6 h-6 sm:w-8 sm:h-8 text-white"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/Navbar.jsx",
                                                     lineNumber: 170,
@@ -1897,7 +1873,7 @@ function Navbar() {
                                             router.push(profileUrl);
                                             setIsOpen(false);
                                         },
-                                        className: "jsx-35ae1f5326cd5ae3" + " " + "text-lg font-bold text-black mb-4 cursor-pointer hover:text-orange-600 transition-colors duration-200",
+                                        className: "jsx-35ae1f5326cd5ae3" + " " + "text-base sm:text-lg font-bold text-black mb-3 sm:mb-4 cursor-pointer hover:text-orange-600 transition-colors duration-200",
                                         children: [
                                             "Hello, ",
                                             user?.full_name
@@ -1916,12 +1892,12 @@ function Navbar() {
                                             // 3. Finally, close the menu.
                                             setIsOpen(false);
                                         },
-                                        className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-8 py-4 rounded-2xl text-red-600 font-bold bg-white/70 hover:bg-red-50 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-red-200 hover:border-red-300",
+                                        className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-red-600 font-bold bg-white/70 hover:bg-red-50 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-red-200 hover:border-red-300",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-3 text-xl",
+                                            className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-xl",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$log$2d$out$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__LogOut$3e$__["LogOut"], {
-                                                    className: "w-6 h-6"
+                                                    className: "w-5 h-5 sm:w-6 sm:h-6"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/Navbar.jsx",
                                                     lineNumber: 199,
@@ -1951,9 +1927,9 @@ function Navbar() {
                                         href: "/login",
                                         onClick: ()=>setIsOpen(false),
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-8 py-4 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30",
+                                            className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-3 text-xl",
+                                                className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-xl",
                                                 children: "Login"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/Navbar.jsx",
@@ -1974,7 +1950,7 @@ function Navbar() {
                                         href: "/signup",
                                         onClick: ()=>setIsOpen(false),
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-8 py-4 rounded-2xl text-white font-bold bg-gradient-to-r from-[#CD853F] to-[#D2691E] hover:from-[#D2691E] hover:to-[#CD853F] transition-all duration-300 shadow-2xl hover:shadow-3xl overflow-hidden hover:scale-105 border-2 border-white/30",
+                                            className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-white font-bold bg-gradient-to-r from-[#CD853F] to-[#D2691E] hover:from-[#D2691E] hover:to-[#CD853F] transition-all duration-300 shadow-2xl hover:shadow-3xl overflow-hidden hover:scale-105 border-2 border-white/30",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "jsx-35ae1f5326cd5ae3" + " " + "absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"
@@ -1984,7 +1960,7 @@ function Navbar() {
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-3 text-xl",
+                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-xl",
                                                     children: "Sign Up"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/Navbar.jsx",
@@ -2051,7 +2027,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 ;
 function Footer() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
-        className: "bg-white text-[#8B4513] relative overflow-hidden",
+        className: "bg-white text-[#000000] relative overflow-hidden",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-[#FFB88C] via-[#FFF8B5] to-[#FFD1A9]"
@@ -2089,13 +2065,13 @@ function Footer() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "container mx-auto px-6 py-20 relative z-10",
+                className: "container mx-auto px-4 sm:px-6 py-16 sm:py-20 relative z-10",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "grid gap-12 md:grid-cols-4",
+                        className: "grid gap-8 sm:gap-12 md:grid-cols-2 lg:grid-cols-4",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "md:col-span-1",
+                                className: "md:col-span-2 lg:col-span-1",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex items-center gap-4 mb-8",
@@ -2122,7 +2098,7 @@ function Footer() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-[#8B4513]/80 leading-relaxed mb-8 font-medium text-lg",
+                                        className: "text-[#000000]/80 leading-relaxed mb-6 sm:mb-8 font-medium text-base sm:text-lg",
                                         children: "Your sanctuary for emotional well-being and mental health support. Building a compassionate community where healing thrives naturally."
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/Footer.jsx",
@@ -2136,14 +2112,14 @@ function Footer() {
                                                 className: "flex items-center gap-3 px-4 py-3 bg-white/60 rounded-2xl border-2 border-[#FFB88C]/30 backdrop-blur-sm shadow-lg",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__["Shield"], {
-                                                        className: "w-5 h-5 text-[#8B4513]"
+                                                        className: "w-5 h-5 text-[#000000]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/Footer.jsx",
                                                         lineNumber: 51,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "text-sm font-bold text-[#8B4513]",
+                                                        className: "text-sm font-bold text-[#000000]",
                                                         children: "Secure & Safe"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/Footer.jsx",
@@ -2160,14 +2136,14 @@ function Footer() {
                                                 className: "flex items-center gap-3 px-4 py-3 bg-white/60 rounded-2xl border-2 border-[#F9E79F]/30 backdrop-blur-sm shadow-lg",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$leaf$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Leaf$3e$__["Leaf"], {
-                                                        className: "w-5 h-5 text-[#8B4513]"
+                                                        className: "w-5 h-5 text-[#000000]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/Footer.jsx",
                                                         lineNumber: 55,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "text-sm font-bold text-[#8B4513]",
+                                                        className: "text-sm font-bold text-[#000000]",
                                                         children: "Nurturing"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/Footer.jsx",
@@ -2197,7 +2173,7 @@ function Footer() {
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex items-center gap-3 mb-8",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                            className: "text-2xl font-bold text-[#8B4513]",
+                                            className: "text-2xl font-bold text-[#000000]",
                                             children: "Quick Links"
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/Footer.jsx",
@@ -2232,7 +2208,7 @@ function Footer() {
                                         ].map((link, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                                     href: link.href,
-                                                    className: "group flex items-center gap-3 text-[#8B4513]/70 hover:text-[#8B4513] transition-all duration-300 hover:translate-x-2 py-2",
+                                                    className: "group flex items-center gap-3 text-[#000000]/70 hover:text-[#000000] transition-all duration-300 hover:translate-x-2 py-2",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "w-2 h-2 bg-gradient-to-r from-[#FFB88C] to-[#F9E79F] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-125"
@@ -2276,7 +2252,7 @@ function Footer() {
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex items-center gap-3 mb-8",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                            className: "text-2xl font-bold text-[#8B4513]",
+                                            className: "text-2xl font-bold text-[#000000]",
                                             children: "Support"
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/Footer.jsx",
@@ -2306,7 +2282,7 @@ function Footer() {
                                         ].map((link, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                                     href: link.href,
-                                                    className: "group flex items-center gap-3 text-[#8B4513]/70 hover:text-[#8B4513] transition-all duration-300 hover:translate-x-2 py-2",
+                                                    className: "group flex items-center gap-3 text-[#000000]/70 hover:text-[#000000] transition-all duration-300 hover:translate-x-2 py-2",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "w-2 h-2 bg-gradient-to-r from-[#FFF8B5] to-[#FFD1A9] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-125"
@@ -2350,7 +2326,7 @@ function Footer() {
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex items-center gap-3 mb-8",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                            className: "text-2xl font-bold text-[#8B4513]",
+                                            className: "text-2xl font-bold text-[#000000]",
                                             children: "Stay Connected"
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/Footer.jsx",
@@ -2366,12 +2342,12 @@ function Footer() {
                                         className: "space-y-5 mb-8",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex items-center gap-4 text-[#8B4513]/80",
+                                                className: "flex items-center gap-4 text-[#000000]/80",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "w-8 h-8 bg-[#FFB88C]/30 rounded-xl flex items-center justify-center",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mail$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Mail$3e$__["Mail"], {
-                                                            className: "w-5 h-5 text-[#8B4513]"
+                                                            className: "w-5 h-5 text-[#000000]"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/Footer.jsx",
                                                             lineNumber: 151,
@@ -2397,12 +2373,12 @@ function Footer() {
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex items-center gap-4 text-[#8B4513]/80",
+                                                className: "flex items-center gap-4 text-[#000000]/80",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "w-8 h-8 bg-[#F9E79F]/30 rounded-xl flex items-center justify-center",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__["MapPin"], {
-                                                            className: "w-5 h-5 text-[#8B4513]"
+                                                            className: "w-5 h-5 text-[#000000]"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/Footer.jsx",
                                                             lineNumber: 157,
@@ -2437,7 +2413,7 @@ function Footer() {
                                         className: "mb-8",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-[#8B4513]/70 text-sm mb-5 font-semibold",
+                                                className: "text-[#000000]/70 text-sm mb-5 font-semibold",
                                                 children: "Follow our healing journey"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/Footer.jsx",
@@ -2465,7 +2441,7 @@ function Footer() {
                                                     }
                                                 ].map(({ image, name }, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                                         href: "#",
-                                                        className: `group w-14 h-14 bg-white/70 rounded-2xl flex items-center justify-center hover:bg-gradient-to-br hover:from-[#FFB88C] hover:to-[#F9E79F] transition-all duration-300 hover:scale-110 hover:shadow-xl backdrop-blur-sm border-2 border-[#FFB88C]/20 hover:border-[#8B4513]/30`,
+                                                        className: `group w-14 h-14 bg-white/70 rounded-2xl flex items-center justify-center hover:bg-gradient-to-br hover:from-[#FFB88C] hover:to-[#F9E79F] transition-all duration-300 hover:scale-110 hover:shadow-xl backdrop-blur-sm border-2 border-[#FFB88C]/20 hover:border-[#000000]/30`,
                                                         "aria-label": name,
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                                             src: image,
@@ -2512,7 +2488,7 @@ function Footer() {
                             className: "flex flex-col md:flex-row justify-between items-center gap-6",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "flex flex-col md:flex-row items-center gap-6 text-[#8B4513]/70 text-sm",
+                                    className: "flex flex-col md:flex-row items-center gap-6 text-[#000000]/70 text-sm",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         className: "font-bold text-lg",
                                         children: [
@@ -2646,7 +2622,6 @@ function LoginPage() {
                 ...prev,
                 [name]: type === "checkbox" ? checked : value
             }));
-        // Clear error when user starts typing
         if (error) setError("");
     };
     const handleSubmit = async (e)=>{
@@ -2663,29 +2638,23 @@ function LoginPage() {
                 password: formData.password
             });
             if (response.success) {
-                // Store user data in auth context - map from response data
                 const userData = {
                     full_name: response.data?.user?.name || formData.email.split("@")[0],
                     email: response.data?.user?.email || formData.email,
                     user_type: response.data?.user?.user_type || "seeker"
                 };
                 login(userData, response.data?.access);
-                // Determine redirect URL
                 const userType = response.data.user?.user_type || "seeker";
                 const dashboardUrl = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getDashboardUrl"])(userType);
-                console.log("Redirecting to:", dashboardUrl, "for user type:", userType);
                 localStorage.setItem("adminToken", response.data?.access);
-                // 1. Show the success message
                 __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["toast"].success("Login successful!");
-                // 2. Wait a moment before redirecting
                 setTimeout(()=>{
                     router.push(dashboardUrl);
-                }, 1000); // Delay of 1 second (1000ms)
+                }, 1000);
             } else {
                 setError(response.error || "Login failed. Please check your credentials.");
             }
         } catch (err) {
-            console.log("Login error:", err);
             setError("An unexpected error occurred. Please try again.");
         } finally{
             setIsLoading(false);
@@ -2696,7 +2665,7 @@ function LoginPage() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$Navbar$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/login/page.tsx",
-                lineNumber: 96,
+                lineNumber: 90,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2710,20 +2679,20 @@ function LoginPage() {
                         priority: true
                     }, void 0, false, {
                         fileName: "[project]/src/app/login/page.tsx",
-                        lineNumber: 100,
+                        lineNumber: 94,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute inset-0 bg-gradient-to-br from-orange-100/60 via-yellow-100/50 to-white/40"
                     }, void 0, false, {
                         fileName: "[project]/src/app/login/page.tsx",
-                        lineNumber: 108,
+                        lineNumber: 102,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/login/page.tsx",
-                lineNumber: 99,
+                lineNumber: 93,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2739,7 +2708,7 @@ function LoginPage() {
                                     children: "Welcome Back"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/login/page.tsx",
-                                    lineNumber: 116,
+                                    lineNumber: 110,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2747,13 +2716,13 @@ function LoginPage() {
                                     children: "Login to continue your soulful journey"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/login/page.tsx",
-                                    lineNumber: 119,
+                                    lineNumber: 113,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/login/page.tsx",
-                            lineNumber: 115,
+                            lineNumber: 109,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -2767,7 +2736,7 @@ function LoginPage() {
                                             children: "Email Address or Username"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/login/page.tsx",
-                                            lineNumber: 135,
+                                            lineNumber: 124,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2777,7 +2746,7 @@ function LoginPage() {
                                                     className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/login/page.tsx",
-                                                    lineNumber: 139,
+                                                    lineNumber: 128,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2790,19 +2759,19 @@ function LoginPage() {
                                                     required: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/login/page.tsx",
-                                                    lineNumber: 140,
+                                                    lineNumber: 129,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/login/page.tsx",
-                                            lineNumber: 138,
+                                            lineNumber: 127,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/login/page.tsx",
-                                    lineNumber: 134,
+                                    lineNumber: 123,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2812,7 +2781,7 @@ function LoginPage() {
                                             children: "Password"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/login/page.tsx",
-                                            lineNumber: 154,
+                                            lineNumber: 143,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2822,7 +2791,7 @@ function LoginPage() {
                                                     className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/login/page.tsx",
-                                                    lineNumber: 158,
+                                                    lineNumber: 147,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2835,7 +2804,7 @@ function LoginPage() {
                                                     required: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/login/page.tsx",
-                                                    lineNumber: 159,
+                                                    lineNumber: 148,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2846,30 +2815,30 @@ function LoginPage() {
                                                         className: "w-5 h-5"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/login/page.tsx",
-                                                        lineNumber: 174,
+                                                        lineNumber: 163,
                                                         columnNumber: 21
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__["Eye"], {
                                                         className: "w-5 h-5"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/login/page.tsx",
-                                                        lineNumber: 176,
+                                                        lineNumber: 165,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/login/page.tsx",
-                                                    lineNumber: 168,
+                                                    lineNumber: 157,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/login/page.tsx",
-                                            lineNumber: 157,
+                                            lineNumber: 146,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/login/page.tsx",
-                                    lineNumber: 153,
+                                    lineNumber: 142,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2886,7 +2855,7 @@ function LoginPage() {
                                                     className: "w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-400"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/login/page.tsx",
-                                                    lineNumber: 185,
+                                                    lineNumber: 174,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2894,13 +2863,13 @@ function LoginPage() {
                                                     children: "Remember me"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/login/page.tsx",
-                                                    lineNumber: 192,
+                                                    lineNumber: 181,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/login/page.tsx",
-                                            lineNumber: 184,
+                                            lineNumber: 173,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -2909,13 +2878,13 @@ function LoginPage() {
                                             children: "Forgot Password?"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/login/page.tsx",
-                                            lineNumber: 194,
+                                            lineNumber: 183,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/login/page.tsx",
-                                    lineNumber: 183,
+                                    lineNumber: 172,
                                     columnNumber: 13
                                 }, this),
                                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2923,7 +2892,7 @@ function LoginPage() {
                                     children: error
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/login/page.tsx",
-                                    lineNumber: 204,
+                                    lineNumber: 193,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2936,14 +2905,14 @@ function LoginPage() {
                                                 className: "animate-spin rounded-full h-5 w-5 border-b-2 border-white"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/login/page.tsx",
-                                                lineNumber: 221,
+                                                lineNumber: 210,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 children: "Signing In..."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/login/page.tsx",
-                                                lineNumber: 222,
+                                                lineNumber: 211,
                                                 columnNumber: 19
                                             }, this)
                                         ]
@@ -2953,27 +2922,27 @@ function LoginPage() {
                                                 children: "Login"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/login/page.tsx",
-                                                lineNumber: 226,
+                                                lineNumber: 215,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
                                                 className: "w-5 h-5"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/login/page.tsx",
-                                                lineNumber: 227,
+                                                lineNumber: 216,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/login/page.tsx",
-                                    lineNumber: 210,
+                                    lineNumber: 199,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/login/page.tsx",
-                            lineNumber: 132,
+                            lineNumber: 121,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2990,13 +2959,13 @@ function LoginPage() {
                                             children: "Sign up here"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/login/page.tsx",
-                                            lineNumber: 237,
+                                            lineNumber: 226,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/login/page.tsx",
-                                    lineNumber: 235,
+                                    lineNumber: 224,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3007,40 +2976,40 @@ function LoginPage() {
                                         children: "← Back to Home"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/login/page.tsx",
-                                        lineNumber: 245,
+                                        lineNumber: 234,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/login/page.tsx",
-                                    lineNumber: 244,
+                                    lineNumber: 233,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/login/page.tsx",
-                            lineNumber: 234,
+                            lineNumber: 223,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/login/page.tsx",
-                    lineNumber: 113,
+                    lineNumber: 107,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/login/page.tsx",
-                lineNumber: 112,
+                lineNumber: 106,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$Footer$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/login/page.tsx",
-                lineNumber: 256,
+                lineNumber: 245,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/login/page.tsx",
-        lineNumber: 95,
+        lineNumber: 89,
         columnNumber: 5
     }, this);
 }

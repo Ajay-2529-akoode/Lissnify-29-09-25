@@ -8,11 +8,12 @@ var { k: __turbopack_refresh__, m: module } = __turbopack_context__;
 // API Configuration
 __turbopack_context__.s({
     "API_CONFIG": ()=>API_CONFIG,
+    "ensureApiPrefix": ()=>ensureApiPrefix,
     "getApiUrl": ()=>getApiUrl
 });
 const API_CONFIG = {
     // Update this URL to match your backend server
-    BASE_URL: "http://localhost:8000",
+    BASE_URL: "https://lissnify-v2.onrender.com",
     // API Endpoints
     ENDPOINTS: {
         // Auth endpoints
@@ -59,6 +60,12 @@ const API_CONFIG = {
 };
 const getApiUrl = (endpoint)=>{
     return "".concat(API_CONFIG.BASE_URL).concat(endpoint);
+};
+const ensureApiPrefix = (url)=>{
+    if (url.endsWith('/api')) {
+        return url;
+    }
+    return "".concat(url, "/api");
 };
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(module, globalThis.$RefreshHelpers$);
@@ -155,7 +162,6 @@ const loginUser = async (credentials)=>{
     });
 };
 const sendOTP = async (email)=>{
-    console.log("Sending OTP request to:", (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getApiUrl"])('/api/send-otp/'));
     return apiCall('/api/send-otp/', {
         method: 'POST',
         body: JSON.stringify({
@@ -182,7 +188,6 @@ const getDashboardUrl = (userType)=>{
         case 'listener':
             return '/dashboard/listener';
         default:
-            console.warn('Unknown or invalid user type:', userType, 'redirecting to seeker dashboard as fallback');
             return '/dashboard/seeker';
     }
 };
@@ -200,7 +205,6 @@ const listenerCarouselData = async ()=>{
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error("Error fetching listener carousel data:", error);
         return [];
     }
 };
@@ -605,9 +609,11 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/api.ts [app-client] (ecmascript)");
 var _s = __turbopack_context__.k.signature();
 ;
-const API_BASE_URL = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+;
+const API_BASE_URL = ("TURBOPACK compile-time truthy", 1) ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ensureApiPrefix"])(("TURBOPACK compile-time value", "https://lissnify-v2.onrender.com")) : "TURBOPACK unreachable";
 const useNotifications = ()=>{
     _s();
     const [notifications, setNotifications] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
@@ -652,7 +658,6 @@ const useNotifications = ()=>{
     const fetchStats = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
         "useNotifications.useCallback[fetchStats]": async ()=>{
             try {
-                console.log('📊 Fetching notification stats...');
                 const response = await fetch("".concat(API_BASE_URL, "/notifications/stats/"), {
                     headers: getAuthHeaders()
                 });
@@ -660,11 +665,9 @@ const useNotifications = ()=>{
                     throw new Error('Failed to fetch notification stats');
                 }
                 const data = await response.json();
-                console.log('📊 Stats received:', data);
                 setStats(data);
                 return data;
             } catch (err) {
-                console.error('❌ Error fetching stats:', err);
                 setError(err instanceof Error ? err.message : 'An error occurred');
                 throw err;
             }
@@ -819,7 +822,6 @@ const useNotifications = ()=>{
     // Load initial data
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "useNotifications.useEffect": ()=>{
-            console.log('🔔 Loading initial notification data...');
             fetchNotifications();
             fetchStats();
             fetchSettings();
@@ -870,7 +872,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var _s = __turbopack_context__.k.signature();
 ;
-const WS_BASE_URL = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8000';
+const WS_BASE_URL = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_WS_URL || 'wss://lissnify-v2.onrender.com';
 const useNotificationWebSocket = (onNotificationReceived)=>{
     _s();
     const [socket, setSocket] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
@@ -883,15 +885,12 @@ const useNotificationWebSocket = (onNotificationReceived)=>{
     const connect = ()=>{
         const token = localStorage.getItem('adminToken');
         if (!token) {
-            console.error('No access token found');
             return;
         }
         try {
             const wsUrl = "".concat(WS_BASE_URL, "/ws/notifications/?token=").concat(token);
-            console.log("🔔 Attempting to connect to notification WebSocket (attempt ".concat(reconnectAttempts.current + 1, ")"));
             const newSocket = new WebSocket(wsUrl);
             newSocket.onopen = ()=>{
-                console.log('✅ Notification WebSocket connected');
                 setIsConnected(true);
                 reconnectAttempts.current = 0;
                 // Request initial unread count
@@ -900,49 +899,34 @@ const useNotificationWebSocket = (onNotificationReceived)=>{
             newSocket.onmessage = (event)=>{
                 try {
                     const data = JSON.parse(event.data);
-                    console.log('🔔 WebSocket message received:', data);
                     if (data.type === 'notification' && data.notification) {
-                        console.log('📬 New notification received:', data.notification);
                         setNewNotification(data.notification);
                         // Call the callback to refresh stats
                         if (onNotificationReceived) {
                             onNotificationReceived();
                         }
-                        console.log('📬 Notification received, API stats will be refreshed');
                     } else if (data.type === 'unread_count' && data.count !== undefined) {
-                        console.log('📊 Unread count updated:', data.count);
                         setUnreadCount(data.count);
                     }
-                } catch (error) {
-                    console.error('❌ Error parsing WebSocket message:', error);
-                }
+                } catch (error) {}
             };
             newSocket.onclose = (event)=>{
-                console.log('🔌 Notification WebSocket disconnected:', event.code, event.reason);
                 setIsConnected(false);
                 // Attempt to reconnect if not a manual close
                 if (event.code !== 1000 && reconnectAttempts.current < maxReconnectAttempts) {
                     const delay = Math.pow(2, reconnectAttempts.current) * 1000; // Exponential backoff
-                    console.log("🔄 Reconnecting in ".concat(delay, "ms (attempt ").concat(reconnectAttempts.current + 1, "/").concat(maxReconnectAttempts, ")"));
                     reconnectTimeoutRef.current = setTimeout(()=>{
                         reconnectAttempts.current++;
                         connect();
                     }, delay);
-                } else if (reconnectAttempts.current >= maxReconnectAttempts) {
-                    console.error('❌ Max reconnection attempts reached for notification WebSocket');
-                }
+                } else if (reconnectAttempts.current >= maxReconnectAttempts) {}
             };
             newSocket.onerror = (error)=>{
-                console.error('❌ Notification WebSocket error:', error);
                 // Don't show error immediately on first attempt - let onclose handle retry logic
-                if (reconnectAttempts.current === 0) {
-                    console.log('🔄 Initial notification connection failed, will retry...');
-                }
+                if (reconnectAttempts.current === 0) {}
             };
             setSocket(newSocket);
-        } catch (error) {
-            console.error('❌ Error creating notification WebSocket:', error);
-        }
+        } catch (error) {}
     };
     const disconnect = ()=>{
         if (reconnectTimeoutRef.current) {
@@ -1032,9 +1016,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-client] (ecmascript) <export default as Trash2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useNotifications$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/useNotifications.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useNotificationWebSocket$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/useNotificationWebSocket.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/api.ts [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
+;
 ;
 ;
 ;
@@ -1055,10 +1041,7 @@ function NotificationBell(param) {
     // Debug logging
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "NotificationBell.useEffect": ()=>{
-            console.log('🔔 NotificationBell - isConnected:', isConnected);
-            console.log('🔔 NotificationBell - unreadCount (WebSocket):', unreadCount);
-            console.log('🔔 NotificationBell - stats (API):', stats);
-            console.log('🔔 NotificationBell - final count:', unreadCount || (stats === null || stats === void 0 ? void 0 : stats.unread_notifications) || 0);
+        // NotificationBell state updated
         }
     }["NotificationBell.useEffect"], [
         isConnected,
@@ -1086,8 +1069,7 @@ function NotificationBell(param) {
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "NotificationBell.useEffect": ()=>{
             if (newNotification) {
-                // You can implement a toast notification here
-                console.log('New notification:', newNotification);
+            // You can implement a toast notification here
             }
         }
     }["NotificationBell.useEffect"], [
@@ -1097,28 +1079,28 @@ function NotificationBell(param) {
         try {
             await markAsRead(notificationId);
         } catch (error) {
-            console.error('Error marking notification as read:', error);
+        // Error marking notification as read
         }
     };
     const handleMarkAllAsRead = async ()=>{
         try {
             await markAllAsRead();
         } catch (error) {
-            console.error('Error marking all notifications as read:', error);
+        // Error marking all notifications as read
         }
     };
     const handleDeleteNotification = async (notificationId)=>{
         try {
             await deleteNotification(notificationId);
         } catch (error) {
-            console.error('Error deleting notification:', error);
+        // Error deleting notification
         }
     };
     const handleUpdateSettings = async (newSettings)=>{
         try {
             await updateSettings(newSettings);
         } catch (error) {
-            console.error('Error updating settings:', error);
+        // Error updating settings
         }
     };
     const handleDropdownToggle = async ()=>{
@@ -1126,19 +1108,18 @@ function NotificationBell(param) {
         setIsOpen(newIsOpen);
         // If opening the dropdown, refresh notifications
         if (newIsOpen) {
-            console.log('🔔 Opening notification dropdown, refreshing notifications...');
             try {
                 await fetchNotifications();
                 await refreshStats();
             } catch (error) {
-                console.error('❌ Error refreshing notifications:', error);
+            // Error refreshing notifications
             }
         }
     };
     const handleTestNotification = async ()=>{
         try {
-            console.log('🧪 Creating test notification...');
-            const response = await fetch("".concat(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_API_URL || 'https://elysian-birt.onrender.com/api', "/notifications/test/"), {
+            const apiUrl = ("TURBOPACK compile-time truthy", 1) ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ensureApiPrefix"])(("TURBOPACK compile-time value", "https://lissnify-v2.onrender.com")) : "TURBOPACK unreachable";
+            const response = await fetch("".concat(apiUrl, "/notifications/test/"), {
                 method: 'POST',
                 headers: {
                     'Authorization': "Bearer ".concat(localStorage.getItem('adminToken')),
@@ -1147,16 +1128,11 @@ function NotificationBell(param) {
             });
             if (response.ok) {
                 const data = await response.json();
-                console.log('✅ Test notification created:', data);
                 // Refresh notifications
                 fetchNotifications();
                 refreshStats();
-            } else {
-                console.error('❌ Failed to create test notification:', response.status);
-            }
-        } catch (error) {
-            console.error('❌ Error creating test notification:', error);
-        }
+            } else {}
+        } catch (error) {}
     };
     const getNotificationIcon = (type)=>{
         switch(type){
@@ -1195,7 +1171,7 @@ function NotificationBell(param) {
                         className: "w-6 h-6"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 177,
+                        lineNumber: 172,
                         columnNumber: 9
                     }, this),
                     (()=>{
@@ -1205,7 +1181,7 @@ function NotificationBell(param) {
                             children: count > 99 ? '99+' : count
                         }, void 0, false, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 181,
+                            lineNumber: 176,
                             columnNumber: 13
                         }, this);
                     })(),
@@ -1213,13 +1189,13 @@ function NotificationBell(param) {
                         className: "absolute -bottom-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full border-2 border-white"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 187,
+                        lineNumber: 182,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                lineNumber: 173,
+                lineNumber: 168,
                 columnNumber: 7
             }, this),
             isOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1243,13 +1219,13 @@ function NotificationBell(param) {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 200,
+                                            lineNumber: 195,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 197,
+                                    lineNumber: 192,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1262,7 +1238,7 @@ function NotificationBell(param) {
                                             children: "🧪"
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 206,
+                                            lineNumber: 201,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1272,12 +1248,12 @@ function NotificationBell(param) {
                                                 className: "w-4 h-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                lineNumber: 217,
+                                                lineNumber: 212,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 213,
+                                            lineNumber: 208,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1287,29 +1263,29 @@ function NotificationBell(param) {
                                                 className: "w-4 h-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                lineNumber: 223,
+                                                lineNumber: 218,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 219,
+                                            lineNumber: 214,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 205,
+                                    lineNumber: 200,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 196,
+                            lineNumber: 191,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 195,
+                        lineNumber: 190,
                         columnNumber: 11
                     }, this),
                     showSettings && settings && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1320,7 +1296,7 @@ function NotificationBell(param) {
                                 children: "Notification Settings"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                lineNumber: 232,
+                                lineNumber: 227,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1339,7 +1315,7 @@ function NotificationBell(param) {
                                                 className: "rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                lineNumber: 236,
+                                                lineNumber: 231,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1347,25 +1323,25 @@ function NotificationBell(param) {
                                                 children: key.replace('_', ' ')
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                lineNumber: 242,
+                                                lineNumber: 237,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, key, true, {
                                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                                        lineNumber: 235,
+                                        lineNumber: 230,
                                         columnNumber: 19
                                     }, this);
                                 })
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                lineNumber: 233,
+                                lineNumber: 228,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 231,
+                        lineNumber: 226,
                         columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1375,14 +1351,14 @@ function NotificationBell(param) {
                             children: "Loading..."
                         }, void 0, false, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 254,
+                            lineNumber: 249,
                             columnNumber: 15
                         }, this) : notifications.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "p-4 text-center text-gray-500",
                             children: "No notifications"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 256,
+                            lineNumber: 251,
                             columnNumber: 15
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                             children: [
@@ -1394,12 +1370,12 @@ function NotificationBell(param) {
                                         children: "Mark all as read"
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                                        lineNumber: 261,
+                                        lineNumber: 256,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 260,
+                                    lineNumber: 255,
                                     columnNumber: 15
                                 }, this),
                                 notifications.map((notification)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1412,7 +1388,7 @@ function NotificationBell(param) {
                                                     children: getNotificationIcon(notification.notification_type)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                    lineNumber: 277,
+                                                    lineNumber: 272,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1426,7 +1402,7 @@ function NotificationBell(param) {
                                                                     children: notification.title
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                    lineNumber: 282,
+                                                                    lineNumber: 277,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1440,12 +1416,12 @@ function NotificationBell(param) {
                                                                                 className: "w-3 h-3"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                                lineNumber: 292,
+                                                                                lineNumber: 287,
                                                                                 columnNumber: 33
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                            lineNumber: 287,
+                                                                            lineNumber: 282,
                                                                             columnNumber: 31
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1456,24 +1432,24 @@ function NotificationBell(param) {
                                                                                 className: "w-3 h-3"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                                lineNumber: 300,
+                                                                                lineNumber: 295,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                            lineNumber: 295,
+                                                                            lineNumber: 290,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                    lineNumber: 285,
+                                                                    lineNumber: 280,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                            lineNumber: 281,
+                                                            lineNumber: 276,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1481,7 +1457,7 @@ function NotificationBell(param) {
                                                             children: notification.message
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                            lineNumber: 304,
+                                                            lineNumber: 299,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1492,7 +1468,7 @@ function NotificationBell(param) {
                                                                     children: formatTimeAgo(notification.created_at)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                    lineNumber: 308,
+                                                                    lineNumber: 303,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 notification.sender_username && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1503,37 +1479,37 @@ function NotificationBell(param) {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                    lineNumber: 312,
+                                                                    lineNumber: 307,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                            lineNumber: 307,
+                                                            lineNumber: 302,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                    lineNumber: 280,
+                                                    lineNumber: 275,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 276,
+                                            lineNumber: 271,
                                             columnNumber: 21
                                         }, this)
                                     }, notification.id, false, {
                                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                                        lineNumber: 270,
+                                        lineNumber: 265,
                                         columnNumber: 19
                                     }, this))
                             ]
                         }, void 0, true)
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 252,
+                        lineNumber: 247,
                         columnNumber: 11
                     }, this),
                     stats && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1548,7 +1524,7 @@ function NotificationBell(param) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 329,
+                                    lineNumber: 324,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1558,30 +1534,30 @@ function NotificationBell(param) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 330,
+                                    lineNumber: 325,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 328,
+                            lineNumber: 323,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 327,
+                        lineNumber: 322,
                         columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                lineNumber: 193,
+                lineNumber: 188,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/Components/NotificationBell.tsx",
-        lineNumber: 171,
+        lineNumber: 166,
         columnNumber: 5
     }, this);
 }
@@ -1702,14 +1678,14 @@ function Navbar() {
                 className: "jsx-35ae1f5326cd5ae3" + " " + "container mx-auto flex justify-between items-center relative z-10",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center gap-4 ",
+                        className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center gap-2 sm:gap-4",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                             href: "/",
                             className: "flex items-center hover:opacity-60 transition-opacity duration-600",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                 src: "/logo.png",
                                 alt: "Lissnify Logo",
-                                className: "jsx-35ae1f5326cd5ae3" + " " + "h-16 w-auto"
+                                className: "jsx-35ae1f5326cd5ae3" + " " + "h-12 w-auto sm:h-14 md:h-16"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/Navbar.jsx",
                                 lineNumber: 51,
@@ -1726,18 +1702,18 @@ function Navbar() {
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-35ae1f5326cd5ae3" + " " + "hidden md:flex items-center space-x-2",
+                        className: "jsx-35ae1f5326cd5ae3" + " " + "hidden lg:flex items-center space-x-1 xl:space-x-2",
                         children: [
                             navItems.map((item, index)=>{
                                 const IconComponent = item.icon;
                                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                     href: item.href,
-                                    className: "group relative px-5 py-3 rounded-2xl text-black font-bold transition-all duration-300 hover:bg-white/70",
+                                    className: "group relative px-3 xl:px-5 py-2 xl:py-3 rounded-2xl text-black font-bold transition-all duration-300 hover:bg-white/70",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center gap-3",
+                                            className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center gap-2 xl:gap-3",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "jsx-35ae1f5326cd5ae3" + " " + "transition-colors duration-300 text-lg",
+                                                className: "jsx-35ae1f5326cd5ae3" + " " + "transition-colors duration-300 text-sm xl:text-lg",
                                                 children: item.name
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/Navbar.jsx",
@@ -1764,7 +1740,7 @@ function Navbar() {
                                 }, this);
                             }),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-35ae1f5326cd5ae3" + " " + "ml-8 pl-4 border-l-3 border-[#FFB88C]/40 flex items-center gap-3 relative",
+                                className: "jsx-35ae1f5326cd5ae3" + " " + "ml-4 xl:ml-8 pl-2 xl:pl-4 border-l-2 xl:border-l-3 border-[#FFB88C]/40 flex items-center gap-2 xl:gap-3 relative",
                                 children: !isLoading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                     children: isAuthenticated ? // Show notification bell and user dropdown when logged in
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -1786,9 +1762,9 @@ function Navbar() {
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                 href: "/login",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "group relative px-6 py-2 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 transform hover:scale-110 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30",
+                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "group relative px-3 xl:px-6 py-1.5 xl:py-2 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 transform hover:scale-110 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30 text-xs xl:text-sm",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center gap-2",
+                                                        className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center gap-1 xl:gap-2",
                                                         children: "Login"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/Navbar.jsx",
@@ -1808,7 +1784,7 @@ function Navbar() {
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                 href: "/signup",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "group relative px-6 py-2 rounded-2xl text-white font-bold bg-gradient-to-r from-[#CD853F] to-[#D2691E] hover:from-[#D2691E] hover:to-[#CD853F] transition-all duration-300 transform hover:scale-110 shadow-2xl hover:shadow-3xl overflow-hidden border-2 border-white/30",
+                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "group relative px-3 xl:px-6 py-1.5 xl:py-2 rounded-2xl text-white font-bold bg-gradient-to-r from-[#CD853F] to-[#D2691E] hover:from-[#D2691E] hover:to-[#CD853F] transition-all duration-300 transform hover:scale-110 shadow-2xl hover:shadow-3xl overflow-hidden border-2 border-white/30 text-xs xl:text-sm",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "jsx-35ae1f5326cd5ae3" + " " + "absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"
@@ -1818,7 +1794,7 @@ function Navbar() {
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center gap-2",
+                                                            className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center gap-1 xl:gap-2",
                                                             children: "Sign Up"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/Navbar.jsx",
@@ -1852,7 +1828,7 @@ function Navbar() {
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>setIsOpen(!isOpen),
-                        className: "jsx-35ae1f5326cd5ae3" + " " + "md:hidden relative w-14 h-14 bg-white/70 backdrop-blur-sm rounded-2xl flex items-center justify-center hover:bg-white/90 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#FFB88C]/30 group shadow-lg border-2 border-[#FFB88C]/20",
+                        className: "jsx-35ae1f5326cd5ae3" + " " + "lg:hidden relative w-10 h-10 sm:w-12 sm:h-12 bg-white/70 backdrop-blur-sm rounded-2xl flex items-center justify-center hover:bg-white/90 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#FFB88C]/30 group shadow-lg border-2 border-[#FFB88C]/20",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "jsx-35ae1f5326cd5ae3" + " " + "absolute inset-0 bg-gradient-to-br from-[#FFF8B5]/10 to-[#FFB88C]/5 rounded-2xl"
@@ -1862,13 +1838,13 @@ function Navbar() {
                                 columnNumber: 11
                             }, this),
                             isOpen ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                                className: "w-7 h-7 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10"
+                                className: "w-5 h-5 sm:w-6 sm:h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/Navbar.jsx",
                                 lineNumber: 119,
                                 columnNumber: 13
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
-                                className: "w-7 h-7 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10"
+                                className: "w-5 h-5 sm:w-6 sm:h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/Navbar.jsx",
                                 lineNumber: 121,
@@ -1887,7 +1863,7 @@ function Navbar() {
                 columnNumber: 7
             }, this),
             isOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-35ae1f5326cd5ae3" + " " + "md:hidden mt-6 bg-white/95 backdrop-blur-md rounded-3xl border-3 border-[#FFB88C]/30 shadow-2xl p-6 mx-4 animate-fadeIn relative overflow-hidden",
+                className: "jsx-35ae1f5326cd5ae3" + " " + "lg:hidden mt-4 sm:mt-6 bg-white/95 backdrop-blur-md rounded-3xl border-3 border-[#FFB88C]/30 shadow-2xl p-4 sm:p-6 mx-2 sm:mx-4 animate-fadeIn relative overflow-hidden",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "jsx-35ae1f5326cd5ae3" + " " + "absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#FFF8B5]/20 to-[#F9E79F]/10 rounded-full blur-2xl"
@@ -1904,18 +1880,18 @@ function Navbar() {
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-35ae1f5326cd5ae3" + " " + "space-y-3 relative z-10",
+                        className: "jsx-35ae1f5326cd5ae3" + " " + "space-y-2 sm:space-y-3 relative z-10",
                         children: navItems.map((item, index)=>{
                             const IconComponent = item.icon;
                             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                 href: item.href,
-                                className: "group flex items-center gap-4 px-5 py-4 rounded-2xl text-[#8B4513] font-bold hover:bg-gradient-to-r hover:from-[#FFF8B5]/20 hover:to-[#FFB88C]/15 transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 border-transparent hover:border-[#FFB88C]/20",
+                                className: "group flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-3 sm:py-4 rounded-2xl text-[#8B4513] font-bold hover:bg-gradient-to-r hover:from-[#FFF8B5]/20 hover:to-[#FFB88C]/15 transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 border-transparent hover:border-[#FFB88C]/20",
                                 onClick: ()=>setIsOpen(false),
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "jsx-35ae1f5326cd5ae3" + " " + "w-12 h-12 bg-gradient-to-br from-[#FFF8B5]/30 to-[#F9E79F]/20 rounded-2xl flex items-center justify-center group-hover:from-[#FFB88C]/30 group-hover:to-[#F9E79F]/30 transition-all duration-300 group-hover:scale-110 shadow-lg",
+                                        className: "jsx-35ae1f5326cd5ae3" + " " + "w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#FFF8B5]/30 to-[#F9E79F]/20 rounded-2xl flex items-center justify-center group-hover:from-[#FFB88C]/30 group-hover:to-[#F9E79F]/30 transition-all duration-300 group-hover:scale-110 shadow-lg",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IconComponent, {
-                                            className: "jsx-35ae1f5326cd5ae3" + " " + "w-6 h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300"
+                                            className: "jsx-35ae1f5326cd5ae3" + " " + "w-5 h-5 sm:w-6 sm:h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300"
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/Navbar.jsx",
                                             lineNumber: 145,
@@ -1927,7 +1903,7 @@ function Navbar() {
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "jsx-35ae1f5326cd5ae3" + " " + "group-hover:text-[#A0522D] transition-colors duration-300 text-xl",
+                                        className: "jsx-35ae1f5326cd5ae3" + " " + "group-hover:text-[#A0522D] transition-colors duration-300 text-lg sm:text-xl",
                                         children: item.name
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/Navbar.jsx",
@@ -1954,14 +1930,14 @@ function Navbar() {
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-35ae1f5326cd5ae3" + " " + "mt-8 pt-6 border-t-2 border-[#FFB88C]/30 relative z-10 space-y-3",
+                        className: "jsx-35ae1f5326cd5ae3" + " " + "mt-6 sm:mt-8 pt-4 sm:pt-6 border-t-2 border-[#FFB88C]/30 relative z-10 space-y-2 sm:space-y-3",
                         children: !isLoading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                             children: isAuthenticated ? // Show user info in mobile menu when logged in
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "jsx-35ae1f5326cd5ae3" + " " + "text-center",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center justify-center gap-4 mb-4",
+                                        className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 onClick: ()=>{
@@ -1969,9 +1945,9 @@ function Navbar() {
                                                     router.push(profileUrl);
                                                     setIsOpen(false);
                                                 },
-                                                className: "jsx-35ae1f5326cd5ae3" + " " + "w-16 h-16 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-200",
+                                                className: "jsx-35ae1f5326cd5ae3" + " " + "w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-200",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
-                                                    className: "w-8 h-8 text-white"
+                                                    className: "w-6 h-6 sm:w-8 sm:h-8 text-white"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/Navbar.jsx",
                                                     lineNumber: 170,
@@ -2006,7 +1982,7 @@ function Navbar() {
                                             router.push(profileUrl);
                                             setIsOpen(false);
                                         },
-                                        className: "jsx-35ae1f5326cd5ae3" + " " + "text-lg font-bold text-black mb-4 cursor-pointer hover:text-orange-600 transition-colors duration-200",
+                                        className: "jsx-35ae1f5326cd5ae3" + " " + "text-base sm:text-lg font-bold text-black mb-3 sm:mb-4 cursor-pointer hover:text-orange-600 transition-colors duration-200",
                                         children: [
                                             "Hello, ",
                                             user === null || user === void 0 ? void 0 : user.full_name
@@ -2025,12 +2001,12 @@ function Navbar() {
                                             // 3. Finally, close the menu.
                                             setIsOpen(false);
                                         },
-                                        className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-8 py-4 rounded-2xl text-red-600 font-bold bg-white/70 hover:bg-red-50 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-red-200 hover:border-red-300",
+                                        className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-red-600 font-bold bg-white/70 hover:bg-red-50 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-red-200 hover:border-red-300",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-3 text-xl",
+                                            className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-xl",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$log$2d$out$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LogOut$3e$__["LogOut"], {
-                                                    className: "w-6 h-6"
+                                                    className: "w-5 h-5 sm:w-6 sm:h-6"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/Navbar.jsx",
                                                     lineNumber: 199,
@@ -2060,9 +2036,9 @@ function Navbar() {
                                         href: "/login",
                                         onClick: ()=>setIsOpen(false),
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-8 py-4 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30",
+                                            className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-3 text-xl",
+                                                className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-xl",
                                                 children: "Login"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/Navbar.jsx",
@@ -2083,7 +2059,7 @@ function Navbar() {
                                         href: "/signup",
                                         onClick: ()=>setIsOpen(false),
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-8 py-4 rounded-2xl text-white font-bold bg-gradient-to-r from-[#CD853F] to-[#D2691E] hover:from-[#D2691E] hover:to-[#CD853F] transition-all duration-300 shadow-2xl hover:shadow-3xl overflow-hidden hover:scale-105 border-2 border-white/30",
+                                            className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-white font-bold bg-gradient-to-r from-[#CD853F] to-[#D2691E] hover:from-[#D2691E] hover:to-[#CD853F] transition-all duration-300 shadow-2xl hover:shadow-3xl overflow-hidden hover:scale-105 border-2 border-white/30",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "jsx-35ae1f5326cd5ae3" + " " + "absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"
@@ -2093,7 +2069,7 @@ function Navbar() {
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-3 text-xl",
+                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-xl",
                                                     children: "Sign Up"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/Navbar.jsx",
@@ -2253,10 +2229,10 @@ function DashboardSidebar(param) {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 onClick: ()=>setIsMobileOpen(!isMobileOpen),
-                className: "md:hidden fixed top-24 left-4 z-50 p-2 bg-white/90 backdrop-blur-md rounded-lg shadow-lg border border-white/50",
+                className: "lg:hidden fixed top-20 sm:top-24 left-2 sm:left-4 z-50 p-2 bg-white/90 backdrop-blur-md rounded-lg shadow-lg border border-white/50",
                 "aria-label": "Toggle sidebar",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
-                    className: "w-5 h-5 text-gray-600"
+                    className: "w-4 h-4 sm:w-5 sm:h-5 text-gray-600"
                 }, void 0, false, {
                     fileName: "[project]/src/Components/DashboardSidebar.tsx",
                     lineNumber: 65,
@@ -2267,134 +2243,144 @@ function DashboardSidebar(param) {
                 lineNumber: 60,
                 columnNumber: 7
             }, this),
+            isMobileOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "lg:hidden fixed inset-0 bg-black/50 z-40",
+                onClick: ()=>setIsMobileOpen(false)
+            }, void 0, false, {
+                fileName: "[project]/src/Components/DashboardSidebar.tsx",
+                lineNumber: 70,
+                columnNumber: 9
+            }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "fixed left-0 top-20 h-full bg-white/90 backdrop-blur-md shadow-xl border-r border-white/50 z-10 transition-all duration-300 ".concat(isCollapsed ? 'w-20' : 'w-64', " ").concat(isMobileOpen ? 'block' : 'hidden', " md:block"),
+                className: "fixed left-0 top-16 sm:top-20 h-full bg-white/90 backdrop-blur-md shadow-xl border-r border-white/50 z-50 transition-all duration-300 ".concat(isCollapsed ? 'w-16 sm:w-20' : 'w-56 sm:w-64', " ").concat(isMobileOpen ? 'block' : 'hidden', " lg:block"),
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "p-6",
+                    className: "p-3 sm:p-6",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex items-center justify-between mb-8",
+                            className: "flex items-center justify-between mb-6 sm:mb-8",
                             children: [
                                 !isCollapsed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                     href: "/",
-                                    className: "flex items-center gap-3 hover:opacity-80 transition-opacity duration-300",
+                                    className: "flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity duration-300",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                         src: "/logo.png",
                                         alt: "Lissnify Logo",
-                                        className: "h-15 w-auto"
+                                        className: "h-10 w-auto sm:h-12"
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/DashboardSidebar.tsx",
-                                        lineNumber: 76,
+                                        lineNumber: 84,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/DashboardSidebar.tsx",
-                                    lineNumber: 75,
+                                    lineNumber: 83,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>setIsCollapsed(!isCollapsed),
-                                    className: "p-2 hover:bg-gray-100 rounded-lg transition-colors",
+                                    className: "p-1.5 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors",
                                     "aria-label": isCollapsed ? "Expand sidebar" : "Collapse sidebar",
                                     children: isCollapsed ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
-                                        className: "w-5 h-5 text-gray-600"
+                                        className: "w-4 h-4 sm:w-5 sm:h-5 text-gray-600"
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/DashboardSidebar.tsx",
-                                        lineNumber: 89,
+                                        lineNumber: 96,
                                         columnNumber: 30
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                                        className: "w-5 h-5 text-gray-600"
+                                        className: "w-4 h-4 sm:w-5 sm:h-5 text-gray-600"
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/DashboardSidebar.tsx",
-                                        lineNumber: 89,
-                                        columnNumber: 75
+                                        lineNumber: 96,
+                                        columnNumber: 89
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/DashboardSidebar.tsx",
-                                    lineNumber: 84,
+                                    lineNumber: 91,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/Components/DashboardSidebar.tsx",
-                            lineNumber: 73,
+                            lineNumber: 81,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
-                            className: "space-y-4",
+                            className: "space-y-2 sm:space-y-4",
                             children: navItems.map((item)=>{
                                 const IconComponent = item.icon;
                                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>handleNavigation(item.path),
-                                    className: "w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 ".concat(isActive(item.path) ? 'bg-gradient-to-r from-[#FFB88C] to-[#FFF8B5] text-black shadow-lg' : 'text-gray-600 hover:bg-gray-50 hover:text-black'),
+                                    className: "w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-xl font-medium transition-all duration-200 text-sm sm:text-base ".concat(isActive(item.path) ? 'bg-gradient-to-r from-[#FFB88C] to-[#FFF8B5] text-black shadow-lg' : 'text-gray-600 hover:bg-gray-50 hover:text-black'),
                                     "aria-label": item.label,
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IconComponent, {
-                                            className: "w-5 h-5 flex-shrink-0"
+                                            className: "w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/DashboardSidebar.tsx",
-                                            lineNumber: 107,
+                                            lineNumber: 114,
                                             columnNumber: 19
                                         }, this),
                                         !isCollapsed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "truncate",
                                             children: item.label
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/DashboardSidebar.tsx",
-                                            lineNumber: 108,
+                                            lineNumber: 115,
                                             columnNumber: 36
                                         }, this)
                                     ]
                                 }, item.id, true, {
                                     fileName: "[project]/src/Components/DashboardSidebar.tsx",
-                                    lineNumber: 98,
+                                    lineNumber: 105,
                                     columnNumber: 17
                                 }, this);
                             })
                         }, void 0, false, {
                             fileName: "[project]/src/Components/DashboardSidebar.tsx",
-                            lineNumber: 94,
+                            lineNumber: 101,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "absolute bottom-6 ".concat(isCollapsed ? 'left-6 right-6' : 'left-6 right-6'),
+                            className: "absolute bottom-4 sm:bottom-6 ".concat(isCollapsed ? 'left-3 right-3 sm:left-6 sm:right-6' : 'left-3 right-3 sm:left-6 sm:right-6'),
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                className: "w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-red-600 hover:bg-red-50 transition-all duration-200",
+                                className: "w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-xl font-medium text-red-600 hover:bg-red-50 transition-all duration-200 text-sm sm:text-base",
                                 "aria-label": "Logout",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$log$2d$out$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LogOut$3e$__["LogOut"], {
-                                        className: "w-5 h-5 flex-shrink-0"
+                                        className: "w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/DashboardSidebar.tsx",
-                                        lineNumber: 120,
+                                        lineNumber: 127,
                                         columnNumber: 15
                                     }, this),
                                     !isCollapsed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "truncate",
                                         children: "Logout"
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/DashboardSidebar.tsx",
-                                        lineNumber: 121,
+                                        lineNumber: 128,
                                         columnNumber: 32
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/Components/DashboardSidebar.tsx",
-                                lineNumber: 116,
+                                lineNumber: 123,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/Components/DashboardSidebar.tsx",
-                            lineNumber: 115,
+                            lineNumber: 122,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/Components/DashboardSidebar.tsx",
-                    lineNumber: 71,
+                    lineNumber: 79,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/Components/DashboardSidebar.tsx",
-                lineNumber: 69,
+                lineNumber: 77,
                 columnNumber: 7
             }, this)
         ]
@@ -2533,7 +2519,7 @@ function DashboardLayout(param) {
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex pt-20",
+                    className: "flex pt-16 sm:pt-20",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$DashboardSidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                             userType: userType
@@ -2543,8 +2529,15 @@ function DashboardLayout(param) {
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "md:ml-64 flex-1 p-4 md:p-8",
-                            children: children
+                            className: "w-full lg:ml-64 flex-1 p-2 sm:p-4 lg:p-6 xl:p-8",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "max-w-7xl mx-auto",
+                                children: children
+                            }, void 0, false, {
+                                fileName: "[project]/src/Components/DashboardLayout.tsx",
+                                lineNumber: 25,
+                                columnNumber: 13
+                            }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/Components/DashboardLayout.tsx",
                             lineNumber: 24,
@@ -2696,7 +2689,6 @@ function SeekerProfilePage() {
                         const response = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getUserProfile"])();
                         if (response.success && response.data) {
                             const profile = response.data;
-                            console.log("Fetched profile:", profile);
                             setFormData({
                                 full_name: (profile === null || profile === void 0 ? void 0 : profile.user.full_name) || '',
                                 email: (profile === null || profile === void 0 ? void 0 : profile.user.email) || '',
@@ -2789,17 +2781,17 @@ function SeekerProfilePage() {
                     className: "w-12 h-12 animate-spin text-orange-500"
                 }, void 0, false, {
                     fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                    lineNumber: 171,
+                    lineNumber: 170,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                lineNumber: 170,
+                lineNumber: 169,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-            lineNumber: 169,
+            lineNumber: 168,
             columnNumber: 7
         }, this);
     }
@@ -2816,21 +2808,21 @@ function SeekerProfilePage() {
                             children: "Profile Settings"
                         }, void 0, false, {
                             fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                            lineNumber: 182,
+                            lineNumber: 181,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            className: "text-xl text-black/80 max-w-2xl mx-auto",
+                            className: "text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular",
                             children: "Manage your account information and preferences"
                         }, void 0, false, {
                             fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                            lineNumber: 185,
+                            lineNumber: 184,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                    lineNumber: 181,
+                    lineNumber: 180,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2845,7 +2837,7 @@ function SeekerProfilePage() {
                                     type: "error"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                    lineNumber: 195,
+                                    lineNumber: 194,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AlertMessage, {
@@ -2853,7 +2845,7 @@ function SeekerProfilePage() {
                                     type: "success"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                    lineNumber: 196,
+                                    lineNumber: 195,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2869,7 +2861,7 @@ function SeekerProfilePage() {
                                                 className: "hidden"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                lineNumber: 201,
+                                                lineNumber: 200,
                                                 columnNumber: 19
                                             }, this),
                                             profileImageUrl ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
@@ -2878,18 +2870,18 @@ function SeekerProfilePage() {
                                                 className: "w-32 h-32 rounded-full object-cover mx-auto mb-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                lineNumber: 209,
+                                                lineNumber: 208,
                                                 columnNumber: 21
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "w-32 h-32 bg-gradient-to-br from-[#CD853F] to-[#D2691E] rounded-full flex items-center justify-center text-white font-bold text-3xl mx-auto mb-4",
                                                 children: formData.first_name ? formData.first_name.charAt(0) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {}, void 0, false, {
                                                     fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                    lineNumber: 212,
+                                                    lineNumber: 211,
                                                     columnNumber: 78
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                lineNumber: 211,
+                                                lineNumber: 210,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2902,23 +2894,23 @@ function SeekerProfilePage() {
                                                     className: "w-4 h-4 text-gray-600"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                    lineNumber: 216,
+                                                    lineNumber: 215,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                lineNumber: 215,
+                                                lineNumber: 214,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                        lineNumber: 200,
+                                        lineNumber: 199,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                    lineNumber: 199,
+                                    lineNumber: 198,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2934,14 +2926,14 @@ function SeekerProfilePage() {
                                                             className: "w-5 h-5"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                            lineNumber: 226,
+                                                            lineNumber: 225,
                                                             columnNumber: 21
                                                         }, this),
                                                         "Personal Information"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                    lineNumber: 225,
+                                                    lineNumber: 224,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2951,7 +2943,7 @@ function SeekerProfilePage() {
                                                             children: "Full Name"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                            lineNumber: 231,
+                                                            lineNumber: 230,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2963,13 +2955,13 @@ function SeekerProfilePage() {
                                                             className: "w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all duration-200 disabled:bg-gray-100 disabled:cursor-not-allowed"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                            lineNumber: 234,
+                                                            lineNumber: 233,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                    lineNumber: 230,
+                                                    lineNumber: 229,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2979,7 +2971,7 @@ function SeekerProfilePage() {
                                                             children: "Date of Birth"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                            lineNumber: 246,
+                                                            lineNumber: 245,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2991,19 +2983,19 @@ function SeekerProfilePage() {
                                                             className: "w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all duration-200 disabled:bg-gray-100 disabled:cursor-not-allowed"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                            lineNumber: 249,
+                                                            lineNumber: 248,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                    lineNumber: 245,
+                                                    lineNumber: 244,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                            lineNumber: 224,
+                                            lineNumber: 223,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3016,14 +3008,14 @@ function SeekerProfilePage() {
                                                             className: "w-5 h-5"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                            lineNumber: 263,
+                                                            lineNumber: 262,
                                                             columnNumber: 21
                                                         }, this),
                                                         "Contact Information"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                    lineNumber: 262,
+                                                    lineNumber: 261,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3033,7 +3025,7 @@ function SeekerProfilePage() {
                                                             children: "Email"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                            lineNumber: 268,
+                                                            lineNumber: 267,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3045,7 +3037,7 @@ function SeekerProfilePage() {
                                                             className: "w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all duration-200 disabled:bg-gray-100 disabled:cursor-not-allowed"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                            lineNumber: 271,
+                                                            lineNumber: 270,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3053,25 +3045,25 @@ function SeekerProfilePage() {
                                                             children: "Email cannot be changed"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                            lineNumber: 279,
+                                                            lineNumber: 278,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                    lineNumber: 267,
+                                                    lineNumber: 266,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                            lineNumber: 261,
+                                            lineNumber: 260,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                    lineNumber: 222,
+                                    lineNumber: 221,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3087,20 +3079,20 @@ function SeekerProfilePage() {
                                                         className: "w-5 h-5 animate-spin"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                        lineNumber: 294,
+                                                        lineNumber: 293,
                                                         columnNumber: 35
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$save$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Save$3e$__["Save"], {
                                                         className: "w-4 h-4"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                        lineNumber: 294,
+                                                        lineNumber: 293,
                                                         columnNumber: 82
                                                     }, this),
                                                     isSaving ? 'Saving...' : 'Save Changes'
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                lineNumber: 289,
+                                                lineNumber: 288,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3110,7 +3102,7 @@ function SeekerProfilePage() {
                                                 children: "Cancel"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                                lineNumber: 297,
+                                                lineNumber: 296,
                                                 columnNumber: 21
                                             }, this)
                                         ]
@@ -3120,39 +3112,39 @@ function SeekerProfilePage() {
                                         children: "Edit Profile"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                        lineNumber: 306,
+                                        lineNumber: 305,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                                    lineNumber: 286,
+                                    lineNumber: 285,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                            lineNumber: 192,
+                            lineNumber: 191,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                        lineNumber: 191,
+                        lineNumber: 190,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-                    lineNumber: 190,
+                    lineNumber: 189,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-            lineNumber: 179,
+            lineNumber: 178,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/dashboard/seeker/profile/page.tsx",
-        lineNumber: 178,
+        lineNumber: 177,
         columnNumber: 5
     }, this);
 }

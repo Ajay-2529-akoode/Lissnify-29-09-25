@@ -149,8 +149,8 @@ const HealingJourneyCarousel = () => {
         <div className={`
           bg-gradient-to-br ${step.cardBg} backdrop-blur-sm rounded-2xl p-8 
           shadow-lg hover:shadow-2xl transition-all duration-500 
-          border border-white/60 h-full flex flex-col 
-          group hover:scale-105 hover:-translate-y-2
+          border border-white/30 h-full flex flex-col 
+          group hover:scale-105 hover:-translate-y-1
           relative overflow-hidden
         `}>
           {/* Subtle background pattern */}
@@ -230,7 +230,7 @@ const HealingJourneyCarousel = () => {
             Six Steps to Support
           </h2>
           
-          <p className="text-2xl md:text-2xl text-black max-w-4xl mx-auto leading-relaxed font-medium">
+          <p className="text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular">
             A gentle, guided path from struggle to support. Every milestone designed with care and your wellbeing in mind.
           </p>
         </div>
@@ -253,7 +253,7 @@ const HealingJourneyCarousel = () => {
           </button>
 
           {/* Carousel Track */}
-          <div className="overflow-hidden rounded-2xl w-full">
+          <div className="overflow-hidden rounded-2xl w-full py-20">
             <div 
               className="flex transition-transform duration-700 ease-out"
               style={{

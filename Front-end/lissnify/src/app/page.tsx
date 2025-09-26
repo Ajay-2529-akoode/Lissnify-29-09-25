@@ -23,7 +23,6 @@ export default function HomePage() {
     <div className="min-h-screen" >
       <Navbar/>
       {<Hero/>}
-      
       <Features/>
       <HowItWorksSection/>
       <WhyElysian/>

@@ -8,11 +8,12 @@ var { k: __turbopack_refresh__, m: module } = __turbopack_context__;
 // API Configuration
 __turbopack_context__.s({
     "API_CONFIG": ()=>API_CONFIG,
+    "ensureApiPrefix": ()=>ensureApiPrefix,
     "getApiUrl": ()=>getApiUrl
 });
 const API_CONFIG = {
     // Update this URL to match your backend server
-    BASE_URL: "http://localhost:8000",
+    BASE_URL: "https://lissnify-v2.onrender.com",
     // API Endpoints
     ENDPOINTS: {
         // Auth endpoints
@@ -59,6 +60,12 @@ const API_CONFIG = {
 };
 const getApiUrl = (endpoint)=>{
     return "".concat(API_CONFIG.BASE_URL).concat(endpoint);
+};
+const ensureApiPrefix = (url)=>{
+    if (url.endsWith('/api')) {
+        return url;
+    }
+    return "".concat(url, "/api");
 };
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(module, globalThis.$RefreshHelpers$);
@@ -155,7 +162,6 @@ const loginUser = async (credentials)=>{
     });
 };
 const sendOTP = async (email)=>{
-    console.log("Sending OTP request to:", (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getApiUrl"])('/api/send-otp/'));
     return apiCall('/api/send-otp/', {
         method: 'POST',
         body: JSON.stringify({
@@ -182,7 +188,6 @@ const getDashboardUrl = (userType)=>{
         case 'listener':
             return '/dashboard/listener';
         default:
-            console.warn('Unknown or invalid user type:', userType, 'redirecting to seeker dashboard as fallback');
             return '/dashboard/seeker';
     }
 };
@@ -200,7 +205,6 @@ const listenerCarouselData = async ()=>{
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error("Error fetching listener carousel data:", error);
         return [];
     }
 };
@@ -605,9 +609,11 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/api.ts [app-client] (ecmascript)");
 var _s = __turbopack_context__.k.signature();
 ;
-const API_BASE_URL = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+;
+const API_BASE_URL = ("TURBOPACK compile-time truthy", 1) ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ensureApiPrefix"])(("TURBOPACK compile-time value", "https://lissnify-v2.onrender.com")) : "TURBOPACK unreachable";
 const useNotifications = ()=>{
     _s();
     const [notifications, setNotifications] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
@@ -652,7 +658,6 @@ const useNotifications = ()=>{
     const fetchStats = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
         "useNotifications.useCallback[fetchStats]": async ()=>{
             try {
-                console.log('📊 Fetching notification stats...');
                 const response = await fetch("".concat(API_BASE_URL, "/notifications/stats/"), {
                     headers: getAuthHeaders()
                 });
@@ -660,11 +665,9 @@ const useNotifications = ()=>{
                     throw new Error('Failed to fetch notification stats');
                 }
                 const data = await response.json();
-                console.log('📊 Stats received:', data);
                 setStats(data);
                 return data;
             } catch (err) {
-                console.error('❌ Error fetching stats:', err);
                 setError(err instanceof Error ? err.message : 'An error occurred');
                 throw err;
             }
@@ -819,7 +822,6 @@ const useNotifications = ()=>{
     // Load initial data
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "useNotifications.useEffect": ()=>{
-            console.log('🔔 Loading initial notification data...');
             fetchNotifications();
             fetchStats();
             fetchSettings();
@@ -870,7 +872,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var _s = __turbopack_context__.k.signature();
 ;
-const WS_BASE_URL = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8000';
+const WS_BASE_URL = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_WS_URL || 'wss://lissnify-v2.onrender.com';
 const useNotificationWebSocket = (onNotificationReceived)=>{
     _s();
     const [socket, setSocket] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
@@ -883,15 +885,12 @@ const useNotificationWebSocket = (onNotificationReceived)=>{
     const connect = ()=>{
         const token = localStorage.getItem('adminToken');
         if (!token) {
-            console.error('No access token found');
             return;
         }
         try {
             const wsUrl = "".concat(WS_BASE_URL, "/ws/notifications/?token=").concat(token);
-            console.log("🔔 Attempting to connect to notification WebSocket (attempt ".concat(reconnectAttempts.current + 1, ")"));
             const newSocket = new WebSocket(wsUrl);
             newSocket.onopen = ()=>{
-                console.log('✅ Notification WebSocket connected');
                 setIsConnected(true);
                 reconnectAttempts.current = 0;
                 // Request initial unread count
@@ -900,49 +899,34 @@ const useNotificationWebSocket = (onNotificationReceived)=>{
             newSocket.onmessage = (event)=>{
                 try {
                     const data = JSON.parse(event.data);
-                    console.log('🔔 WebSocket message received:', data);
                     if (data.type === 'notification' && data.notification) {
-                        console.log('📬 New notification received:', data.notification);
                         setNewNotification(data.notification);
                         // Call the callback to refresh stats
                         if (onNotificationReceived) {
                             onNotificationReceived();
                         }
-                        console.log('📬 Notification received, API stats will be refreshed');
                     } else if (data.type === 'unread_count' && data.count !== undefined) {
-                        console.log('📊 Unread count updated:', data.count);
                         setUnreadCount(data.count);
                     }
-                } catch (error) {
-                    console.error('❌ Error parsing WebSocket message:', error);
-                }
+                } catch (error) {}
             };
             newSocket.onclose = (event)=>{
-                console.log('🔌 Notification WebSocket disconnected:', event.code, event.reason);
                 setIsConnected(false);
                 // Attempt to reconnect if not a manual close
                 if (event.code !== 1000 && reconnectAttempts.current < maxReconnectAttempts) {
                     const delay = Math.pow(2, reconnectAttempts.current) * 1000; // Exponential backoff
-                    console.log("🔄 Reconnecting in ".concat(delay, "ms (attempt ").concat(reconnectAttempts.current + 1, "/").concat(maxReconnectAttempts, ")"));
                     reconnectTimeoutRef.current = setTimeout(()=>{
                         reconnectAttempts.current++;
                         connect();
                     }, delay);
-                } else if (reconnectAttempts.current >= maxReconnectAttempts) {
-                    console.error('❌ Max reconnection attempts reached for notification WebSocket');
-                }
+                } else if (reconnectAttempts.current >= maxReconnectAttempts) {}
             };
             newSocket.onerror = (error)=>{
-                console.error('❌ Notification WebSocket error:', error);
                 // Don't show error immediately on first attempt - let onclose handle retry logic
-                if (reconnectAttempts.current === 0) {
-                    console.log('🔄 Initial notification connection failed, will retry...');
-                }
+                if (reconnectAttempts.current === 0) {}
             };
             setSocket(newSocket);
-        } catch (error) {
-            console.error('❌ Error creating notification WebSocket:', error);
-        }
+        } catch (error) {}
     };
     const disconnect = ()=>{
         if (reconnectTimeoutRef.current) {
@@ -1032,9 +1016,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-client] (ecmascript) <export default as Trash2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useNotifications$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/useNotifications.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useNotificationWebSocket$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/useNotificationWebSocket.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/api.ts [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
+;
 ;
 ;
 ;
@@ -1055,10 +1041,7 @@ function NotificationBell(param) {
     // Debug logging
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "NotificationBell.useEffect": ()=>{
-            console.log('🔔 NotificationBell - isConnected:', isConnected);
-            console.log('🔔 NotificationBell - unreadCount (WebSocket):', unreadCount);
-            console.log('🔔 NotificationBell - stats (API):', stats);
-            console.log('🔔 NotificationBell - final count:', unreadCount || (stats === null || stats === void 0 ? void 0 : stats.unread_notifications) || 0);
+        // NotificationBell state updated
         }
     }["NotificationBell.useEffect"], [
         isConnected,
@@ -1086,8 +1069,7 @@ function NotificationBell(param) {
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "NotificationBell.useEffect": ()=>{
             if (newNotification) {
-                // You can implement a toast notification here
-                console.log('New notification:', newNotification);
+            // You can implement a toast notification here
             }
         }
     }["NotificationBell.useEffect"], [
@@ -1097,28 +1079,28 @@ function NotificationBell(param) {
         try {
             await markAsRead(notificationId);
         } catch (error) {
-            console.error('Error marking notification as read:', error);
+        // Error marking notification as read
         }
     };
     const handleMarkAllAsRead = async ()=>{
         try {
             await markAllAsRead();
         } catch (error) {
-            console.error('Error marking all notifications as read:', error);
+        // Error marking all notifications as read
         }
     };
     const handleDeleteNotification = async (notificationId)=>{
         try {
             await deleteNotification(notificationId);
         } catch (error) {
-            console.error('Error deleting notification:', error);
+        // Error deleting notification
         }
     };
     const handleUpdateSettings = async (newSettings)=>{
         try {
             await updateSettings(newSettings);
         } catch (error) {
-            console.error('Error updating settings:', error);
+        // Error updating settings
         }
     };
     const handleDropdownToggle = async ()=>{
@@ -1126,19 +1108,18 @@ function NotificationBell(param) {
         setIsOpen(newIsOpen);
         // If opening the dropdown, refresh notifications
         if (newIsOpen) {
-            console.log('🔔 Opening notification dropdown, refreshing notifications...');
             try {
                 await fetchNotifications();
                 await refreshStats();
             } catch (error) {
-                console.error('❌ Error refreshing notifications:', error);
+            // Error refreshing notifications
             }
         }
     };
     const handleTestNotification = async ()=>{
         try {
-            console.log('🧪 Creating test notification...');
-            const response = await fetch("".concat(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_API_URL || 'https://elysian-birt.onrender.com/api', "/notifications/test/"), {
+            const apiUrl = ("TURBOPACK compile-time truthy", 1) ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ensureApiPrefix"])(("TURBOPACK compile-time value", "https://lissnify-v2.onrender.com")) : "TURBOPACK unreachable";
+            const response = await fetch("".concat(apiUrl, "/notifications/test/"), {
                 method: 'POST',
                 headers: {
                     'Authorization': "Bearer ".concat(localStorage.getItem('adminToken')),
@@ -1147,16 +1128,11 @@ function NotificationBell(param) {
             });
             if (response.ok) {
                 const data = await response.json();
-                console.log('✅ Test notification created:', data);
                 // Refresh notifications
                 fetchNotifications();
                 refreshStats();
-            } else {
-                console.error('❌ Failed to create test notification:', response.status);
-            }
-        } catch (error) {
-            console.error('❌ Error creating test notification:', error);
-        }
+            } else {}
+        } catch (error) {}
     };
     const getNotificationIcon = (type)=>{
         switch(type){
@@ -1195,7 +1171,7 @@ function NotificationBell(param) {
                         className: "w-6 h-6"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 177,
+                        lineNumber: 172,
                         columnNumber: 9
                     }, this),
                     (()=>{
@@ -1205,7 +1181,7 @@ function NotificationBell(param) {
                             children: count > 99 ? '99+' : count
                         }, void 0, false, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 181,
+                            lineNumber: 176,
                             columnNumber: 13
                         }, this);
                     })(),
@@ -1213,13 +1189,13 @@ function NotificationBell(param) {
                         className: "absolute -bottom-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full border-2 border-white"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 187,
+                        lineNumber: 182,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                lineNumber: 173,
+                lineNumber: 168,
                 columnNumber: 7
             }, this),
             isOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1243,13 +1219,13 @@ function NotificationBell(param) {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 200,
+                                            lineNumber: 195,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 197,
+                                    lineNumber: 192,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1262,7 +1238,7 @@ function NotificationBell(param) {
                                             children: "🧪"
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 206,
+                                            lineNumber: 201,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1272,12 +1248,12 @@ function NotificationBell(param) {
                                                 className: "w-4 h-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                lineNumber: 217,
+                                                lineNumber: 212,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 213,
+                                            lineNumber: 208,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1287,29 +1263,29 @@ function NotificationBell(param) {
                                                 className: "w-4 h-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                lineNumber: 223,
+                                                lineNumber: 218,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 219,
+                                            lineNumber: 214,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 205,
+                                    lineNumber: 200,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 196,
+                            lineNumber: 191,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 195,
+                        lineNumber: 190,
                         columnNumber: 11
                     }, this),
                     showSettings && settings && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1320,7 +1296,7 @@ function NotificationBell(param) {
                                 children: "Notification Settings"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                lineNumber: 232,
+                                lineNumber: 227,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1339,7 +1315,7 @@ function NotificationBell(param) {
                                                 className: "rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                lineNumber: 236,
+                                                lineNumber: 231,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1347,25 +1323,25 @@ function NotificationBell(param) {
                                                 children: key.replace('_', ' ')
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                lineNumber: 242,
+                                                lineNumber: 237,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, key, true, {
                                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                                        lineNumber: 235,
+                                        lineNumber: 230,
                                         columnNumber: 19
                                     }, this);
                                 })
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                lineNumber: 233,
+                                lineNumber: 228,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 231,
+                        lineNumber: 226,
                         columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1375,14 +1351,14 @@ function NotificationBell(param) {
                             children: "Loading..."
                         }, void 0, false, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 254,
+                            lineNumber: 249,
                             columnNumber: 15
                         }, this) : notifications.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "p-4 text-center text-gray-500",
                             children: "No notifications"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 256,
+                            lineNumber: 251,
                             columnNumber: 15
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                             children: [
@@ -1394,12 +1370,12 @@ function NotificationBell(param) {
                                         children: "Mark all as read"
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                                        lineNumber: 261,
+                                        lineNumber: 256,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 260,
+                                    lineNumber: 255,
                                     columnNumber: 15
                                 }, this),
                                 notifications.map((notification)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1412,7 +1388,7 @@ function NotificationBell(param) {
                                                     children: getNotificationIcon(notification.notification_type)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                    lineNumber: 277,
+                                                    lineNumber: 272,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1426,7 +1402,7 @@ function NotificationBell(param) {
                                                                     children: notification.title
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                    lineNumber: 282,
+                                                                    lineNumber: 277,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1440,12 +1416,12 @@ function NotificationBell(param) {
                                                                                 className: "w-3 h-3"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                                lineNumber: 292,
+                                                                                lineNumber: 287,
                                                                                 columnNumber: 33
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                            lineNumber: 287,
+                                                                            lineNumber: 282,
                                                                             columnNumber: 31
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1456,24 +1432,24 @@ function NotificationBell(param) {
                                                                                 className: "w-3 h-3"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                                lineNumber: 300,
+                                                                                lineNumber: 295,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                            lineNumber: 295,
+                                                                            lineNumber: 290,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                    lineNumber: 285,
+                                                                    lineNumber: 280,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                            lineNumber: 281,
+                                                            lineNumber: 276,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1481,7 +1457,7 @@ function NotificationBell(param) {
                                                             children: notification.message
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                            lineNumber: 304,
+                                                            lineNumber: 299,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1492,7 +1468,7 @@ function NotificationBell(param) {
                                                                     children: formatTimeAgo(notification.created_at)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                    lineNumber: 308,
+                                                                    lineNumber: 303,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 notification.sender_username && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1503,37 +1479,37 @@ function NotificationBell(param) {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                    lineNumber: 312,
+                                                                    lineNumber: 307,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                            lineNumber: 307,
+                                                            lineNumber: 302,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                    lineNumber: 280,
+                                                    lineNumber: 275,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 276,
+                                            lineNumber: 271,
                                             columnNumber: 21
                                         }, this)
                                     }, notification.id, false, {
                                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                                        lineNumber: 270,
+                                        lineNumber: 265,
                                         columnNumber: 19
                                     }, this))
                             ]
                         }, void 0, true)
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 252,
+                        lineNumber: 247,
                         columnNumber: 11
                     }, this),
                     stats && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1548,7 +1524,7 @@ function NotificationBell(param) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 329,
+                                    lineNumber: 324,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1558,30 +1534,30 @@ function NotificationBell(param) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 330,
+                                    lineNumber: 325,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 328,
+                            lineNumber: 323,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 327,
+                        lineNumber: 322,
                         columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                lineNumber: 193,
+                lineNumber: 188,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/Components/NotificationBell.tsx",
-        lineNumber: 171,
+        lineNumber: 166,
         columnNumber: 5
     }, this);
 }
@@ -1702,14 +1678,14 @@ function Navbar() {
                 className: "jsx-35ae1f5326cd5ae3" + " " + "container mx-auto flex justify-between items-center relative z-10",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center gap-4 ",
+                        className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center gap-2 sm:gap-4",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                             href: "/",
                             className: "flex items-center hover:opacity-60 transition-opacity duration-600",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                 src: "/logo.png",
                                 alt: "Lissnify Logo",
-                                className: "jsx-35ae1f5326cd5ae3" + " " + "h-16 w-auto"
+                                className: "jsx-35ae1f5326cd5ae3" + " " + "h-12 w-auto sm:h-14 md:h-16"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/Navbar.jsx",
                                 lineNumber: 51,
@@ -1726,18 +1702,18 @@ function Navbar() {
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-35ae1f5326cd5ae3" + " " + "hidden md:flex items-center space-x-2",
+                        className: "jsx-35ae1f5326cd5ae3" + " " + "hidden lg:flex items-center space-x-1 xl:space-x-2",
                         children: [
                             navItems.map((item, index)=>{
                                 const IconComponent = item.icon;
                                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                     href: item.href,
-                                    className: "group relative px-5 py-3 rounded-2xl text-black font-bold transition-all duration-300 hover:bg-white/70",
+                                    className: "group relative px-3 xl:px-5 py-2 xl:py-3 rounded-2xl text-black font-bold transition-all duration-300 hover:bg-white/70",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center gap-3",
+                                            className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center gap-2 xl:gap-3",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "jsx-35ae1f5326cd5ae3" + " " + "transition-colors duration-300 text-lg",
+                                                className: "jsx-35ae1f5326cd5ae3" + " " + "transition-colors duration-300 text-sm xl:text-lg",
                                                 children: item.name
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/Navbar.jsx",
@@ -1764,7 +1740,7 @@ function Navbar() {
                                 }, this);
                             }),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-35ae1f5326cd5ae3" + " " + "ml-8 pl-4 border-l-3 border-[#FFB88C]/40 flex items-center gap-3 relative",
+                                className: "jsx-35ae1f5326cd5ae3" + " " + "ml-4 xl:ml-8 pl-2 xl:pl-4 border-l-2 xl:border-l-3 border-[#FFB88C]/40 flex items-center gap-2 xl:gap-3 relative",
                                 children: !isLoading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                     children: isAuthenticated ? // Show notification bell and user dropdown when logged in
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -1786,9 +1762,9 @@ function Navbar() {
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                 href: "/login",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "group relative px-6 py-2 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 transform hover:scale-110 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30",
+                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "group relative px-3 xl:px-6 py-1.5 xl:py-2 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 transform hover:scale-110 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30 text-xs xl:text-sm",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center gap-2",
+                                                        className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center gap-1 xl:gap-2",
                                                         children: "Login"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/Navbar.jsx",
@@ -1808,7 +1784,7 @@ function Navbar() {
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                 href: "/signup",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "group relative px-6 py-2 rounded-2xl text-white font-bold bg-gradient-to-r from-[#CD853F] to-[#D2691E] hover:from-[#D2691E] hover:to-[#CD853F] transition-all duration-300 transform hover:scale-110 shadow-2xl hover:shadow-3xl overflow-hidden border-2 border-white/30",
+                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "group relative px-3 xl:px-6 py-1.5 xl:py-2 rounded-2xl text-white font-bold bg-gradient-to-r from-[#CD853F] to-[#D2691E] hover:from-[#D2691E] hover:to-[#CD853F] transition-all duration-300 transform hover:scale-110 shadow-2xl hover:shadow-3xl overflow-hidden border-2 border-white/30 text-xs xl:text-sm",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "jsx-35ae1f5326cd5ae3" + " " + "absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"
@@ -1818,7 +1794,7 @@ function Navbar() {
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center gap-2",
+                                                            className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center gap-1 xl:gap-2",
                                                             children: "Sign Up"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/Navbar.jsx",
@@ -1852,7 +1828,7 @@ function Navbar() {
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>setIsOpen(!isOpen),
-                        className: "jsx-35ae1f5326cd5ae3" + " " + "md:hidden relative w-14 h-14 bg-white/70 backdrop-blur-sm rounded-2xl flex items-center justify-center hover:bg-white/90 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#FFB88C]/30 group shadow-lg border-2 border-[#FFB88C]/20",
+                        className: "jsx-35ae1f5326cd5ae3" + " " + "lg:hidden relative w-10 h-10 sm:w-12 sm:h-12 bg-white/70 backdrop-blur-sm rounded-2xl flex items-center justify-center hover:bg-white/90 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#FFB88C]/30 group shadow-lg border-2 border-[#FFB88C]/20",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "jsx-35ae1f5326cd5ae3" + " " + "absolute inset-0 bg-gradient-to-br from-[#FFF8B5]/10 to-[#FFB88C]/5 rounded-2xl"
@@ -1862,13 +1838,13 @@ function Navbar() {
                                 columnNumber: 11
                             }, this),
                             isOpen ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                                className: "w-7 h-7 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10"
+                                className: "w-5 h-5 sm:w-6 sm:h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/Navbar.jsx",
                                 lineNumber: 119,
                                 columnNumber: 13
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
-                                className: "w-7 h-7 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10"
+                                className: "w-5 h-5 sm:w-6 sm:h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/Navbar.jsx",
                                 lineNumber: 121,
@@ -1887,7 +1863,7 @@ function Navbar() {
                 columnNumber: 7
             }, this),
             isOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-35ae1f5326cd5ae3" + " " + "md:hidden mt-6 bg-white/95 backdrop-blur-md rounded-3xl border-3 border-[#FFB88C]/30 shadow-2xl p-6 mx-4 animate-fadeIn relative overflow-hidden",
+                className: "jsx-35ae1f5326cd5ae3" + " " + "lg:hidden mt-4 sm:mt-6 bg-white/95 backdrop-blur-md rounded-3xl border-3 border-[#FFB88C]/30 shadow-2xl p-4 sm:p-6 mx-2 sm:mx-4 animate-fadeIn relative overflow-hidden",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "jsx-35ae1f5326cd5ae3" + " " + "absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#FFF8B5]/20 to-[#F9E79F]/10 rounded-full blur-2xl"
@@ -1904,18 +1880,18 @@ function Navbar() {
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-35ae1f5326cd5ae3" + " " + "space-y-3 relative z-10",
+                        className: "jsx-35ae1f5326cd5ae3" + " " + "space-y-2 sm:space-y-3 relative z-10",
                         children: navItems.map((item, index)=>{
                             const IconComponent = item.icon;
                             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                 href: item.href,
-                                className: "group flex items-center gap-4 px-5 py-4 rounded-2xl text-[#8B4513] font-bold hover:bg-gradient-to-r hover:from-[#FFF8B5]/20 hover:to-[#FFB88C]/15 transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 border-transparent hover:border-[#FFB88C]/20",
+                                className: "group flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-3 sm:py-4 rounded-2xl text-[#8B4513] font-bold hover:bg-gradient-to-r hover:from-[#FFF8B5]/20 hover:to-[#FFB88C]/15 transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 border-transparent hover:border-[#FFB88C]/20",
                                 onClick: ()=>setIsOpen(false),
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "jsx-35ae1f5326cd5ae3" + " " + "w-12 h-12 bg-gradient-to-br from-[#FFF8B5]/30 to-[#F9E79F]/20 rounded-2xl flex items-center justify-center group-hover:from-[#FFB88C]/30 group-hover:to-[#F9E79F]/30 transition-all duration-300 group-hover:scale-110 shadow-lg",
+                                        className: "jsx-35ae1f5326cd5ae3" + " " + "w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#FFF8B5]/30 to-[#F9E79F]/20 rounded-2xl flex items-center justify-center group-hover:from-[#FFB88C]/30 group-hover:to-[#F9E79F]/30 transition-all duration-300 group-hover:scale-110 shadow-lg",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IconComponent, {
-                                            className: "jsx-35ae1f5326cd5ae3" + " " + "w-6 h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300"
+                                            className: "jsx-35ae1f5326cd5ae3" + " " + "w-5 h-5 sm:w-6 sm:h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300"
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/Navbar.jsx",
                                             lineNumber: 145,
@@ -1927,7 +1903,7 @@ function Navbar() {
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "jsx-35ae1f5326cd5ae3" + " " + "group-hover:text-[#A0522D] transition-colors duration-300 text-xl",
+                                        className: "jsx-35ae1f5326cd5ae3" + " " + "group-hover:text-[#A0522D] transition-colors duration-300 text-lg sm:text-xl",
                                         children: item.name
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/Navbar.jsx",
@@ -1954,14 +1930,14 @@ function Navbar() {
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-35ae1f5326cd5ae3" + " " + "mt-8 pt-6 border-t-2 border-[#FFB88C]/30 relative z-10 space-y-3",
+                        className: "jsx-35ae1f5326cd5ae3" + " " + "mt-6 sm:mt-8 pt-4 sm:pt-6 border-t-2 border-[#FFB88C]/30 relative z-10 space-y-2 sm:space-y-3",
                         children: !isLoading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                             children: isAuthenticated ? // Show user info in mobile menu when logged in
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "jsx-35ae1f5326cd5ae3" + " " + "text-center",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center justify-center gap-4 mb-4",
+                                        className: "jsx-35ae1f5326cd5ae3" + " " + "flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 onClick: ()=>{
@@ -1969,9 +1945,9 @@ function Navbar() {
                                                     router.push(profileUrl);
                                                     setIsOpen(false);
                                                 },
-                                                className: "jsx-35ae1f5326cd5ae3" + " " + "w-16 h-16 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-200",
+                                                className: "jsx-35ae1f5326cd5ae3" + " " + "w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-200",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
-                                                    className: "w-8 h-8 text-white"
+                                                    className: "w-6 h-6 sm:w-8 sm:h-8 text-white"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/Navbar.jsx",
                                                     lineNumber: 170,
@@ -2006,7 +1982,7 @@ function Navbar() {
                                             router.push(profileUrl);
                                             setIsOpen(false);
                                         },
-                                        className: "jsx-35ae1f5326cd5ae3" + " " + "text-lg font-bold text-black mb-4 cursor-pointer hover:text-orange-600 transition-colors duration-200",
+                                        className: "jsx-35ae1f5326cd5ae3" + " " + "text-base sm:text-lg font-bold text-black mb-3 sm:mb-4 cursor-pointer hover:text-orange-600 transition-colors duration-200",
                                         children: [
                                             "Hello, ",
                                             user === null || user === void 0 ? void 0 : user.full_name
@@ -2025,12 +2001,12 @@ function Navbar() {
                                             // 3. Finally, close the menu.
                                             setIsOpen(false);
                                         },
-                                        className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-8 py-4 rounded-2xl text-red-600 font-bold bg-white/70 hover:bg-red-50 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-red-200 hover:border-red-300",
+                                        className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-red-600 font-bold bg-white/70 hover:bg-red-50 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-red-200 hover:border-red-300",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-3 text-xl",
+                                            className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-xl",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$log$2d$out$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LogOut$3e$__["LogOut"], {
-                                                    className: "w-6 h-6"
+                                                    className: "w-5 h-5 sm:w-6 sm:h-6"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/Navbar.jsx",
                                                     lineNumber: 199,
@@ -2060,9 +2036,9 @@ function Navbar() {
                                         href: "/login",
                                         onClick: ()=>setIsOpen(false),
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-8 py-4 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30",
+                                            className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-3 text-xl",
+                                                className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-xl",
                                                 children: "Login"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/Navbar.jsx",
@@ -2083,7 +2059,7 @@ function Navbar() {
                                         href: "/signup",
                                         onClick: ()=>setIsOpen(false),
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-8 py-4 rounded-2xl text-white font-bold bg-gradient-to-r from-[#CD853F] to-[#D2691E] hover:from-[#D2691E] hover:to-[#CD853F] transition-all duration-300 shadow-2xl hover:shadow-3xl overflow-hidden hover:scale-105 border-2 border-white/30",
+                                            className: "jsx-35ae1f5326cd5ae3" + " " + "group w-full relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-white font-bold bg-gradient-to-r from-[#CD853F] to-[#D2691E] hover:from-[#D2691E] hover:to-[#CD853F] transition-all duration-300 shadow-2xl hover:shadow-3xl overflow-hidden hover:scale-105 border-2 border-white/30",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "jsx-35ae1f5326cd5ae3" + " " + "absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"
@@ -2093,7 +2069,7 @@ function Navbar() {
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-3 text-xl",
+                                                    className: "jsx-35ae1f5326cd5ae3" + " " + "relative flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-xl",
                                                     children: "Sign Up"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/Navbar.jsx",
@@ -2233,12 +2209,12 @@ function Hero() {
                 className: "jsx-95f3041b0468b460" + " " + "relative z-10 h-full",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-95f3041b0468b460" + " " + "flex items-center justify-center px-4 py-8",
+                        className: "jsx-95f3041b0468b460" + " " + "flex items-center justify-center px-4 py-20",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "jsx-95f3041b0468b460" + " " + "text-center space-y-8 max-w-5xl w-full",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                    className: "jsx-95f3041b0468b460" + " " + "text-5xl md:text-7xl font-bold leading-tight text-shadow-soft",
+                                    className: "jsx-95f3041b0468b460" + " " + "text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-shadow-soft",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             className: "jsx-95f3041b0468b460" + " " + "text-white drop-shadow-lg",
@@ -2263,7 +2239,7 @@ function Hero() {
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "jsx-95f3041b0468b460" + " " + "text-2xl text-gray-800 leading-relaxed max-w-3xl mx-auto text-shadow-soft font-medium",
+                                    className: "jsx-95f3041b0468b460" + " " + "text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular text-shadow-soft px-4",
                                     children: [
                                         "Lissnify is your safe space to heal, share, and grow.",
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2291,7 +2267,7 @@ function Hero() {
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "jsx-95f3041b0468b460" + " " + "".concat(isAuthenticated ? 'flex justify-center' : 'grid sm:grid-cols-2 max-w-4xl', " gap-8 max-w-2xl mx-auto"),
+                                    className: "jsx-95f3041b0468b460" + " " + "".concat(isAuthenticated ? 'flex justify-center' : 'grid grid-cols-1 sm:grid-cols-2 max-w-4xl', " gap-4 sm:gap-6 lg:gap-8 max-w-2xl mx-auto px-4"),
                                     children: [
                                         (!isAuthenticated || (user === null || user === void 0 ? void 0 : user.user_type) !== 'listener') && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                             href: isAuthenticated ? getDashboardRoute() : "/signup?role=seeker",
@@ -2314,7 +2290,7 @@ function Hero() {
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                        className: "jsx-95f3041b0468b460" + " " + "text-3xl font-bold text-black text-center mb-4",
+                                                        className: "jsx-95f3041b0468b460" + " " + "text-xl sm:text-2xl lg:text-3xl font-bold text-black text-center mb-3 sm:mb-4",
                                                         children: "Support Seeker"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/Hero.jsx",
@@ -2322,7 +2298,7 @@ function Hero() {
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "jsx-95f3041b0468b460" + " " + "mt-3 text-black text-lg opacity-90 text-center flex-grow leading-relaxed",
+                                                        className: "jsx-95f3041b0468b460" + " " + "mt-3 text-black text-sm sm:text-base lg:text-lg opacity-90 text-center flex-grow leading-relaxed",
                                                         children: "Connect with people who understand your journey. Find empathy, clarity, and comfort."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/Hero.jsx",
@@ -2330,9 +2306,9 @@ function Hero() {
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "jsx-95f3041b0468b460" + " " + "text-center mt-6",
+                                                        className: "jsx-95f3041b0468b460" + " " + "text-center mt-4 sm:mt-6",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "jsx-95f3041b0468b460" + " " + "inline-block text-black font-medium underline-animate text-xl",
+                                                            className: "jsx-95f3041b0468b460" + " " + "inline-block text-black font-medium underline-animate text-base sm:text-lg lg:text-xl",
                                                             children: isAuthenticated ? "I Need Support →" : "I Need Support →"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/Hero.jsx",
@@ -2376,7 +2352,7 @@ function Hero() {
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                        className: "jsx-95f3041b0468b460" + " " + "text-3xl font-bold text-black text-center mb-4",
+                                                        className: "jsx-95f3041b0468b460" + " " + "text-xl sm:text-2xl lg:text-3xl font-bold text-black text-center mb-3 sm:mb-4",
                                                         children: "Listener with Empathy"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/Hero.jsx",
@@ -2384,7 +2360,7 @@ function Hero() {
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "jsx-95f3041b0468b460" + " " + "mt-3 text-black text-lg opacity-90 text-center flex-grow leading-relaxed",
+                                                        className: "jsx-95f3041b0468b460" + " " + "mt-3 text-black text-sm sm:text-base lg:text-lg opacity-90 text-center flex-grow leading-relaxed",
                                                         children: "Guide others through their struggles with the wisdom of your own experiences."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/Hero.jsx",
@@ -2392,9 +2368,9 @@ function Hero() {
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "jsx-95f3041b0468b460" + " " + "text-center mt-6",
+                                                        className: "jsx-95f3041b0468b460" + " " + "text-center mt-4 sm:mt-6",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "jsx-95f3041b0468b460" + " " + "inline-block text-black font-medium underline-animate text-xl",
+                                                            className: "jsx-95f3041b0468b460" + " " + "inline-block text-black font-medium underline-animate text-base sm:text-lg lg:text-xl",
                                                             children: isAuthenticated ? "I Want to Listen →" : "I Want to Listen →"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/Hero.jsx",
@@ -2424,11 +2400,11 @@ function Hero() {
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "jsx-95f3041b0468b460" + " " + "flex gap-4 flex-wrap justify-center text-xl ",
+                                    className: "jsx-95f3041b0468b460" + " " + "flex flex-col sm:flex-row gap-3 sm:gap-4 flex-wrap justify-center text-sm sm:text-base lg:text-xl px-4",
                                     children: isAuthenticated ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                         href: getDashboardRoute(),
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            className: "jsx-95f3041b0468b460" + " " + "px-8 py-4 rounded-full bg-[#FF8C5A] text-white font-semibold hover:bg-[#e67848] transition transform hover:scale-105 shadow-lg hover:shadow-xl text-xl",
+                                            className: "jsx-95f3041b0468b460" + " " + "w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-[#FF8C5A] text-white font-semibold hover:bg-[#e67848] transition transform hover:scale-105 shadow-lg hover:shadow-xl",
                                             children: "Go to Dashboard"
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/Hero.jsx",
@@ -2443,8 +2419,9 @@ function Hero() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                 href: "/signup?role=seeker",
+                                                className: "w-full sm:w-auto",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "jsx-95f3041b0468b460" + " " + "px-6 py-3 rounded-full bg-[#FF8C5A] text-white font-semibold hover:bg-[#e67848] transition transform hover:scale-105 shadow-lg hover:shadow-xl",
+                                                    className: "jsx-95f3041b0468b460" + " " + "w-full px-4 sm:px-6 py-3 rounded-full bg-[#FF8C5A] text-white font-semibold hover:bg-[#e67848] transition transform hover:scale-105 shadow-lg hover:shadow-xl",
                                                     children: "Join as a Seeker"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/Hero.jsx",
@@ -2458,8 +2435,9 @@ function Hero() {
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                 href: "/signup?role=listener",
+                                                className: "w-full sm:w-auto",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "jsx-95f3041b0468b460" + " " + "px-6 py-3 rounded-full bg-white border-2 border-[#FF8C5A] text-[#FF8C5A] font-semibold hover:bg-[#FFE0D5] transition transform hover:scale-105 shadow-lg hover:shadow-xl",
+                                                    className: "jsx-95f3041b0468b460" + " " + "w-full px-4 sm:px-6 py-3 rounded-full bg-white border-2 border-[#FF8C5A] text-[#FF8C5A] font-semibold hover:bg-[#FFE0D5] transition transform hover:scale-105 shadow-lg hover:shadow-xl",
                                                     children: "Join as a Listener"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/Hero.jsx",
@@ -2729,7 +2707,7 @@ function Features() {
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "jsx-869f5ade3fca233" + " " + "max-w-4xl mx-auto text-2xl text-gray-800 leading-relaxed font-medium",
+                                className: "jsx-869f5ade3fca233" + " " + "text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular",
                                 children: "Our platform is designed to support your mental and emotional well-being through safe, friendly, and easy-to-use tools that prioritize your comfort and growth."
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/Features.jsx",
@@ -3032,7 +3010,7 @@ const HealingJourneyCarousel = ()=>{
                 transitionDelay: "".concat(index % cardsPerView * 100, "ms")
             },
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "\n          bg-gradient-to-br ".concat(step.cardBg, " backdrop-blur-sm rounded-2xl p-8 \n          shadow-lg hover:shadow-2xl transition-all duration-500 \n          border border-white/60 h-full flex flex-col \n          group hover:scale-105 hover:-translate-y-2\n          relative overflow-hidden\n        "),
+                className: "\n          bg-gradient-to-br ".concat(step.cardBg, " backdrop-blur-sm rounded-2xl p-8 \n          shadow-lg hover:shadow-2xl transition-all duration-500 \n          border border-white/30 h-full flex flex-col \n          group hover:scale-105 hover:-translate-y-1\n          relative overflow-hidden\n        "),
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute inset-0 bg-gradient-to-br from-white/40 to-transparent"
@@ -3221,7 +3199,7 @@ const HealingJourneyCarousel = ()=>{
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-2xl md:text-2xl text-black max-w-4xl mx-auto leading-relaxed font-medium",
+                                className: "text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular",
                                 children: "A gentle, guided path from struggle to support. Every milestone designed with care and your wellbeing in mind."
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/HowItWorksSection.jsx",
@@ -3268,7 +3246,7 @@ const HealingJourneyCarousel = ()=>{
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "overflow-hidden rounded-2xl w-full",
+                                className: "overflow-hidden rounded-2xl w-full py-20",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex transition-transform duration-700 ease-out",
                                     style: {
@@ -3419,7 +3397,7 @@ function FeaturedListeners() {
                                 setConnectedListenersList(connectedData.data);
                             }
                         } catch (error) {
-                            console.error("Error fetching connected listeners:", error);
+                        // Error fetching connected listeners
                         }
                     } else if (user_type == null) {
                         setConnectButton(true);
@@ -3435,7 +3413,6 @@ function FeaturedListeners() {
             var _listeners_;
             const listener_id = (_listeners_ = listeners[currentIndex * LISTENERS_PER_SLIDE]) === null || _listeners_ === void 0 ? void 0 : _listeners_.l_id;
             if (!listener_id) {
-                console.error("No listener ID available for connection.");
                 return;
             }
             const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["connection"])(listener_id || "");
@@ -3456,7 +3433,7 @@ function FeaturedListeners() {
             }
         // Add more logic (redirect, open modal, etc.)
         } catch (error) {
-            console.error("Error connecting to listener:", error);
+        // Error connecting to listener
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -3465,28 +3442,28 @@ function FeaturedListeners() {
             className: "max-w-8xl mx-auto px-6 lg:px-16 xl:px-10",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "text-center mb-16",
+                    className: "text-center mb-12 sm:mb-16 px-4",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                            className: "text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-4",
+                            className: "text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-3 sm:mb-4",
                             children: "Featured Listeners"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                            lineNumber: 102,
+                            lineNumber: 100,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            className: "text-2xl text-black max-w-2xl mx-auto font-medium",
+                            className: "text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular",
                             children: "Real people. Lived experiences. Gentle support."
                         }, void 0, false, {
                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                            lineNumber: 105,
+                            lineNumber: 103,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                    lineNumber: 101,
+                    lineNumber: 99,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3496,34 +3473,34 @@ function FeaturedListeners() {
                             "aria-label": "Previous Slide",
                             onClick: prevSlide,
                             disabled: isTransitioning || currentIndex === 0,
-                            className: "absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 z-10 w-14 h-14 rounded-full bg-white shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100",
+                            className: "absolute left-0 top-1/2 -translate-y-1/2 -translate-x-8 sm:-translate-x-12 lg:-translate-x-16 z-10 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-full bg-white shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronLeft$3e$__["ChevronLeft"], {
-                                className: "w-7 h-7 text-[#FF8C5A] group-hover:text-[#e67848] transition-colors"
+                                className: "w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-[#FF8C5A] group-hover:text-[#e67848] transition-colors"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                lineNumber: 116,
+                                lineNumber: 114,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                            lineNumber: 110,
+                            lineNumber: 108,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             "aria-label": "Next Slide",
                             onClick: nextSlide,
                             disabled: isTransitioning || currentIndex >= totalSlides - 1,
-                            className: "absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 z-10 w-14 h-14 rounded-full bg-white shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100",
+                            className: "absolute right-0 top-1/2 -translate-y-1/2 translate-x-8 sm:translate-x-12 lg:translate-x-16 z-10 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-full bg-white shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
-                                className: "w-7 h-7 text-[#FF8C5A] group-hover:text-[#e67848] transition-colors"
+                                className: "w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-[#FF8C5A] group-hover:text-[#e67848] transition-colors"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                lineNumber: 125,
+                                lineNumber: 123,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                            lineNumber: 119,
+                            lineNumber: 117,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3539,251 +3516,251 @@ function FeaturedListeners() {
                                     const currentSlideListeners = listeners.slice(slideIndex * LISTENERS_PER_SLIDE, (slideIndex + 1) * LISTENERS_PER_SLIDE);
                                     const isSingleListener = currentSlideListeners.length === 1;
                                     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex gap-8 flex-shrink-0 px-2 ".concat(isSingleListener ? 'justify-center w-full max-w-2xl mx-auto' : 'w-full'),
+                                        className: "flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-8 flex-shrink-0 px-2 ".concat(isSingleListener ? 'justify-center w-full max-w-2xl mx-auto' : 'w-full'),
                                         children: currentSlideListeners.map((listener)=>{
                                             var _listener_user, _listener_user1, _listener_user2, _listener_user3;
                                             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "flex-1 bg-white rounded-2xl hover:shadow-2xl transition-all duration-300 overflow-hidden group hover:-translate-y-1",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "p-8",
+                                                    className: "p-4 sm:p-6 lg:p-8",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex items-start gap-5 mb-6",
+                                                            className: "flex flex-col sm:flex-row items-start gap-4 sm:gap-5 mb-4 sm:mb-6",
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                                     onClick: ()=>router.push("/listener/".concat(listener.l_id)),
-                                                                    className: "w-20 h-20 rounded-full overflow-hidden shadow-md flex-shrink-0 ring-4 ring-[#FFE0D5] group-hover:ring-[#FF8C5A] transition-all duration-300 cursor-pointer",
+                                                                    className: "w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden shadow-md flex-shrink-0 ring-4 ring-[#FFE0D5] group-hover:ring-[#FF8C5A] transition-all duration-300 cursor-pointer mx-auto sm:mx-0",
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                                                         src: (listener === null || listener === void 0 ? void 0 : (_listener_user = listener.user) === null || _listener_user === void 0 ? void 0 : _listener_user.profile_image) ? "".concat(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["API_CONFIG"].BASE_URL, "/").concat(listener === null || listener === void 0 ? void 0 : (_listener_user1 = listener.user) === null || _listener_user1 === void 0 ? void 0 : _listener_user1.profile_image) : "http://localhost:3000/user.png",
                                                                         alt: (listener === null || listener === void 0 ? void 0 : listener.full_name) || (listener === null || listener === void 0 ? void 0 : (_listener_user2 = listener.user) === null || _listener_user2 === void 0 ? void 0 : _listener_user2.full_name) || "Listener",
                                                                         className: "w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                        lineNumber: 161,
+                                                                        lineNumber: 159,
                                                                         columnNumber: 31
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                    lineNumber: 157,
+                                                                    lineNumber: 155,
                                                                     columnNumber: 29
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "flex-1",
+                                                                    className: "flex-1 w-full sm:w-auto",
                                                                     children: [
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                            className: "flex items-center justify-between mb-2",
+                                                                            className: "flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-2",
                                                                             children: [
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                                                     onClick: ()=>router.push("/listener/".concat(listener.l_id)),
-                                                                                    className: "text-3xl font-bold text-gray-800 group-hover:text-[#FF8C5A] transition-colors hover:underline",
+                                                                                    className: "text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 group-hover:text-[#FF8C5A] transition-colors hover:underline text-center sm:text-left",
                                                                                     children: listener.full_name || ((_listener_user3 = listener.user) === null || _listener_user3 === void 0 ? void 0 : _listener_user3.full_name) || "Listener"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                                    lineNumber: 173,
+                                                                                    lineNumber: 171,
                                                                                     columnNumber: 33
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                                                     onClick: ()=>router.push("/listener/".concat(listener.l_id)),
-                                                                                    className: "flex items-center gap-1 text-xl text-gray-500 hover:text-[#FF8C5A] transition-colors duration-300 font-medium",
+                                                                                    className: "flex items-center justify-center sm:justify-start gap-1 text-sm sm:text-base lg:text-xl text-gray-500 hover:text-[#FF8C5A] transition-colors duration-300 font-medium",
                                                                                     children: [
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                                             children: "View Profile"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                                            lineNumber: 183,
+                                                                                            lineNumber: 181,
                                                                                             columnNumber: 35
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$external$2d$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ExternalLink$3e$__["ExternalLink"], {
                                                                                             className: "w-3 h-3"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                                            lineNumber: 184,
+                                                                                            lineNumber: 182,
                                                                                             columnNumber: 35
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                                    lineNumber: 179,
+                                                                                    lineNumber: 177,
                                                                                     columnNumber: 33
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                            lineNumber: 172,
+                                                                            lineNumber: 170,
                                                                             columnNumber: 31
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                            className: "flex items-center gap-2",
+                                                                            className: "flex items-center justify-center sm:justify-start gap-2",
                                                                             children: [
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                     className: "flex items-center",
                                                                                     children: [
                                                                                         ...Array(5)
                                                                                     ].map((_, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$star$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Star$3e$__["Star"], {
-                                                                                            className: "w-5 h-5 ".concat(i < Math.floor(listener.rating == null ? 4 : listener.rating) ? "text-yellow-500 fill-current" : i === Math.floor(listener.rating) && listener.rating % 1 !== 0 ? "text-yellow-500 fill-current opacity-50" : "text-gray-300")
+                                                                                            className: "w-4 h-4 sm:w-5 sm:h-5 ".concat(i < Math.floor(listener.rating == null ? 4 : listener.rating) ? "text-yellow-500 fill-current" : i === Math.floor(listener.rating) && listener.rating % 1 !== 0 ? "text-yellow-500 fill-current opacity-50" : "text-gray-300")
                                                                                         }, i, false, {
                                                                                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                                            lineNumber: 190,
+                                                                                            lineNumber: 188,
                                                                                             columnNumber: 37
                                                                                         }, this))
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                                    lineNumber: 188,
+                                                                                    lineNumber: 186,
                                                                                     columnNumber: 33
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                    className: "text-xl font-semibold text-black",
+                                                                                    className: "text-lg sm:text-xl font-semibold text-black",
                                                                                     children: listener.rating
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                                    lineNumber: 202,
+                                                                                    lineNumber: 200,
                                                                                     columnNumber: 33
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                            lineNumber: 187,
+                                                                            lineNumber: 185,
                                                                             columnNumber: 31
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                    lineNumber: 171,
+                                                                    lineNumber: 169,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                            lineNumber: 156,
+                                                            lineNumber: 154,
                                                             columnNumber: 27
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-black text-xl leading-relaxed mb-6 line-clamp-3",
+                                                            className: "text-black text-sm sm:text-base lg:text-xl leading-relaxed mb-4 sm:mb-6 line-clamp-2 sm:line-clamp-3 text-center sm:text-left",
                                                             children: listener.description == null ? 'Listener description.... ' : listener.description
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                            lineNumber: 208,
+                                                            lineNumber: 206,
                                                             columnNumber: 27
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex flex-wrap gap-2 mb-6",
+                                                            className: "flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6 justify-center sm:justify-start",
                                                             children: (listener.preferences || []).map((tag)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "px-4 py-2 bg-gradient-to-r from-[#FFE0D5] to-[#FFF0E8] text-[#FF8C5A] text-lg font-semibold rounded-full border border-[#FFE0D5] hover:border-[#FF8C5A] transition-colors cursor-default",
+                                                                    className: "px-2 sm:px-4 py-1 sm:py-2 bg-gradient-to-r from-[#FFE0D5] to-[#FFF0E8] text-[#FF8C5A] text-xs sm:text-sm lg:text-lg font-semibold rounded-full border border-[#FFE0D5] hover:border-[#FF8C5A] transition-colors cursor-default",
                                                                     children: tag
                                                                 }, tag, false, {
                                                                     fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                    lineNumber: 213,
+                                                                    lineNumber: 211,
                                                                     columnNumber: 31
                                                                 }, this))
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                            lineNumber: 211,
+                                                            lineNumber: 209,
                                                             columnNumber: 27
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "border-t border-gray-100 pt-6",
+                                                            className: "border-t border-gray-100 pt-4 sm:pt-6",
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "flex items-center justify-between gap-4",
+                                                                    className: "flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-3 sm:mb-4",
                                                                     children: [
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                                            className: "text-lg font-semibold text-gray-800 mb-4",
+                                                                            className: "text-base sm:text-lg font-semibold text-gray-800 text-center sm:text-left",
                                                                             children: "Languages Spoken"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                            lineNumber: 223,
+                                                                            lineNumber: 221,
                                                                             columnNumber: 31
                                                                         }, this),
                                                                         ConnectButton && ((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["isListenerConnected"])(listener.l_id, connectedListenersList) ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                                             disabled: true,
-                                                                            className: "px-6 py-2 bg-gray-100 border-2 border-gray-300 text-gray-500 text-xl font-bold rounded-lg cursor-not-allowed whitespace-nowrap",
+                                                                            className: "w-full sm:w-auto px-4 sm:px-6 py-2 bg-gray-100 border-2 border-gray-300 text-gray-500 text-sm sm:text-base lg:text-xl font-bold rounded-lg cursor-not-allowed whitespace-nowrap",
                                                                             children: "Already Connected"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                            lineNumber: 228,
+                                                                            lineNumber: 226,
                                                                             columnNumber: 34
                                                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                                             onClick: handleListenerConnect,
-                                                                            className: "px-6 py-2 bg-white border-2 border-[#FF8C5A] text-[#FF8C5A] text-xl font-bold rounded-lg hover:bg-[#FFE0D5] hover:border-[#e67848] transition-all duration-300 whitespace-nowrap",
+                                                                            className: "w-full sm:w-auto px-4 sm:px-6 py-2 bg-white border-2 border-[#FF8C5A] text-[#FF8C5A] text-sm sm:text-base lg:text-xl font-bold rounded-lg hover:bg-[#FFE0D5] hover:border-[#e67848] transition-all duration-300 whitespace-nowrap",
                                                                             children: "Connect"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                            lineNumber: 232,
+                                                                            lineNumber: 230,
                                                                             columnNumber: 34
                                                                         }, this))
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                    lineNumber: 222,
+                                                                    lineNumber: 220,
                                                                     columnNumber: 29
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "flex items-center justify-between gap-4",
+                                                                    className: "flex justify-center sm:justify-start",
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "flex flex-wrap gap-2",
+                                                                        className: "flex flex-wrap gap-1.5 sm:gap-2",
                                                                         children: ((listener === null || listener === void 0 ? void 0 : listener.languages) || [
                                                                             'English',
                                                                             'Hindi'
                                                                         ]).map((language)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "px-3 py-1.5 bg-gradient-to-r from-[#FF8C5A] to-[#e67848] text-white text-sm font-medium rounded-full shadow-sm",
+                                                                                className: "px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-[#FF8C5A] to-[#e67848] text-white text-xs sm:text-sm font-medium rounded-full shadow-sm",
                                                                                 children: language
                                                                             }, language, false, {
                                                                                 fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                                lineNumber: 241,
+                                                                                lineNumber: 239,
                                                                                 columnNumber: 35
                                                                             }, this))
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                        lineNumber: 239,
+                                                                        lineNumber: 237,
                                                                         columnNumber: 31
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                                    lineNumber: 238,
+                                                                    lineNumber: 236,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                            lineNumber: 221,
+                                                            lineNumber: 219,
                                                             columnNumber: 27
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                    lineNumber: 155,
+                                                    lineNumber: 153,
                                                     columnNumber: 25
                                                 }, this)
                                             }, listener.l_id, false, {
                                                 fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                                lineNumber: 151,
+                                                lineNumber: 149,
                                                 columnNumber: 23
                                             }, this);
                                         })
                                     }, slideIndex, false, {
                                         fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                        lineNumber: 144,
+                                        lineNumber: 142,
                                         columnNumber: 19
                                     }, this);
                                 })
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                                lineNumber: 129,
+                                lineNumber: 127,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                            lineNumber: 128,
+                            lineNumber: 126,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                    lineNumber: 109,
+                    lineNumber: 107,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex justify-center gap-3 mt-12",
+                    className: "flex justify-center gap-2 sm:gap-3 mt-8 sm:mt-12",
                     children: Array.from({
                         length: totalSlides
                     }).map((_, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3796,26 +3773,26 @@ function FeaturedListeners() {
                                 }
                             },
                             disabled: isTransitioning,
-                            className: "transition-all duration-300 rounded-full ".concat(index === currentIndex ? "w-8 h-4 bg-[#FF8C5A] shadow-md" : "w-4 h-4 bg-white/70 hover:bg-white shadow-sm hover:scale-110")
+                            className: "transition-all duration-300 rounded-full ".concat(index === currentIndex ? "w-6 h-3 sm:w-8 sm:h-4 bg-[#FF8C5A] shadow-md" : "w-3 h-3 sm:w-4 sm:h-4 bg-white/70 hover:bg-white shadow-sm hover:scale-110")
                         }, index, false, {
                             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                            lineNumber: 262,
+                            lineNumber: 260,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/Components/ListenerCarousel.tsx",
-                    lineNumber: 260,
+                    lineNumber: 258,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/Components/ListenerCarousel.tsx",
-            lineNumber: 100,
+            lineNumber: 98,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/Components/ListenerCarousel.tsx",
-        lineNumber: 99,
+        lineNumber: 97,
         columnNumber: 5
     }, this);
 }
@@ -3953,11 +3930,9 @@ const TestimonialCarousel = ()=>{
                             }["TestimonialCarousel.useEffect.fetchTestimonials.transformedTestimonials"]);
                             setTestimonials(transformedTestimonials);
                         } else {
-                            console.warn('Failed to fetch testimonials, using fallback data:', response.error);
                             setTestimonials(fallbackTestimonials);
                         }
                     } catch (err) {
-                        console.error('Error fetching testimonials:', err);
                         setError(err.message);
                         setTestimonials(fallbackTestimonials);
                     } finally{
@@ -4014,21 +3989,21 @@ const TestimonialCarousel = ()=>{
                                 children: "Healing Journeys"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                lineNumber: 160,
+                                lineNumber: 158,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-2xl md:text-2xl text-black max-w-3xl mx-auto leading-relaxed font-semibold",
+                                className: "jsx-869f5ade3fca233 text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular",
                                 children: "Real stories from real people who found hope, healing, and connection in our supportive community."
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                lineNumber: 163,
+                                lineNumber: 161,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                        lineNumber: 159,
+                        lineNumber: 157,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4038,7 +4013,7 @@ const TestimonialCarousel = ()=>{
                                 className: "animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                lineNumber: 168,
+                                lineNumber: 166,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4046,24 +4021,24 @@ const TestimonialCarousel = ()=>{
                                 children: "Loading testimonials..."
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                lineNumber: 169,
+                                lineNumber: 167,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                        lineNumber: 167,
+                        lineNumber: 165,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                lineNumber: 158,
+                lineNumber: 156,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-            lineNumber: 157,
+            lineNumber: 155,
             columnNumber: 7
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -4082,21 +4057,21 @@ const TestimonialCarousel = ()=>{
                                 children: "Healing Journeys"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                lineNumber: 182,
+                                lineNumber: 180,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-2xl md:text-2xl text-black max-w-3xl mx-auto leading-relaxed font-semibold",
+                                className: "text-lg md:text-xl text-black max-w-3xl mx-auto leading-relaxed font-regular",
                                 children: "Real stories from real people who found hope, healing, and connection in our supportive community."
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                lineNumber: 185,
+                                lineNumber: 183,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                        lineNumber: 181,
+                        lineNumber: 179,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4109,7 +4084,7 @@ const TestimonialCarousel = ()=>{
                                     children: "No testimonials available at the moment"
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                    lineNumber: 191,
+                                    lineNumber: 189,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4117,29 +4092,29 @@ const TestimonialCarousel = ()=>{
                                     children: "Check back later for inspiring stories from our community"
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                    lineNumber: 192,
+                                    lineNumber: 190,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                            lineNumber: 190,
+                            lineNumber: 188,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                        lineNumber: 189,
+                        lineNumber: 187,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                lineNumber: 180,
+                lineNumber: 178,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-            lineNumber: 179,
+            lineNumber: 177,
             columnNumber: 7
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -4156,15 +4131,15 @@ const TestimonialCarousel = ()=>{
                             children: "Healing Journeys"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                            lineNumber: 205,
+                            lineNumber: 203,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            className: "text-2xl md:text-2xl text-black max-w-3xl mx-auto leading-relaxed font-semibold",
+                            className: "text-lg md:text-xl text-black max-w-3xl mx-auto leading-relaxed font-regular",
                             children: "Real stories from real people who found hope, healing, and connection in our supportive community."
                         }, void 0, false, {
                             fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                            lineNumber: 208,
+                            lineNumber: 206,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0)),
                         error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4174,18 +4149,18 @@ const TestimonialCarousel = ()=>{
                                 children: "Using fallback testimonials. Some features may be limited."
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                lineNumber: 213,
+                                lineNumber: 211,
                                 columnNumber: 15
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                            lineNumber: 212,
+                            lineNumber: 210,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                    lineNumber: 204,
+                    lineNumber: 202,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4199,12 +4174,12 @@ const TestimonialCarousel = ()=>{
                                 className: "w-6 h-6 text-gray-700"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                lineNumber: 229,
+                                lineNumber: 227,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                            lineNumber: 224,
+                            lineNumber: 222,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -4215,12 +4190,12 @@ const TestimonialCarousel = ()=>{
                                 className: "w-6 h-6 text-gray-700"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                lineNumber: 238,
+                                lineNumber: 236,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                            lineNumber: 233,
+                            lineNumber: 231,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4242,12 +4217,12 @@ const TestimonialCarousel = ()=>{
                                                             className: "w-4 h-4 drop-shadow-sm ".concat(i < testimonial.rating ? 'text-amber-400 fill-current' : 'text-gray-300')
                                                         }, i, false, {
                                                             fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                                            lineNumber: 254,
+                                                            lineNumber: 252,
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0)))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                                    lineNumber: 252,
+                                                    lineNumber: 250,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4263,17 +4238,17 @@ const TestimonialCarousel = ()=>{
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                                            lineNumber: 268,
+                                                            lineNumber: 266,
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                                        lineNumber: 267,
+                                                        lineNumber: 265,
                                                         columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                                    lineNumber: 266,
+                                                    lineNumber: 264,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4286,12 +4261,12 @@ const TestimonialCarousel = ()=>{
                                                                 children: testimonial.avatar
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                                                lineNumber: 275,
+                                                                lineNumber: 273,
                                                                 columnNumber: 25
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                                            lineNumber: 274,
+                                                            lineNumber: 272,
                                                             columnNumber: 23
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4302,7 +4277,7 @@ const TestimonialCarousel = ()=>{
                                                                     children: testimonial.name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                                                    lineNumber: 278,
+                                                                    lineNumber: 276,
                                                                     columnNumber: 25
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4310,46 +4285,46 @@ const TestimonialCarousel = ()=>{
                                                                     children: testimonial.role
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                                                    lineNumber: 279,
+                                                                    lineNumber: 277,
                                                                     columnNumber: 25
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                                            lineNumber: 277,
+                                                            lineNumber: 275,
                                                             columnNumber: 23
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                                    lineNumber: 273,
+                                                    lineNumber: 271,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                            lineNumber: 250,
+                                            lineNumber: 248,
                                             columnNumber: 19
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, currentIndex + index, false, {
                                         fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                        lineNumber: 249,
+                                        lineNumber: 247,
                                         columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0)))
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                                lineNumber: 247,
+                                lineNumber: 245,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                            lineNumber: 242,
+                            lineNumber: 240,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                    lineNumber: 221,
+                    lineNumber: 219,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4361,23 +4336,23 @@ const TestimonialCarousel = ()=>{
                             className: "h-2.5 rounded-full transition-all duration-300 ".concat(index === currentIndex ? 'bg-orange-400 w-10 shadow-sm' : 'bg-gray-300 hover:bg-gray-400 w-2.5')
                         }, index, false, {
                             fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                            lineNumber: 292,
+                            lineNumber: 290,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0)))
                 }, void 0, false, {
                     fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-                    lineNumber: 290,
+                    lineNumber: 288,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-            lineNumber: 202,
+            lineNumber: 200,
             columnNumber: 7
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/src/Components/EmotionalTestimonials.jsx",
-        lineNumber: 201,
+        lineNumber: 199,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -4515,7 +4490,7 @@ const WhyChooseUs = ()=>{
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            className: "text-2xl md:text-2xl text-black max-w-3xl mx-auto leading-relaxed font-semibold",
+                            className: "text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular",
                             children: "We're not just another platform. We're a community built on empathy, trust, and genuine human connection. Here's what makes us different."
                         }, void 0, false, {
                             fileName: "[project]/src/Components/WhyElysian.jsx",
@@ -4564,7 +4539,7 @@ const WhyChooseUs = ()=>{
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "overflow-hidden",
+                            className: "overflow-hidden py-5",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex transition-transform duration-700 ease-in-out",
                                 style: {
@@ -4581,7 +4556,7 @@ const WhyChooseUs = ()=>{
                                                     className: "absolute -inset-1 bg-gradient-to-r ".concat(reason.gradient, " rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-700 blur-lg")
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                    lineNumber: 149,
+                                                    lineNumber: 150,
                                                     columnNumber: 23
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4591,7 +4566,7 @@ const WhyChooseUs = ()=>{
                                                             className: "absolute inset-0 bg-gradient-to-br ".concat(reason.bgGradient, " opacity-0 group-hover:opacity-40 transition-opacity duration-700")
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                            lineNumber: 155,
+                                                            lineNumber: 156,
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4601,34 +4576,34 @@ const WhyChooseUs = ()=>{
                                                                     className: "absolute inset-0 bg-gradient-to-br ".concat(reason.gradient, " opacity-20")
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                    lineNumber: 159,
+                                                                    lineNumber: 160,
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     className: "absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-3xl transform translate-x-8 -translate-y-8 group-hover:animate-pulse"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                    lineNumber: 160,
+                                                                    lineNumber: 161,
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     className: "absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-2xl transform -translate-x-4 translate-y-4"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                    lineNumber: 161,
+                                                                    lineNumber: 162,
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     className: "absolute top-1/2 left-1/2 w-24 h-24 bg-white/5 rounded-full blur-xl transform -translate-x-12 -translate-y-12"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                    lineNumber: 162,
+                                                                    lineNumber: 163,
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                            lineNumber: 158,
+                                                            lineNumber: 159,
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4638,7 +4613,7 @@ const WhyChooseUs = ()=>{
                                                                     className: "absolute top-8 right-10 w-1.5 h-1.5 ".concat(reason.color.replace('text-', 'bg-'), " rounded-full animate-ping")
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                    lineNumber: 167,
+                                                                    lineNumber: 168,
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4648,7 +4623,7 @@ const WhyChooseUs = ()=>{
                                                                     }
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                    lineNumber: 168,
+                                                                    lineNumber: 169,
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4658,7 +4633,7 @@ const WhyChooseUs = ()=>{
                                                                     }
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                    lineNumber: 169,
+                                                                    lineNumber: 170,
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4668,13 +4643,13 @@ const WhyChooseUs = ()=>{
                                                                     }
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                    lineNumber: 170,
+                                                                    lineNumber: 171,
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                            lineNumber: 166,
+                                                            lineNumber: 167,
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4684,27 +4659,27 @@ const WhyChooseUs = ()=>{
                                                                     className: "absolute inset-0 bg-gradient-to-r ".concat(reason.gradient, " rounded-3xl opacity-0 group-hover:opacity-70 transition-opacity duration-700 blur-xl")
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                    lineNumber: 176,
+                                                                    lineNumber: 177,
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     className: "absolute inset-2 bg-gradient-to-r ".concat(reason.gradient, " rounded-2xl opacity-0 group-hover:opacity-50 transition-opacity duration-500 blur-lg")
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                    lineNumber: 177,
+                                                                    lineNumber: 178,
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IconComponent, {
                                                                     className: "relative w-12 h-12 ".concat(reason.color, " group-hover:scale-100 group-hover:drop-shadow-xl transition-all duration-500 group-hover:animate-pulse")
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                    lineNumber: 178,
+                                                                    lineNumber: 179,
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                            lineNumber: 174,
+                                                            lineNumber: 175,
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4715,7 +4690,7 @@ const WhyChooseUs = ()=>{
                                                                     children: reason.title
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                    lineNumber: 183,
+                                                                    lineNumber: 184,
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4723,7 +4698,7 @@ const WhyChooseUs = ()=>{
                                                                     children: reason.description
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                    lineNumber: 186,
+                                                                    lineNumber: 187,
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4733,57 +4708,57 @@ const WhyChooseUs = ()=>{
                                                                             className: "h-2 ".concat(reason.color.replace('text-', 'bg-'), " rounded-full transition-all duration-700 w-16 group-hover:w-28 group-hover:shadow-lg group-hover:shadow-").concat(reason.color.split('-')[1], "-500/25")
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                            lineNumber: 192,
+                                                                            lineNumber: 193,
                                                                             columnNumber: 29
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                             className: "w-3 h-3 ".concat(reason.color.replace('text-', 'bg-'), " rounded-full transition-all duration-500 group-hover:scale-150 group-hover:shadow-lg group-hover:shadow-").concat(reason.color.split('-')[1], "-500/50")
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                            lineNumber: 193,
+                                                                            lineNumber: 194,
                                                                             columnNumber: 29
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                             className: "w-2 h-2 ".concat(reason.color.replace('text-', 'bg-'), " rounded-full opacity-70 transition-all duration-700 group-hover:opacity-100 group-hover:scale-125")
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                            lineNumber: 194,
+                                                                            lineNumber: 195,
                                                                             columnNumber: 29
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                             className: "w-1 h-1 ".concat(reason.color.replace('text-', 'bg-'), " rounded-full opacity-50 transition-all duration-500 group-hover:opacity-80 group-hover:scale-150")
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                            lineNumber: 195,
+                                                                            lineNumber: 196,
                                                                             columnNumber: 29
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                                    lineNumber: 191,
+                                                                    lineNumber: 192,
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                            lineNumber: 182,
+                                                            lineNumber: 183,
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                                    lineNumber: 152,
+                                                    lineNumber: 153,
                                                     columnNumber: 23
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/Components/WhyElysian.jsx",
-                                            lineNumber: 147,
+                                            lineNumber: 148,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, index, false, {
                                         fileName: "[project]/src/Components/WhyElysian.jsx",
-                                        lineNumber: 140,
+                                        lineNumber: 141,
                                         columnNumber: 19
                                     }, ("TURBOPACK compile-time value", void 0));
                                 })
@@ -4806,12 +4781,12 @@ const WhyChooseUs = ()=>{
                                     className: "w-3 h-3 rounded-full transition-all duration-300 ".concat(Math.floor(currentIndex / cardsPerView) === index ? 'bg-gradient-to-r from-amber-400 to-orange-500 shadow-lg scale-125' : 'bg-white/60 hover:bg-white/80 shadow-md hover:scale-110', " border border-white/50")
                                 }, index, false, {
                                     fileName: "[project]/src/Components/WhyElysian.jsx",
-                                    lineNumber: 209,
+                                    lineNumber: 210,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)))
                         }, void 0, false, {
                             fileName: "[project]/src/Components/WhyElysian.jsx",
-                            lineNumber: 207,
+                            lineNumber: 208,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
@@ -4859,7 +4834,7 @@ function CategoryCard(param) {
         href: href,
         className: "group block",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "\n          relative rounded-2xl bg-gradient-to-b from-white to-gray-50/50 \n          shadow-md hover:shadow-xl \n          transition-all duration-300 ease-out \n          cursor-pointer border border-gray-100 \n          hover:border-gray-200\n          hover:-translate-y-2 hover:scale-[1.02]\n          overflow-hidden h-full\n          ".concat(className !== null && className !== void 0 ? className : '', "\n        "),
+            className: "\n          relative rounded-2xl bg-gradient-to-b from-white to-gray-50/50 \n          shadow-md hover:shadow-xl \n          transition-all duration-300 ease-out \n          cursor-pointer border border-gray-100 \n          hover:border-gray-200\n\n          overflow-hidden h-full\n          ".concat(className !== null && className !== void 0 ? className : '', "\n        "),
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "h-1 w-full ".concat(category.colors.borderTop)
@@ -4869,28 +4844,28 @@ function CategoryCard(param) {
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "p-6 h-full flex flex-col",
+                    className: "p-4 sm:p-6 h-full flex flex-col",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "flex justify-center mb-6",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "\n              w-16 h-16 rounded-full ".concat(category.colors.bg, " \n              flex items-center justify-center \n              shadow-sm group-hover:shadow-md transition-shadow duration-300\n            "),
+                                className: "\n              w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full ".concat(category.colors.bg, " \n              flex items-center justify-center \n              shadow-sm group-hover:shadow-md transition-shadow duration-300\n            "),
                                 children: category.iconSrc ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                     src: "".concat(category.iconSrc),
                                     alt: category.title,
-                                    className: "w-8 h-8 object-contain"
+                                    className: "w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 object-contain"
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/CategoryCard.tsx",
                                     lineNumber: 54,
                                     columnNumber: 17
                                 }, this) : category.Icon ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(category.Icon, {
-                                    className: "w-8 h-8 ".concat(category.colors.icon)
+                                    className: "w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 ".concat(category.colors.icon)
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/CategoryCard.tsx",
                                     lineNumber: 60,
                                     columnNumber: 17
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "w-8 h-8 rounded-full ".concat(category.colors.icon)
+                                    className: "w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 rounded-full ".concat(category.colors.icon)
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/CategoryCard.tsx",
                                     lineNumber: 62,
@@ -4910,7 +4885,7 @@ function CategoryCard(param) {
                             className: "text-center flex-grow flex flex-col",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                    className: "\n              text-xl font-bold mb-3 \n              ".concat(category.colors.accent, " \n              group-hover:scale-105 transition-transform duration-300\n            "),
+                                    className: "\n              text-lg sm:text-xl font-bold mb-3 \n              ".concat(category.colors.accent, " \n              group-hover:scale-105 transition-transform duration-300\n            "),
                                     children: category.title
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/CategoryCard.tsx",
@@ -5073,7 +5048,6 @@ function CategoryCarousel() {
                         }
                     } catch (err) {
                         setError('Network error occurred while fetching categories');
-                        console.error('Error fetching categories:', err);
                     } finally{
                         setLoading(false);
                     }
@@ -5150,7 +5124,7 @@ function CategoryCarousel() {
                             className: "inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#FF9800]"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/CategoryGrid.tsx",
-                            lineNumber: 119,
+                            lineNumber: 118,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5158,23 +5132,23 @@ function CategoryCarousel() {
                             children: "Loading categories..."
                         }, void 0, false, {
                             fileName: "[project]/src/Components/CategoryGrid.tsx",
-                            lineNumber: 120,
+                            lineNumber: 119,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/Components/CategoryGrid.tsx",
-                    lineNumber: 118,
+                    lineNumber: 117,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/Components/CategoryGrid.tsx",
-                lineNumber: 117,
+                lineNumber: 116,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/Components/CategoryGrid.tsx",
-            lineNumber: 116,
+            lineNumber: 115,
             columnNumber: 7
         }, this);
     }
@@ -5192,7 +5166,7 @@ function CategoryCarousel() {
                             children: "⚠️"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/CategoryGrid.tsx",
-                            lineNumber: 133,
+                            lineNumber: 132,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -5200,7 +5174,7 @@ function CategoryCarousel() {
                             children: "Unable to load categories"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/CategoryGrid.tsx",
-                            lineNumber: 134,
+                            lineNumber: 133,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5208,7 +5182,7 @@ function CategoryCarousel() {
                             children: error
                         }, void 0, false, {
                             fileName: "[project]/src/Components/CategoryGrid.tsx",
-                            lineNumber: 135,
+                            lineNumber: 134,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -5217,23 +5191,23 @@ function CategoryCarousel() {
                             children: "Try Again"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/CategoryGrid.tsx",
-                            lineNumber: 136,
+                            lineNumber: 135,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/Components/CategoryGrid.tsx",
-                    lineNumber: 132,
+                    lineNumber: 131,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/Components/CategoryGrid.tsx",
-                lineNumber: 131,
+                lineNumber: 130,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/Components/CategoryGrid.tsx",
-            lineNumber: 130,
+            lineNumber: 129,
             columnNumber: 7
         }, this);
     }
@@ -5251,7 +5225,7 @@ function CategoryCarousel() {
                             children: "📂"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/CategoryGrid.tsx",
-                            lineNumber: 154,
+                            lineNumber: 153,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -5259,7 +5233,7 @@ function CategoryCarousel() {
                             children: "No categories available"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/CategoryGrid.tsx",
-                            lineNumber: 155,
+                            lineNumber: 154,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5267,23 +5241,23 @@ function CategoryCarousel() {
                             children: "Check back later for available support categories."
                         }, void 0, false, {
                             fileName: "[project]/src/Components/CategoryGrid.tsx",
-                            lineNumber: 156,
+                            lineNumber: 155,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/Components/CategoryGrid.tsx",
-                    lineNumber: 153,
+                    lineNumber: 152,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/Components/CategoryGrid.tsx",
-                lineNumber: 152,
+                lineNumber: 151,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/Components/CategoryGrid.tsx",
-            lineNumber: 151,
+            lineNumber: 150,
             columnNumber: 7
         }, this);
     }
@@ -5297,48 +5271,48 @@ function CategoryCarousel() {
                         className: "jsx-23581a06f7ec4910" + " " + "absolute top-10 right-10 w-96 h-96 bg-gradient-to-br from-blue-100/30 to-purple-100/30 rounded-full blur-3xl"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/CategoryGrid.tsx",
-                        lineNumber: 167,
+                        lineNumber: 166,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "jsx-23581a06f7ec4910" + " " + "absolute bottom-10 left-10 w-80 h-80 bg-gradient-to-br from-emerald-100/30 to-cyan-100/30 rounded-full blur-3xl"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/CategoryGrid.tsx",
-                        lineNumber: 168,
+                        lineNumber: 167,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/CategoryGrid.tsx",
-                lineNumber: 166,
+                lineNumber: 165,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "jsx-23581a06f7ec4910" + " " + "container mx-auto px-6 max-w-7xl relative z-10",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-23581a06f7ec4910" + " " + "text-center mb-16",
+                        className: "jsx-23581a06f7ec4910" + " " + "text-center mb-12 sm:mb-16 px-4",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "jsx-23581a06f7ec4910" + " " + "text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6 leading-tight",
+                                className: "jsx-23581a06f7ec4910" + " " + "text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-4 sm:mb-6 leading-tight",
                                 children: "Explore Support Categories"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                lineNumber: 174,
+                                lineNumber: 173,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "jsx-23581a06f7ec4910" + " " + "text-2xl text-black max-w-2xl mx-auto leading-relaxed font-semibold",
+                                className: "jsx-23581a06f7ec4910" + " " + "text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular",
                                 children: "Connect with compassionate listeners who understand your unique needs and experiences"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                lineNumber: 177,
+                                lineNumber: 176,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/Components/CategoryGrid.tsx",
-                        lineNumber: 173,
+                        lineNumber: 172,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5349,12 +5323,12 @@ function CategoryCarousel() {
                                 onMouseEnter: ()=>setIsAutoPlaying(false),
                                 onMouseLeave: ()=>setIsAutoPlaying(true),
                                 disabled: currentIndex === 0 && !isAutoPlaying,
-                                className: "jsx-23581a06f7ec4910" + " " + "absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-white/50 flex items-center justify-center hover:bg-white hover:shadow-xl transition-all duration-300 group -translate-x-6",
+                                className: "jsx-23581a06f7ec4910" + " " + "absolute left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-white/50 flex items-center justify-center hover:bg-white hover:shadow-xl transition-all duration-300 group -translate-x-3 sm:-translate-x-4 lg:-translate-x-6",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                     fill: "none",
                                     stroke: "currentColor",
                                     viewBox: "0 0 24 24",
-                                    className: "jsx-23581a06f7ec4910" + " " + "w-6 h-6 text-slate-600 group-hover:text-slate-800 transform group-hover:-translate-x-0.5 transition-all",
+                                    className: "jsx-23581a06f7ec4910" + " " + "w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-slate-600 group-hover:text-slate-800 transform group-hover:-translate-x-0.5 transition-all",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
                                         strokeLinecap: "round",
                                         strokeLinejoin: "round",
@@ -5363,17 +5337,17 @@ function CategoryCarousel() {
                                         className: "jsx-23581a06f7ec4910"
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                        lineNumber: 198,
+                                        lineNumber: 197,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                    lineNumber: 192,
+                                    lineNumber: 191,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                lineNumber: 185,
+                                lineNumber: 184,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -5381,12 +5355,12 @@ function CategoryCarousel() {
                                 onMouseEnter: ()=>setIsAutoPlaying(false),
                                 onMouseLeave: ()=>setIsAutoPlaying(true),
                                 disabled: currentIndex === maxIndex && !isAutoPlaying,
-                                className: "jsx-23581a06f7ec4910" + " " + "absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-white/50 flex items-center justify-center hover:bg-white hover:shadow-xl transition-all duration-300 group translate-x-6",
+                                className: "jsx-23581a06f7ec4910" + " " + "absolute right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-white/50 flex items-center justify-center hover:bg-white hover:shadow-xl transition-all duration-300 group translate-x-3 sm:translate-x-4 lg:translate-x-6",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                     fill: "none",
                                     stroke: "currentColor",
                                     viewBox: "0 0 24 24",
-                                    className: "jsx-23581a06f7ec4910" + " " + "w-6 h-6 text-slate-600 group-hover:text-slate-800 transform group-hover:translate-x-0.5 transition-all",
+                                    className: "jsx-23581a06f7ec4910" + " " + "w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-slate-600 group-hover:text-slate-800 transform group-hover:translate-x-0.5 transition-all",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
                                         strokeLinecap: "round",
                                         strokeLinejoin: "round",
@@ -5395,17 +5369,17 @@ function CategoryCarousel() {
                                         className: "jsx-23581a06f7ec4910"
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                        lineNumber: 215,
+                                        lineNumber: 214,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                    lineNumber: 209,
+                                    lineNumber: 208,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                lineNumber: 202,
+                                lineNumber: 201,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5421,9 +5395,9 @@ function CategoryCarousel() {
                                             style: {
                                                 width: "".concat(100 / itemsPerView, "%")
                                             },
-                                            className: "jsx-23581a06f7ec4910" + " " + "flex-shrink-0 px-3",
+                                            className: "jsx-23581a06f7ec4910" + " " + "flex-shrink-0 px-2 sm:px-3",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "jsx-23581a06f7ec4910" + " " + "group transform transition-all duration-300 hover:scale-105",
+                                                className: "jsx-23581a06f7ec4910" + " " + "group transform transition-all duration-300 ",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "jsx-23581a06f7ec4910" + " " + "relative",
                                                     children: [
@@ -5431,7 +5405,7 @@ function CategoryCarousel() {
                                                             className: "jsx-23581a06f7ec4910" + " " + "absolute -inset-1 bg-gradient-to-r from-blue-200 to-purple-200 rounded-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 blur pointer-events-none"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                                            lineNumber: 238,
+                                                            lineNumber: 237,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$CategoryCard$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -5440,64 +5414,64 @@ function CategoryCarousel() {
                                                             className: "relative bg-white/80 backdrop-blur-sm border border-white/50 shadow-lg hover:shadow-2xl transition-all duration-500 rounded-2xl overflow-hidden h-full"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                                            lineNumber: 240,
+                                                            lineNumber: 239,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                                    lineNumber: 236,
+                                                    lineNumber: 235,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                                lineNumber: 235,
+                                                lineNumber: 234,
                                                 columnNumber: 19
                                             }, this)
                                         }, cat.id, false, {
                                             fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                            lineNumber: 230,
+                                            lineNumber: 229,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                    lineNumber: 221,
+                                    lineNumber: 220,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                lineNumber: 220,
+                                lineNumber: 219,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-23581a06f7ec4910" + " " + "flex justify-center items-center mt-8 gap-2",
+                                className: "jsx-23581a06f7ec4910" + " " + "flex justify-center items-center mt-6 sm:mt-8 gap-1.5 sm:gap-2",
                                 children: Array.from({
                                     length: maxIndex + 1
                                 }).map((_, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>goToSlide(index),
                                         onMouseEnter: ()=>setIsAutoPlaying(false),
                                         onMouseLeave: ()=>setIsAutoPlaying(true),
-                                        className: "jsx-23581a06f7ec4910" + " " + "w-3 h-3 rounded-full transition-all duration-300 ".concat(currentIndex === index ? 'bg-white shadow-lg scale-110' : 'bg-white/50 hover:bg-white/70')
+                                        className: "jsx-23581a06f7ec4910" + " " + "w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ".concat(currentIndex === index ? 'bg-white shadow-lg scale-110' : 'bg-white/50 hover:bg-white/70')
                                     }, index, false, {
                                         fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                        lineNumber: 255,
+                                        lineNumber: 254,
                                         columnNumber: 15
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/CategoryGrid.tsx",
-                                lineNumber: 253,
+                                lineNumber: 252,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/Components/CategoryGrid.tsx",
-                        lineNumber: 183,
+                        lineNumber: 182,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/CategoryGrid.tsx",
-                lineNumber: 171,
+                lineNumber: 170,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -5507,7 +5481,7 @@ function CategoryCarousel() {
         ]
     }, void 0, true, {
         fileName: "[project]/src/Components/CategoryGrid.tsx",
-        lineNumber: 164,
+        lineNumber: 163,
         columnNumber: 5
     }, this);
 }
@@ -5640,7 +5614,7 @@ function CommunitySection() {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "relative",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-gray-700 text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed font-medium",
+                                    className: "text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular",
                                     children: [
                                         "We're a ",
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -6033,7 +6007,6 @@ function ResourcesBlogPreview() {
                         }
                     } catch (err) {
                         setError('An error occurred while fetching data');
-                        console.error('Error fetching data:', err);
                     } finally{
                         setLoading(false);
                     }
@@ -6065,7 +6038,6 @@ function ResourcesBlogPreview() {
     const filteredPosts = activeCategory === "All" ? transformedBlogs : transformedBlogs.filter((post)=>post.category === activeCategory);
     // Handle blog click navigation
     const handleBlogClick = (blogSlug)=>{
-        console.log("Navigating to blog:", blogSlug);
         router.push("/blog/".concat(blogSlug));
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -6075,21 +6047,21 @@ function ResourcesBlogPreview() {
                 className: "absolute top-16 left-8 w-44 h-44 bg-gradient-to-br from-[#4CAF50]/6 to-[#2196F3]/4 rounded-full blur-3xl animate-pulse"
             }, void 0, false, {
                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                lineNumber: 169,
+                lineNumber: 167,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute bottom-20 right-12 w-52 h-52 bg-gradient-to-br from-[#E91E63]/6 to-[#9C27B0]/4 rounded-full blur-3xl animate-pulse delay-700"
             }, void 0, false, {
                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                lineNumber: 170,
+                lineNumber: 168,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute top-1/3 right-1/5 w-36 h-36 bg-gradient-to-br from-[#FF9800]/5 to-[#FF5722]/3 rounded-full blur-2xl animate-pulse delay-1000"
             }, void 0, false, {
                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                lineNumber: 171,
+                lineNumber: 169,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6103,28 +6075,28 @@ function ResourcesBlogPreview() {
                                 children: "Blogs"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                lineNumber: 201,
+                                lineNumber: 199,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "max-w-4xl mx-auto mb-6",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-2xl md:text-2xl text-black leading-relaxed font-medium mb-4",
+                                    className: "text-lg md:text-xl text-black leading-relaxed font-regular mb-4",
                                     children: "Discover gentle, evidence-based insights on mental health, self-care, and emotional wellness. Created with care by our community of healers and helpers."
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                    lineNumber: 206,
+                                    lineNumber: 204,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                lineNumber: 205,
+                                lineNumber: 203,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                        lineNumber: 187,
+                        lineNumber: 185,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6135,12 +6107,12 @@ function ResourcesBlogPreview() {
                                 children: category
                             }, index, false, {
                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                lineNumber: 241,
+                                lineNumber: 239,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                        lineNumber: 239,
+                        lineNumber: 237,
                         columnNumber: 9
                     }, this),
                     loading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6150,7 +6122,7 @@ function ResourcesBlogPreview() {
                                 className: "animate-spin rounded-full h-12 w-12 border-b-2 border-[#FF5722]"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                lineNumber: 257,
+                                lineNumber: 255,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -6158,13 +6130,13 @@ function ResourcesBlogPreview() {
                                 children: "Loading blogs..."
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                lineNumber: 258,
+                                lineNumber: 256,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                        lineNumber: 256,
+                        lineNumber: 254,
                         columnNumber: 11
                     }, this),
                     error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6177,7 +6149,7 @@ function ResourcesBlogPreview() {
                                     children: "Error loading blogs"
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                    lineNumber: 266,
+                                    lineNumber: 264,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -6185,18 +6157,18 @@ function ResourcesBlogPreview() {
                                     children: error
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                    lineNumber: 267,
+                                    lineNumber: 265,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                            lineNumber: 265,
+                            lineNumber: 263,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                        lineNumber: 264,
+                        lineNumber: 262,
                         columnNumber: 11
                     }, this),
                     !loading && !error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6208,12 +6180,12 @@ function ResourcesBlogPreview() {
                                 children: "No blogs found for the selected category."
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                lineNumber: 277,
+                                lineNumber: 275,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                            lineNumber: 276,
+                            lineNumber: 274,
                             columnNumber: 15
                         }, this) : filteredPosts.map((post, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
                                 className: "group bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02] border-2 ".concat(post.borderColor, " hover:border-opacity-50 overflow-hidden cursor-pointer"),
@@ -6230,14 +6202,14 @@ function ResourcesBlogPreview() {
                                                 className: "w-full h-full object-cover group-hover:scale-110 transition-all duration-500"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                                lineNumber: 291,
+                                                lineNumber: 289,
                                                 columnNumber: 23
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "text-6xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 drop-shadow-lg",
                                                 children: "📝"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                                lineNumber: 297,
+                                                lineNumber: 295,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6246,12 +6218,12 @@ function ResourcesBlogPreview() {
                                                     className: "w-6 h-6 text-white"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                                    lineNumber: 304,
+                                                    lineNumber: 302,
                                                     columnNumber: 23
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                                lineNumber: 303,
+                                                lineNumber: 301,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6260,12 +6232,12 @@ function ResourcesBlogPreview() {
                                                     className: "w-5 h-5 text-white"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                                    lineNumber: 307,
+                                                    lineNumber: 305,
                                                     columnNumber: 23
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                                lineNumber: 306,
+                                                lineNumber: 304,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6273,13 +6245,13 @@ function ResourcesBlogPreview() {
                                                 children: post.category
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                                lineNumber: 311,
+                                                lineNumber: 309,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                        lineNumber: 289,
+                                        lineNumber: 287,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6290,7 +6262,7 @@ function ResourcesBlogPreview() {
                                                 children: post.title
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                                lineNumber: 318,
+                                                lineNumber: 316,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -6298,7 +6270,7 @@ function ResourcesBlogPreview() {
                                                 children: post.excerpt
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                                lineNumber: 322,
+                                                lineNumber: 320,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6307,12 +6279,12 @@ function ResourcesBlogPreview() {
                                                     className: "flex items-center gap-4"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                                    lineNumber: 328,
+                                                    lineNumber: 326,
                                                     columnNumber: 23
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                                lineNumber: 327,
+                                                lineNumber: 325,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6329,69 +6301,69 @@ function ResourcesBlogPreview() {
                                                                 children: "Read More"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                                                lineNumber: 345,
+                                                                lineNumber: 343,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
                                                                 className: "w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                                                lineNumber: 346,
+                                                                lineNumber: 344,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                                        lineNumber: 338,
+                                                        lineNumber: 336,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "w-12 h-1 ".concat(post.categoryBg, " rounded-full group-hover:w-16 transition-all duration-500")
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                                        lineNumber: 349,
+                                                        lineNumber: 347,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                                lineNumber: 337,
+                                                lineNumber: 335,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                        lineNumber: 317,
+                                        lineNumber: 315,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-500 ".concat(post.bgGradient.replace('/15', '').replace('/10', ''), " blur-xl -z-10")
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                        lineNumber: 354,
+                                        lineNumber: 352,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, post.id, true, {
                                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                                lineNumber: 281,
+                                lineNumber: 279,
                                 columnNumber: 17
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                        lineNumber: 274,
+                        lineNumber: 272,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-                lineNumber: 184,
+                lineNumber: 182,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/Components/ResourcesBlogPreview.jsx",
-        lineNumber: 166,
+        lineNumber: 164,
         columnNumber: 5
     }, this);
 }
@@ -6432,7 +6404,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 ;
 function Footer() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
-        className: "bg-white text-[#8B4513] relative overflow-hidden",
+        className: "bg-white text-[#000000] relative overflow-hidden",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-[#FFB88C] via-[#FFF8B5] to-[#FFD1A9]"
@@ -6470,13 +6442,13 @@ function Footer() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "container mx-auto px-6 py-20 relative z-10",
+                className: "container mx-auto px-4 sm:px-6 py-16 sm:py-20 relative z-10",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "grid gap-12 md:grid-cols-4",
+                        className: "grid gap-8 sm:gap-12 md:grid-cols-2 lg:grid-cols-4",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "md:col-span-1",
+                                className: "md:col-span-2 lg:col-span-1",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex items-center gap-4 mb-8",
@@ -6503,7 +6475,7 @@ function Footer() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-[#8B4513]/80 leading-relaxed mb-8 font-medium text-lg",
+                                        className: "text-[#000000]/80 leading-relaxed mb-6 sm:mb-8 font-medium text-base sm:text-lg",
                                         children: "Your sanctuary for emotional well-being and mental health support. Building a compassionate community where healing thrives naturally."
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/Footer.jsx",
@@ -6517,14 +6489,14 @@ function Footer() {
                                                 className: "flex items-center gap-3 px-4 py-3 bg-white/60 rounded-2xl border-2 border-[#FFB88C]/30 backdrop-blur-sm shadow-lg",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__["Shield"], {
-                                                        className: "w-5 h-5 text-[#8B4513]"
+                                                        className: "w-5 h-5 text-[#000000]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/Footer.jsx",
                                                         lineNumber: 51,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "text-sm font-bold text-[#8B4513]",
+                                                        className: "text-sm font-bold text-[#000000]",
                                                         children: "Secure & Safe"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/Footer.jsx",
@@ -6541,14 +6513,14 @@ function Footer() {
                                                 className: "flex items-center gap-3 px-4 py-3 bg-white/60 rounded-2xl border-2 border-[#F9E79F]/30 backdrop-blur-sm shadow-lg",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$leaf$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Leaf$3e$__["Leaf"], {
-                                                        className: "w-5 h-5 text-[#8B4513]"
+                                                        className: "w-5 h-5 text-[#000000]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/Footer.jsx",
                                                         lineNumber: 55,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "text-sm font-bold text-[#8B4513]",
+                                                        className: "text-sm font-bold text-[#000000]",
                                                         children: "Nurturing"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/Components/Footer.jsx",
@@ -6578,7 +6550,7 @@ function Footer() {
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex items-center gap-3 mb-8",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                            className: "text-2xl font-bold text-[#8B4513]",
+                                            className: "text-2xl font-bold text-[#000000]",
                                             children: "Quick Links"
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/Footer.jsx",
@@ -6613,7 +6585,7 @@ function Footer() {
                                         ].map((link, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                                     href: link.href,
-                                                    className: "group flex items-center gap-3 text-[#8B4513]/70 hover:text-[#8B4513] transition-all duration-300 hover:translate-x-2 py-2",
+                                                    className: "group flex items-center gap-3 text-[#000000]/70 hover:text-[#000000] transition-all duration-300 hover:translate-x-2 py-2",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "w-2 h-2 bg-gradient-to-r from-[#FFB88C] to-[#F9E79F] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-125"
@@ -6657,7 +6629,7 @@ function Footer() {
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex items-center gap-3 mb-8",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                            className: "text-2xl font-bold text-[#8B4513]",
+                                            className: "text-2xl font-bold text-[#000000]",
                                             children: "Support"
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/Footer.jsx",
@@ -6687,7 +6659,7 @@ function Footer() {
                                         ].map((link, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                                     href: link.href,
-                                                    className: "group flex items-center gap-3 text-[#8B4513]/70 hover:text-[#8B4513] transition-all duration-300 hover:translate-x-2 py-2",
+                                                    className: "group flex items-center gap-3 text-[#000000]/70 hover:text-[#000000] transition-all duration-300 hover:translate-x-2 py-2",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "w-2 h-2 bg-gradient-to-r from-[#FFF8B5] to-[#FFD1A9] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-125"
@@ -6731,7 +6703,7 @@ function Footer() {
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex items-center gap-3 mb-8",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                            className: "text-2xl font-bold text-[#8B4513]",
+                                            className: "text-2xl font-bold text-[#000000]",
                                             children: "Stay Connected"
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/Footer.jsx",
@@ -6747,12 +6719,12 @@ function Footer() {
                                         className: "space-y-5 mb-8",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex items-center gap-4 text-[#8B4513]/80",
+                                                className: "flex items-center gap-4 text-[#000000]/80",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "w-8 h-8 bg-[#FFB88C]/30 rounded-xl flex items-center justify-center",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mail$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Mail$3e$__["Mail"], {
-                                                            className: "w-5 h-5 text-[#8B4513]"
+                                                            className: "w-5 h-5 text-[#000000]"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/Footer.jsx",
                                                             lineNumber: 151,
@@ -6778,12 +6750,12 @@ function Footer() {
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex items-center gap-4 text-[#8B4513]/80",
+                                                className: "flex items-center gap-4 text-[#000000]/80",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "w-8 h-8 bg-[#F9E79F]/30 rounded-xl flex items-center justify-center",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__["MapPin"], {
-                                                            className: "w-5 h-5 text-[#8B4513]"
+                                                            className: "w-5 h-5 text-[#000000]"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/Footer.jsx",
                                                             lineNumber: 157,
@@ -6818,7 +6790,7 @@ function Footer() {
                                         className: "mb-8",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-[#8B4513]/70 text-sm mb-5 font-semibold",
+                                                className: "text-[#000000]/70 text-sm mb-5 font-semibold",
                                                 children: "Follow our healing journey"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/Footer.jsx",
@@ -6848,7 +6820,7 @@ function Footer() {
                                                     let { image, name } = param;
                                                     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                                         href: "#",
-                                                        className: "group w-14 h-14 bg-white/70 rounded-2xl flex items-center justify-center hover:bg-gradient-to-br hover:from-[#FFB88C] hover:to-[#F9E79F] transition-all duration-300 hover:scale-110 hover:shadow-xl backdrop-blur-sm border-2 border-[#FFB88C]/20 hover:border-[#8B4513]/30",
+                                                        className: "group w-14 h-14 bg-white/70 rounded-2xl flex items-center justify-center hover:bg-gradient-to-br hover:from-[#FFB88C] hover:to-[#F9E79F] transition-all duration-300 hover:scale-110 hover:shadow-xl backdrop-blur-sm border-2 border-[#FFB88C]/20 hover:border-[#000000]/30",
                                                         "aria-label": name,
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                             src: image,
@@ -6896,7 +6868,7 @@ function Footer() {
                             className: "flex flex-col md:flex-row justify-between items-center gap-6",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "flex flex-col md:flex-row items-center gap-6 text-[#8B4513]/70 text-sm",
+                                    className: "flex flex-col md:flex-row items-center gap-6 text-[#000000]/70 text-sm",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         className: "font-bold text-lg",
                                         children: [
@@ -7043,47 +7015,47 @@ function HomePage() {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$Features$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 27,
+                lineNumber: 26,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$HowItWorksSection$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 28,
+                lineNumber: 27,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$WhyElysian$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 29,
+                lineNumber: 28,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$CategoryGrid$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 30,
+                lineNumber: 29,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ListenerCarousel$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 31,
+                lineNumber: 30,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$EmotionalTestimonials$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 32,
+                lineNumber: 31,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$CommunityGrid$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 33,
+                lineNumber: 32,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ResourcesBlogPreview$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 34,
+                lineNumber: 33,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$Footer$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 35,
+                lineNumber: 34,
                 columnNumber: 7
             }, this)
         ]

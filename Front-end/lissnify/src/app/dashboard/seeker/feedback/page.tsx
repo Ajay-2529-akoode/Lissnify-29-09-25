@@ -110,7 +110,6 @@ export default function FeedbackPage() {
       }
       
     } catch (err) {
-      console.error("Error submitting feedback:", err);
       setError("Failed to submit feedback. Please try again.");
       toast.error("Failed to submit feedback");
     } finally {

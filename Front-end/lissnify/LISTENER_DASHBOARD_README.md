@@ -48,7 +48,7 @@ The Listener Dashboard has been completely redesigned to match the Support Seeke
 ### 🗂️ Sidebar Navigation
 - **Collapsible Design**: Expands to `w-64`, collapses to `w-20` on medium screens
 - **Listener-Specific Items**: Dashboard, Chats, Seekers, Schedule, Community, Settings
-- **Brand Section**: Elysian logo + "Mental Wellness" subtitle
+- **Brand Section**: Lissnify logo + "Mental Wellness" subtitle
 - **Responsive**: Hidden on mobile with toggle button
 - **Logout Button**: Pinned at bottom
 

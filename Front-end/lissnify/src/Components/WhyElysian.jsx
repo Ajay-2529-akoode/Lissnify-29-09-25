@@ -101,7 +101,7 @@ const WhyChooseUs = () => {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6 leading-tight">
             Why Choose Lissnify?
           </h2>
-          <p className="text-2xl md:text-2xl text-black max-w-3xl mx-auto leading-relaxed font-semibold">
+          <p className="text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular">
             We're not just another platform. We're a community built on empathy, trust, and genuine human connection. 
             Here's what makes us different.
           </p>
@@ -127,7 +127,7 @@ const WhyChooseUs = () => {
           </button>
 
           {/* Cards Container */}
-          <div className="overflow-hidden">
+          <div className="overflow-hidden py-5">
             <div 
               className="flex transition-transform duration-700 ease-in-out"
               style={{
@@ -136,6 +136,7 @@ const WhyChooseUs = () => {
             >
               {reasons.map((reason, index) => {
                 const IconComponent = reason.icon;
+                
                 return (
                   <div
                     key={index}

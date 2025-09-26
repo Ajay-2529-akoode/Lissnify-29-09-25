@@ -86,7 +86,6 @@ export default function CommunityPage() {
       // Load categories and posts in parallel
       const [categoriesData, postsData] = await Promise.all([
         CommunityService.getCategories().catch(err => {
-          console.error('Error loading categories:', err);
           // Return some default categories as fallback
           return [
             { id: 1, name: 'Breakup', description: 'Breakup support', icon: '', supportText: '', slug: 'breakup' },
@@ -98,13 +97,10 @@ export default function CommunityPage() {
           ];
         }),
         CommunityService.getCommunityPosts().catch(err => {
-          console.error('Error loading posts:', err);
           return [];
         })
       ]);
       
-      console.log('Loaded categories:', categoriesData);
-      console.log('Loaded posts:', postsData);
       setCategories(categoriesData || []);
       
       // Sort posts by creation date (oldest first, newest at bottom)
@@ -113,7 +109,6 @@ export default function CommunityPage() {
       );
       setPosts(sortedPosts);
     } catch (err) {
-      console.error('Error loading initial data:', err);
       setError('Failed to load community data. Please check your connection and try again.');
     } finally {
       setLoading(false);
@@ -143,24 +138,18 @@ export default function CommunityPage() {
         post_type: userType
       });
       
-      console.log('Created post response:', newPost);
-      console.log('Current user object:', user);
       
       // Create a complete post object with all necessary fields
       const completePost = createCompletePost(newPost);
-      console.log('Complete post object:', completePost);
-      console.log('Post ID:', completePost.id);
       
       // Add the new post to the end of the list (newest messages at bottom)
       setPosts(prev => {
         const updatedPosts = [...prev, completePost];
-        console.log('Updated posts list:', updatedPosts);
         return updatedPosts;
       });
       setNewMessage('');
       
       // Show success feedback
-      console.log('Message sent successfully and added to list');
       
       // Auto-scroll to bottom to show the new message
       setTimeout(() => {
@@ -170,7 +159,6 @@ export default function CommunityPage() {
       }, 100);
       
     } catch (err) {
-      console.error('Error creating post:', err);
       setError('Failed to create post. Please try again.');
     } finally {
       setSubmitting(false);
@@ -202,7 +190,6 @@ export default function CommunityPage() {
           : p
       ));
     } catch (err) {
-      console.error('Error toggling like:', err);
       setError('Failed to update like. Please try again.');
     }
   };
@@ -328,7 +315,6 @@ export default function CommunityPage() {
             {/* Messages List */}
             {!loading && (
               <div ref={messagesContainerRef} className="space-y-2 max-h-96 overflow-y-auto">
-                {console.log('Rendering posts:', filteredPosts.length, 'posts')}
                 {filteredPosts.map((post, index) => (
                     <div
                     key={post.id || `post-${index}`}

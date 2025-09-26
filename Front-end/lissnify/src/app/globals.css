@@ -1,3 +1,61 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Mobile-specific improvements */
+@media (max-width: 640px) {
+  /* Improve touch targets */
+  button, a, input, textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better spacing for mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Improve text readability on mobile */
+  body {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  /* Better mobile navigation */
+  .mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+  }
+  
+  /* Improve mobile chat interface */
+  .mobile-chat {
+    height: calc(100vh - 120px);
+    overflow: hidden;
+  }
+  
+  /* Better mobile cards */
+  .mobile-card {
+    margin: 0.5rem;
+    border-radius: 1rem;
+  }
+}
+
+/* Tablet improvements */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .tablet-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Desktop improvements */
+@media (min-width: 1025px) {
+  .desktop-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}

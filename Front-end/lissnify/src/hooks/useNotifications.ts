@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { ensureApiPrefix } from '@/config/api';
 
 export interface Notification {
   id: number;
@@ -32,7 +33,9 @@ export interface NotificationSettings {
   push_notifications: boolean;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ? 
+  ensureApiPrefix(process.env.NEXT_PUBLIC_API_URL) : 
+  ensureApiPrefix('https://lissnify-v2.onrender.com');
 
 export const useNotifications = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -89,7 +92,6 @@ export const useNotifications = () => {
 
   const fetchStats = useCallback(async () => {
     try {
-      console.log('📊 Fetching notification stats...');
       const response = await fetch(`${API_BASE_URL}/notifications/stats/`, {
         headers: getAuthHeaders(),
       });
@@ -99,11 +101,9 @@ export const useNotifications = () => {
       }
 
       const data = await response.json();
-      console.log('📊 Stats received:', data);
       setStats(data);
       return data;
     } catch (err) {
-      console.error('❌ Error fetching stats:', err);
       setError(err instanceof Error ? err.message : 'An error occurred');
       throw err;
     }
@@ -248,7 +248,6 @@ export const useNotifications = () => {
 
   // Load initial data
   useEffect(() => {
-    console.log('🔔 Loading initial notification data...');
     fetchNotifications();
     fetchStats();
     fetchSettings();

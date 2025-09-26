@@ -90,7 +90,7 @@ export default function Features() {
           </h2>
           
           
-          <p className="max-w-4xl mx-auto text-2xl text-gray-800 leading-relaxed font-medium">
+          <p className="text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular">
             Our platform is designed to support your mental and emotional well-being 
             through safe, friendly, and easy-to-use tools that prioritize your comfort and growth.
           </p>

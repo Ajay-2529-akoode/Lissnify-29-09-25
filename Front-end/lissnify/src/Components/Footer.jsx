@@ -6,7 +6,7 @@ import { Heart, Phone, Mail, MapPin, Shield, Users, MessageCircle, Star, Sun, Le
 
 export default function Footer() {
   return (
-    <footer className="bg-white text-[#8B4513] relative overflow-hidden">
+    <footer className="bg-white text-[#000000] relative overflow-hidden">
       
       {/* Decorative background elements with warm tones */}
       <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-[#FFB88C] via-[#FFF8B5] to-[#FFD1A9]"></div>
@@ -18,18 +18,18 @@ export default function Footer() {
       <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%23D2691E%22 fill-opacity=%220.03%22%3E%3Cpath d=%22m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
 
       
-      <div className="container mx-auto px-6 py-20 relative z-10">
-        <div className="grid gap-12 md:grid-cols-4">
+      <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-20 relative z-10">
+        <div className="grid gap-8 sm:gap-12 md:grid-cols-2 lg:grid-cols-4">
           
           {/* Enhanced Logo + Tagline with warm colors */}
-          <div className="md:col-span-1">
+          <div className="md:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-4 mb-8">
               {/* <div className="relative"> */}
                 {/* <div className="w-14 h-14 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-2xl flex items-center justify-center shadow-2xl border-2 border-white/50">
-                  <Heart className="w-8 h-8 text-[#8B4513] animate-pulse" />
+                  <Heart className="w-8 h-8 text-[#000000] animate-pulse" />
                 </div> */}
                 {/* <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-[#FFF8B5] to-[#F9E79F] rounded-full border-3 border-white flex items-center justify-center">
-                  <Sun className="w-3 h-3 text-[#8B4513]" />
+                  <Sun className="w-3 h-3 text-[#000000]" />
                 </div> */}
               {/* </div> */}
               <Link href="/" className="hover:opacity-80 transition-opacity duration-300">
@@ -40,7 +40,7 @@ export default function Footer() {
                 />
               </Link>
             </div>
-            <p className="text-[#8B4513]/80 leading-relaxed mb-8 font-medium text-lg">
+            <p className="text-[#000000]/80 leading-relaxed mb-6 sm:mb-8 font-medium text-base sm:text-lg">
               Your sanctuary for emotional well-being and mental health support. 
               Building a compassionate community where healing thrives naturally.
             </p>
@@ -48,20 +48,20 @@ export default function Footer() {
             {/* Trust indicators with warm styling */}
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-3 px-4 py-3 bg-white/60 rounded-2xl border-2 border-[#FFB88C]/30 backdrop-blur-sm shadow-lg">
-                <Shield className="w-5 h-5 text-[#8B4513]" />
-                <span className="text-sm font-bold text-[#8B4513]">Secure & Safe</span>
+                <Shield className="w-5 h-5 text-[#000000]" />
+                <span className="text-sm font-bold text-[#000000]">Secure & Safe</span>
               </div>
               <div className="flex items-center gap-3 px-4 py-3 bg-white/60 rounded-2xl border-2 border-[#F9E79F]/30 backdrop-blur-sm shadow-lg">
-                <Leaf className="w-5 h-5 text-[#8B4513]" />
-                <span className="text-sm font-bold text-[#8B4513]">Nurturing</span>
+                <Leaf className="w-5 h-5 text-[#000000]" />
+                <span className="text-sm font-bold text-[#000000]">Nurturing</span>
               </div>
               {/* <div className="flex items-center gap-3 px-4 py-3 bg-white/60 rounded-2xl border-2 border-[#F9E79F]/30 backdrop-blur-sm shadow-lg">
-                <Leaf className="w-5 h-5 text-[#8B4513]" />
-                <span className="text-sm font-bold text-[#8B4513]">Nurturing</span>
+                <Leaf className="w-5 h-5 text-[#000000]" />
+                <span className="text-sm font-bold text-[#000000]">Nurturing</span>
               </div>
               <div className="flex items-center gap-3 px-4 py-3 bg-white/60 rounded-2xl border-2 border-[#F9E79F]/30 backdrop-blur-sm shadow-lg">
-                <Leaf className="w-5 h-5 text-[#8B4513]" />
-                <span className="text-sm font-bold text-[#8B4513]">Nurturing</span>
+                <Leaf className="w-5 h-5 text-[#000000]" />
+                <span className="text-sm font-bold text-[#000000]">Nurturing</span>
               </div> */}
             </div>
           </div>
@@ -70,9 +70,9 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-8">
               {/* <div className="w-10 h-10 bg-gradient-to-br from-[#FFB88C]/30 to-[#FFF8B5]/30 rounded-xl flex items-center justify-center border border-[#FFB88C]/40">
-                <Star className="w-5 h-5 text-[#8B4513]" />
+                <Star className="w-5 h-5 text-[#000000]" />
               </div> */}
-              <h3 className="text-2xl font-bold text-[#8B4513]">Quick Links</h3>
+              <h3 className="text-2xl font-bold text-[#000000]">Quick Links</h3>
             </div>
             <ul className="space-y-4">
               {[
@@ -85,7 +85,7 @@ export default function Footer() {
                 <li key={index}>
                   <a 
                     href={link.href} 
-                    className="group flex items-center gap-3 text-[#8B4513]/70 hover:text-[#8B4513] transition-all duration-300 hover:translate-x-2 py-2"
+                    className="group flex items-center gap-3 text-[#000000]/70 hover:text-[#000000] transition-all duration-300 hover:translate-x-2 py-2"
                   >
                     <div className="w-2 h-2 bg-gradient-to-r from-[#FFB88C] to-[#F9E79F] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-125"></div>
                     <span className="font-semibold text-lg group-hover:font-bold">{link.name}</span>
@@ -99,9 +99,9 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-8">
               {/* <div className="w-10 h-10 bg-gradient-to-br from-[#FFF8B5]/30 to-[#FFD1A9]/30 rounded-xl flex items-center justify-center border border-[#FFF8B5]/40">
-                <MessageCircle className="w-5 h-5 text-[#8B4513]" />
+                <MessageCircle className="w-5 h-5 text-[#000000]" />
               </div> */}
-              <h3 className="text-2xl font-bold text-[#8B4513]">Support</h3>
+              <h3 className="text-2xl font-bold text-[#000000]">Support</h3>
             </div>
             <ul className="space-y-4 mb-8">
               {[
@@ -113,7 +113,7 @@ export default function Footer() {
                 <li key={index}>
                   <a 
                     href={link.href} 
-                    className="group flex items-center gap-3 text-[#8B4513]/70 hover:text-[#8B4513] transition-all duration-300 hover:translate-x-2 py-2"
+                    className="group flex items-center gap-3 text-[#000000]/70 hover:text-[#000000] transition-all duration-300 hover:translate-x-2 py-2"
                   >
                     <div className="w-2 h-2 bg-gradient-to-r from-[#FFF8B5] to-[#FFD1A9] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-125"></div>
                     <span className="font-semibold text-lg group-hover:font-bold">{link.name}</span>
@@ -126,12 +126,12 @@ export default function Footer() {
             {/* <div className="p-6 bg-gradient-to-br from-[#FFB88C]/20 to-[#F9E79F]/20 rounded-2xl border-2 border-[#FFB88C]/30 backdrop-blur-sm shadow-xl">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-8 h-8 bg-gradient-to-r from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center">
-                  <Phone className="w-4 h-4 text-[#8B4513] animate-pulse" />
+                  <Phone className="w-4 h-4 text-[#000000] animate-pulse" />
                 </div>
-                <span className="text-sm font-bold text-[#8B4513]">Crisis Hotline</span>
+                <span className="text-sm font-bold text-[#000000]">Crisis Hotline</span>
               </div>
-              <p className="text-[#8B4513] font-bold text-xl">1-800-HELP-NOW</p>
-              <p className="text-[#8B4513]/60 text-sm font-medium">Available 24/7 • You're never alone</p>
+              <p className="text-[#000000] font-bold text-xl">1-800-HELP-NOW</p>
+              <p className="text-[#000000]/60 text-sm font-medium">Available 24/7 • You're never alone</p>
             </div> */}
           </div>
 
@@ -139,22 +139,22 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-8">
               {/* <div className="w-10 h-10 bg-gradient-to-br from-[#F9E79F]/30 to-[#FFB88C]/30 rounded-xl flex items-center justify-center border border-[#F9E79F]/40">
-                <Heart className="w-5 h-5 text-[#8B4513]" />
+                <Heart className="w-5 h-5 text-[#000000]" />
               </div> */}
-              <h3 className="text-2xl font-bold text-[#8B4513]">Stay Connected</h3>
+              <h3 className="text-2xl font-bold text-[#000000]">Stay Connected</h3>
             </div>
             
             {/* Contact info */}
             <div className="space-y-5 mb-8">
-              <div className="flex items-center gap-4 text-[#8B4513]/80">
+              <div className="flex items-center gap-4 text-[#000000]/80">
                 <div className="w-8 h-8 bg-[#FFB88C]/30 rounded-xl flex items-center justify-center">
-                  <Mail className="w-5 h-5 text-[#8B4513]" />
+                  <Mail className="w-5 h-5 text-[#000000]" />
                 </div>
                 <span className="font-semibold text-lg">support@Lissnify.com</span>
               </div>
-              <div className="flex items-center gap-4 text-[#8B4513]/80">
+              <div className="flex items-center gap-4 text-[#000000]/80">
                 <div className="w-8 h-8 bg-[#F9E79F]/30 rounded-xl flex items-center justify-center">
-                  <MapPin className="w-5 h-5 text-[#8B4513]" />
+                  <MapPin className="w-5 h-5 text-[#000000]" />
                 </div>
                 <span className="font-semibold text-lg">Worldwide Support</span>
               </div>
@@ -162,7 +162,7 @@ export default function Footer() {
             
             {/* Enhanced Social Media with warm styling */}
             <div className="mb-8">
-              <p className="text-[#8B4513]/70 text-sm mb-5 font-semibold">Follow our healing journey</p>
+              <p className="text-[#000000]/70 text-sm mb-5 font-semibold">Follow our healing journey</p>
               <div className="flex gap-4">
                 {[
                   { image: "/facebook.png", name: "Facebook" },
@@ -173,7 +173,7 @@ export default function Footer() {
                   <a
                     key={index}
                     href="#"
-                    className={`group w-14 h-14 bg-white/70 rounded-2xl flex items-center justify-center hover:bg-gradient-to-br hover:from-[#FFB88C] hover:to-[#F9E79F] transition-all duration-300 hover:scale-110 hover:shadow-xl backdrop-blur-sm border-2 border-[#FFB88C]/20 hover:border-[#8B4513]/30`}
+                    className={`group w-14 h-14 bg-white/70 rounded-2xl flex items-center justify-center hover:bg-gradient-to-br hover:from-[#FFB88C] hover:to-[#F9E79F] transition-all duration-300 hover:scale-110 hover:shadow-xl backdrop-blur-sm border-2 border-[#FFB88C]/20 hover:border-[#000000]/30`}
                     aria-label={name}
                   >
                     <Image
@@ -191,16 +191,16 @@ export default function Footer() {
             {/* Newsletter signup with warm, inviting design */}
             {/* <div className="p-6 bg-gradient-to-br from-[#FFF8B5]/30 to-[#FFD1A9]/30 rounded-2xl border-2 border-[#FFF8B5]/40 backdrop-blur-sm shadow-xl">
               <div className="flex items-center gap-2 mb-4">
-                <Sun className="w-5 h-5 text-[#8B4513]" />
-                <p className="text-base font-bold text-[#8B4513]">Weekly Wellness Tips</p>
+                <Sun className="w-5 h-5 text-[#000000]" />
+                <p className="text-base font-bold text-[#000000]">Weekly Wellness Tips</p>
               </div>
               <div className="flex gap-3">
                 <input 
                   type="email" 
                   placeholder="Enter your email" 
-                  className="flex-1 px-4 py-3 bg-white/80 border-2 border-[#FFB88C]/30 rounded-xl text-[#8B4513] placeholder-[#8B4513]/50 text-sm focus:outline-none focus:border-[#8B4513]/50 transition-all duration-300 backdrop-blur-sm"
+                  className="flex-1 px-4 py-3 bg-white/80 border-2 border-[#FFB88C]/30 rounded-xl text-[#000000] placeholder-[#000000]/50 text-sm focus:outline-none focus:border-[#000000]/50 transition-all duration-300 backdrop-blur-sm"
                 />
-                <button className="px-6 py-3 bg-gradient-to-r from-[#FFB88C] to-[#F9E79F] rounded-xl text-[#8B4513] text-sm font-bold hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-white/30">
+                <button className="px-6 py-3 bg-gradient-to-r from-[#FFB88C] to-[#F9E79F] rounded-xl text-[#000000] text-sm font-bold hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-white/30">
                   Join
                 </button>
               </div>
@@ -211,7 +211,7 @@ export default function Footer() {
         {/* Enhanced Bottom Bar with warm, grounding feel */}
         <div className="mt-8 pt-8 border-t-2 border-[#FFB88C]/30">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex flex-col md:flex-row items-center gap-6 text-[#8B4513]/70 text-sm">
+            <div className="flex flex-col md:flex-row items-center gap-6 text-[#000000]/70 text-sm">
               <span className="font-bold text-lg">© {new Date().getFullYear()} Lissnify. All rights reserved.</span>
               {/* <div className="flex items-center gap-3">
                 <Heart className="w-5 h-5 text-[#FFB88C] animate-pulse" />
@@ -226,7 +226,7 @@ export default function Footer() {
                 onClick={() => window.open("https://www.akoode.com/", "_blank")}
               >
                 <div className=""></div>
-                {/* <span className="text-sm font-bold text-[#8B4513]">All systems nurturing</span> */}
+                {/* <span className="text-sm font-bold text-[#000000]">All systems nurturing</span> */}
                 <Heart className="w-5 h-5 text-[#FFB88C] animate-pulse" />
                 <span className="font-semibold">Made with care for mental wellness</span>
               </div>

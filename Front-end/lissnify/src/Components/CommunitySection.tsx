@@ -31,7 +31,6 @@ export default function CommunitySection({ userType, currentUser }: CommunitySec
   const [newMessage, setNewMessage] = useState('');
 
   // Debug logging
-  console.log('CommunitySection - userType:', userType, 'currentUser:', currentUser);
 
   const categories = [
     'All', 'Breakup', 'Relationship Issues', 'Divorce', 'Loneliness', 

@@ -5,6 +5,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Bell, X, Settings, Check, Trash2 } from 'lucide-react';
 import { useNotifications } from '@/hooks/useNotifications';
 import { useNotificationWebSocket } from '@/hooks/useNotificationWebSocket';
+import { ensureApiPrefix } from '@/config/api';
 
 interface NotificationBellProps {
   className?: string;
@@ -39,10 +40,7 @@ export default function NotificationBell({ className = '' }: NotificationBellPro
 
   // Debug logging
   useEffect(() => {
-    console.log('🔔 NotificationBell - isConnected:', isConnected);
-    console.log('🔔 NotificationBell - unreadCount (WebSocket):', unreadCount);
-    console.log('🔔 NotificationBell - stats (API):', stats);
-    console.log('🔔 NotificationBell - final count:', unreadCount || stats?.unread_notifications || 0);
+    // NotificationBell state updated
   }, [isConnected, unreadCount, stats]);
 
   // Close dropdown when clicking outside
@@ -62,7 +60,6 @@ export default function NotificationBell({ className = '' }: NotificationBellPro
   useEffect(() => {
     if (newNotification) {
       // You can implement a toast notification here
-      console.log('New notification:', newNotification);
     }
   }, [newNotification]);
 
@@ -70,7 +67,7 @@ export default function NotificationBell({ className = '' }: NotificationBellPro
     try {
       await markAsRead(notificationId);
     } catch (error) {
-      console.error('Error marking notification as read:', error);
+      // Error marking notification as read
     }
   };
 
@@ -78,7 +75,7 @@ export default function NotificationBell({ className = '' }: NotificationBellPro
     try {
       await markAllAsRead();
     } catch (error) {
-      console.error('Error marking all notifications as read:', error);
+      // Error marking all notifications as read
     }
   };
 
@@ -86,7 +83,7 @@ export default function NotificationBell({ className = '' }: NotificationBellPro
     try {
       await deleteNotification(notificationId);
     } catch (error) {
-      console.error('Error deleting notification:', error);
+      // Error deleting notification
     }
   };
 
@@ -94,7 +91,7 @@ export default function NotificationBell({ className = '' }: NotificationBellPro
     try {
       await updateSettings(newSettings);
     } catch (error) {
-      console.error('Error updating settings:', error);
+      // Error updating settings
     }
   };
 
@@ -104,20 +101,21 @@ export default function NotificationBell({ className = '' }: NotificationBellPro
     
     // If opening the dropdown, refresh notifications
     if (newIsOpen) {
-      console.log('🔔 Opening notification dropdown, refreshing notifications...');
       try {
         await fetchNotifications();
         await refreshStats();
       } catch (error) {
-        console.error('❌ Error refreshing notifications:', error);
+        // Error refreshing notifications
       }
     }
   };
 
   const handleTestNotification = async () => {
     try {
-      console.log('🧪 Creating test notification...');
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://elysian-birt.onrender.com/api'}/notifications/test/`, {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL ? 
+        ensureApiPrefix(process.env.NEXT_PUBLIC_API_URL) : 
+        ensureApiPrefix('https://lissnify-v2.onrender.com');
+      const response = await fetch(`${apiUrl}/notifications/test/`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
@@ -127,15 +125,12 @@ export default function NotificationBell({ className = '' }: NotificationBellPro
       
       if (response.ok) {
         const data = await response.json();
-        console.log('✅ Test notification created:', data);
         // Refresh notifications
         fetchNotifications();
         refreshStats();
       } else {
-        console.error('❌ Failed to create test notification:', response.status);
       }
     } catch (error) {
-      console.error('❌ Error creating test notification:', error);
     }
   };
 

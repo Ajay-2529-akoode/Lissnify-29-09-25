@@ -30,11 +30,12 @@ module.exports = mod;
 // API Configuration
 __turbopack_context__.s({
     "API_CONFIG": ()=>API_CONFIG,
+    "ensureApiPrefix": ()=>ensureApiPrefix,
     "getApiUrl": ()=>getApiUrl
 });
 const API_CONFIG = {
     // Update this URL to match your backend server
-    BASE_URL: "http://localhost:8000",
+    BASE_URL: "https://lissnify-v2.onrender.com",
     // API Endpoints
     ENDPOINTS: {
         // Auth endpoints
@@ -81,6 +82,12 @@ const API_CONFIG = {
 };
 const getApiUrl = (endpoint)=>{
     return `${API_CONFIG.BASE_URL}${endpoint}`;
+};
+const ensureApiPrefix = (url)=>{
+    if (url.endsWith('/api')) {
+        return url;
+    }
+    return `${url}/api`;
 };
 }),
 "[project]/src/utils/api.ts [app-ssr] (ecmascript)": ((__turbopack_context__) => {
@@ -594,8 +601,10 @@ __turbopack_context__.s({
     "useNotifications": ()=>useNotifications
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/api.ts [app-ssr] (ecmascript)");
 ;
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+;
+const API_BASE_URL = ("TURBOPACK compile-time truthy", 1) ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ensureApiPrefix"])(("TURBOPACK compile-time value", "https://lissnify-v2.onrender.com")) : "TURBOPACK unreachable";
 const useNotifications = ()=>{
     const [notifications, setNotifications] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [stats, setStats] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
@@ -813,7 +822,7 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 ;
-const WS_BASE_URL = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8000';
+const WS_BASE_URL = process.env.NEXT_PUBLIC_WS_URL || 'wss://lissnify-v2.onrender.com';
 const useNotificationWebSocket = (onNotificationReceived)=>{
     const [socket, setSocket] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [isConnected, setIsConnected] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
@@ -957,7 +966,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-ssr] (ecmascript) <export default as Trash2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useNotifications$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/useNotifications.ts [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useNotificationWebSocket$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/useNotificationWebSocket.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/api.ts [app-ssr] (ecmascript)");
 'use client';
+;
 ;
 ;
 ;
@@ -1048,7 +1059,8 @@ function NotificationBell({ className = '' }) {
     const handleTestNotification = async ()=>{
         try {
             console.log('🧪 Creating test notification...');
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://elysian-birt.onrender.com/api'}/notifications/test/`, {
+            const apiUrl = ("TURBOPACK compile-time truthy", 1) ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ensureApiPrefix"])(("TURBOPACK compile-time value", "https://lissnify-v2.onrender.com")) : "TURBOPACK unreachable";
+            const response = await fetch(`${apiUrl}/notifications/test/`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
@@ -1105,7 +1117,7 @@ function NotificationBell({ className = '' }) {
                         className: "w-6 h-6"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 177,
+                        lineNumber: 181,
                         columnNumber: 9
                     }, this),
                     (()=>{
@@ -1115,7 +1127,7 @@ function NotificationBell({ className = '' }) {
                             children: count > 99 ? '99+' : count
                         }, void 0, false, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 181,
+                            lineNumber: 185,
                             columnNumber: 13
                         }, this);
                     })(),
@@ -1123,13 +1135,13 @@ function NotificationBell({ className = '' }) {
                         className: "absolute -bottom-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full border-2 border-white"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 187,
+                        lineNumber: 191,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                lineNumber: 173,
+                lineNumber: 177,
                 columnNumber: 7
             }, this),
             isOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1153,13 +1165,13 @@ function NotificationBell({ className = '' }) {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 200,
+                                            lineNumber: 204,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 197,
+                                    lineNumber: 201,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1172,7 +1184,7 @@ function NotificationBell({ className = '' }) {
                                             children: "🧪"
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 206,
+                                            lineNumber: 210,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1182,12 +1194,12 @@ function NotificationBell({ className = '' }) {
                                                 className: "w-4 h-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                lineNumber: 217,
+                                                lineNumber: 221,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 213,
+                                            lineNumber: 217,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1197,29 +1209,29 @@ function NotificationBell({ className = '' }) {
                                                 className: "w-4 h-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                lineNumber: 223,
+                                                lineNumber: 227,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 219,
+                                            lineNumber: 223,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 205,
+                                    lineNumber: 209,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 196,
+                            lineNumber: 200,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 195,
+                        lineNumber: 199,
                         columnNumber: 11
                     }, this),
                     showSettings && settings && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1230,7 +1242,7 @@ function NotificationBell({ className = '' }) {
                                 children: "Notification Settings"
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                lineNumber: 232,
+                                lineNumber: 236,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1247,7 +1259,7 @@ function NotificationBell({ className = '' }) {
                                                 className: "rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                lineNumber: 236,
+                                                lineNumber: 240,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1255,24 +1267,24 @@ function NotificationBell({ className = '' }) {
                                                 children: key.replace('_', ' ')
                                             }, void 0, false, {
                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                lineNumber: 242,
+                                                lineNumber: 246,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, key, true, {
                                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                                        lineNumber: 235,
+                                        lineNumber: 239,
                                         columnNumber: 19
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                lineNumber: 233,
+                                lineNumber: 237,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 231,
+                        lineNumber: 235,
                         columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1282,14 +1294,14 @@ function NotificationBell({ className = '' }) {
                             children: "Loading..."
                         }, void 0, false, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 254,
+                            lineNumber: 258,
                             columnNumber: 15
                         }, this) : notifications.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "p-4 text-center text-gray-500",
                             children: "No notifications"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 256,
+                            lineNumber: 260,
                             columnNumber: 15
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                             children: [
@@ -1301,12 +1313,12 @@ function NotificationBell({ className = '' }) {
                                         children: "Mark all as read"
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                                        lineNumber: 261,
+                                        lineNumber: 265,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 260,
+                                    lineNumber: 264,
                                     columnNumber: 15
                                 }, this),
                                 notifications.map((notification)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1319,7 +1331,7 @@ function NotificationBell({ className = '' }) {
                                                     children: getNotificationIcon(notification.notification_type)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                    lineNumber: 277,
+                                                    lineNumber: 281,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1333,7 +1345,7 @@ function NotificationBell({ className = '' }) {
                                                                     children: notification.title
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                    lineNumber: 282,
+                                                                    lineNumber: 286,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1347,12 +1359,12 @@ function NotificationBell({ className = '' }) {
                                                                                 className: "w-3 h-3"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                                lineNumber: 292,
+                                                                                lineNumber: 296,
                                                                                 columnNumber: 33
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                            lineNumber: 287,
+                                                                            lineNumber: 291,
                                                                             columnNumber: 31
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1363,24 +1375,24 @@ function NotificationBell({ className = '' }) {
                                                                                 className: "w-3 h-3"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                                lineNumber: 300,
+                                                                                lineNumber: 304,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                            lineNumber: 295,
+                                                                            lineNumber: 299,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                    lineNumber: 285,
+                                                                    lineNumber: 289,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                            lineNumber: 281,
+                                                            lineNumber: 285,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1388,7 +1400,7 @@ function NotificationBell({ className = '' }) {
                                                             children: notification.message
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                            lineNumber: 304,
+                                                            lineNumber: 308,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1399,7 +1411,7 @@ function NotificationBell({ className = '' }) {
                                                                     children: formatTimeAgo(notification.created_at)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                    lineNumber: 308,
+                                                                    lineNumber: 312,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 notification.sender_username && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1410,37 +1422,37 @@ function NotificationBell({ className = '' }) {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                                    lineNumber: 312,
+                                                                    lineNumber: 316,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                            lineNumber: 307,
+                                                            lineNumber: 311,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                                    lineNumber: 280,
+                                                    lineNumber: 284,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                                            lineNumber: 276,
+                                            lineNumber: 280,
                                             columnNumber: 21
                                         }, this)
                                     }, notification.id, false, {
                                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                                        lineNumber: 270,
+                                        lineNumber: 274,
                                         columnNumber: 19
                                     }, this))
                             ]
                         }, void 0, true)
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 252,
+                        lineNumber: 256,
                         columnNumber: 11
                     }, this),
                     stats && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1455,7 +1467,7 @@ function NotificationBell({ className = '' }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 329,
+                                    lineNumber: 333,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1465,30 +1477,30 @@ function NotificationBell({ className = '' }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/Components/NotificationBell.tsx",
-                                    lineNumber: 330,
+                                    lineNumber: 334,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/Components/NotificationBell.tsx",
-                            lineNumber: 328,
+                            lineNumber: 332,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/Components/NotificationBell.tsx",
-                        lineNumber: 327,
+                        lineNumber: 331,
                         columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/NotificationBell.tsx",
-                lineNumber: 193,
+                lineNumber: 197,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/Components/NotificationBell.tsx",
-        lineNumber: 171,
+        lineNumber: 175,
         columnNumber: 5
     }, this);
 }
@@ -2614,7 +2626,7 @@ function SeekerChatsPage() {
         // Add a small delay before creating the WebSocket connection
         setTimeout(()=>{
             // Create new WebSocket connection
-            const socket = new WebSocket(`ws://localhost:8000/ws/chat/${roomId}/?token=${accessToken}`);
+            const socket = new WebSocket(`wss://lissnify-v2.onrender.com/ws/chat/${roomId}/?token=${accessToken}`);
             socket.onopen = ()=>{
                 console.log("✅ Connected to chat room:", roomId);
                 setIsConnected(true);

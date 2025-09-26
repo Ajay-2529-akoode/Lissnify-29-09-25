@@ -122,7 +122,6 @@ export default function BlogListingPage() {
         }
       } catch (err) {
         setError('An error occurred while fetching data');
-        console.error('Error fetching data:', err);
       } finally {
         setLoading(false);
       }
@@ -168,7 +167,6 @@ export default function BlogListingPage() {
 
   // Handle blog click navigation
   const handleBlogClick = (blogSlug: string) => {
-    console.log("Navigating to blog:", blogSlug);
     router.push(`/blog/${blogSlug}`);
   };
 
@@ -208,13 +206,13 @@ export default function BlogListingPage() {
       <div className="container mx-auto px-6 py-12 relative z-10">
         {/* Header Section */}
         <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 leading-tight">
+          <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 leading-tight py-12">
             Mental Health
             <span className="block bg-gradient-to-r from-[#FF5722] to-[#FF9800] bg-clip-text text-transparent">
               Resources & Insights
             </span>
           </h1>
-          <p className="text-xl text-black/70 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular">
             Discover articles, guides, and resources to support your mental wellness journey. 
             Expert insights, practical tips, and community stories to help you thrive.
           </p>

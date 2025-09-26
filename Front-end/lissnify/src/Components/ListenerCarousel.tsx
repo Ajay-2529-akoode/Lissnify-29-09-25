@@ -53,7 +53,7 @@ export default function FeaturedListeners() {
             setConnectedListenersList(connectedData.data);
           }
         } catch (error) {
-          console.error("Error fetching connected listeners:", error);
+          // Error fetching connected listeners
         }
       }
       else if(user_type==null){
@@ -68,7 +68,6 @@ export default function FeaturedListeners() {
       
       const listener_id = listeners[currentIndex * LISTENERS_PER_SLIDE]?.l_id;
       if (!listener_id) {
-        console.error("No listener ID available for connection.");
         return;
       }
       const data = await connection(listener_id || "");
@@ -90,19 +89,18 @@ export default function FeaturedListeners() {
 
       // Add more logic (redirect, open modal, etc.)
     } catch (error) {
-
-      console.error("Error connecting to listener:", error);
+      // Error connecting to listener
     }
 
   }
   return (
     <section className="w-full bg-yellow-50 py-20">
       <div className="max-w-8xl mx-auto px-6 lg:px-16 xl:px-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-4">
+        <div className="text-center mb-12 sm:mb-16 px-4">
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-3 sm:mb-4">
             Featured Listeners
           </h2>
-          <p className="text-2xl text-black max-w-2xl mx-auto font-medium">
+          <p className="text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular">
             Real people. Lived experiences. Gentle support.
           </p>
         </div>
@@ -111,18 +109,18 @@ export default function FeaturedListeners() {
             aria-label="Previous Slide"
             onClick={prevSlide}
             disabled={isTransitioning || currentIndex === 0}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 z-10 w-14 h-14 rounded-full bg-white shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-8 sm:-translate-x-12 lg:-translate-x-16 z-10 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-full bg-white shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
           >
-            <ChevronLeft className="w-7 h-7 text-[#FF8C5A] group-hover:text-[#e67848] transition-colors" />
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-[#FF8C5A] group-hover:text-[#e67848] transition-colors" />
           </button>
 
           <button
             aria-label="Next Slide"
             onClick={nextSlide}
             disabled={isTransitioning || currentIndex >= totalSlides - 1}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 z-10 w-14 h-14 rounded-full bg-white shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-8 sm:translate-x-12 lg:translate-x-16 z-10 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-full bg-white shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
           >
-            <ChevronRight className="w-7 h-7 text-[#FF8C5A] group-hover:text-[#e67848] transition-colors" />
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-[#FF8C5A] group-hover:text-[#e67848] transition-colors" />
           </button>
 
           <div className="overflow-hidden rounded-2xl">
@@ -143,7 +141,7 @@ export default function FeaturedListeners() {
                 return (
                   <div
                     key={slideIndex}
-                    className={`flex gap-8 flex-shrink-0 px-2 ${
+                    className={`flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-8 flex-shrink-0 px-2 ${
                       isSingleListener ? 'justify-center w-full max-w-2xl mx-auto' : 'w-full'
                     }`}
                   >
@@ -152,11 +150,11 @@ export default function FeaturedListeners() {
                         key={listener.l_id}
                         className="flex-1 bg-white rounded-2xl hover:shadow-2xl transition-all duration-300 overflow-hidden group hover:-translate-y-1"
                       >
-                        <div className="p-8">
-                          <div className="flex items-start gap-5 mb-6">
+                        <div className="p-4 sm:p-6 lg:p-8">
+                          <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-5 mb-4 sm:mb-6">
                             <button 
                               onClick={() => router.push(`/listener/${listener.l_id}`)}
-                              className="w-20 h-20 rounded-full overflow-hidden shadow-md flex-shrink-0 ring-4 ring-[#FFE0D5] group-hover:ring-[#FF8C5A] transition-all duration-300 cursor-pointer"
+                              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden shadow-md flex-shrink-0 ring-4 ring-[#FFE0D5] group-hover:ring-[#FF8C5A] transition-all duration-300 cursor-pointer mx-auto sm:mx-0"
                             >
                               <img
                                 src={
@@ -168,28 +166,28 @@ export default function FeaturedListeners() {
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                               />
                             </button>
-                            <div className="flex-1">
-                              <div className="flex items-center justify-between mb-2">
+                            <div className="flex-1 w-full sm:w-auto">
+                              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-2">
                                 <button 
                                   onClick={() => router.push(`/listener/${listener.l_id}`)}
-                                  className="text-3xl font-bold text-gray-800 group-hover:text-[#FF8C5A] transition-colors hover:underline"
+                                  className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 group-hover:text-[#FF8C5A] transition-colors hover:underline text-center sm:text-left"
                                 >
                                   {listener.full_name || listener.user?.full_name || "Listener"}
                                 </button>
                                 <button 
                                   onClick={() => router.push(`/listener/${listener.l_id}`)}
-                                  className="flex items-center gap-1 text-xl text-gray-500 hover:text-[#FF8C5A] transition-colors duration-300 font-medium"
+                                  className="flex items-center justify-center sm:justify-start gap-1 text-sm sm:text-base lg:text-xl text-gray-500 hover:text-[#FF8C5A] transition-colors duration-300 font-medium"
                                 >
                                   <span>View Profile</span>
                                   <ExternalLink className="w-3 h-3" />
                                 </button>
                               </div>
-                              <div className="flex items-center gap-2">
+                              <div className="flex items-center justify-center sm:justify-start gap-2">
                                 <div className="flex items-center">
                                   {[...Array(5)].map((_, i) => (
                                     <Star
                                       key={i}
-                                      className={`w-5 h-5 ${i < Math.floor(listener.rating == null ? 4 : listener.rating)
+                                      className={`w-4 h-4 sm:w-5 sm:h-5 ${i < Math.floor(listener.rating == null ? 4 : listener.rating)
                                           ? "text-yellow-500 fill-current"
                                           : i === Math.floor(listener.rating) &&
                                             listener.rating % 1 !== 0
@@ -199,48 +197,48 @@ export default function FeaturedListeners() {
                                     />
                                   ))}
                                 </div>
-                                <span className="text-xl font-semibold text-black">
+                                <span className="text-lg sm:text-xl font-semibold text-black">
                                   {listener.rating}
                                 </span>
                               </div>
                             </div>
                           </div>
-                          <p className="text-black text-xl leading-relaxed mb-6 line-clamp-3">
+                          <p className="text-black text-sm sm:text-base lg:text-xl leading-relaxed mb-4 sm:mb-6 line-clamp-2 sm:line-clamp-3 text-center sm:text-left">
                             {listener.description == null ? 'Listener description.... ' : listener.description}
                           </p>
-                          <div className="flex flex-wrap gap-2 mb-6">
+                          <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6 justify-center sm:justify-start">
                             {(listener.preferences || []).map((tag) => (
                               <span
                                 key={tag}
-                                className="px-4 py-2 bg-gradient-to-r from-[#FFE0D5] to-[#FFF0E8] text-[#FF8C5A] text-lg font-semibold rounded-full border border-[#FFE0D5] hover:border-[#FF8C5A] transition-colors cursor-default"
+                                className="px-2 sm:px-4 py-1 sm:py-2 bg-gradient-to-r from-[#FFE0D5] to-[#FFF0E8] text-[#FF8C5A] text-xs sm:text-sm lg:text-lg font-semibold rounded-full border border-[#FFE0D5] hover:border-[#FF8C5A] transition-colors cursor-default"
                               >
                                 {tag}
                               </span>
                             ))}
                           </div>
-                          <div className="border-t border-gray-100 pt-6">
-                            <div className="flex items-center justify-between gap-4">
-                              <h4 className="text-lg font-semibold text-gray-800 mb-4">
+                          <div className="border-t border-gray-100 pt-4 sm:pt-6">
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-3 sm:mb-4">
+                              <h4 className="text-base sm:text-lg font-semibold text-gray-800 text-center sm:text-left">
                                 Languages Spoken
                               </h4>
                              {ConnectButton && (
                                isListenerConnected(listener.l_id, connectedListenersList) ? (
-                                 <button disabled className="px-6 py-2 bg-gray-100 border-2 border-gray-300 text-gray-500 text-xl font-bold rounded-lg cursor-not-allowed whitespace-nowrap">
+                                 <button disabled className="w-full sm:w-auto px-4 sm:px-6 py-2 bg-gray-100 border-2 border-gray-300 text-gray-500 text-sm sm:text-base lg:text-xl font-bold rounded-lg cursor-not-allowed whitespace-nowrap">
                                    Already Connected
                                  </button>
                                ) : (
-                                 <button onClick={handleListenerConnect} className="px-6 py-2 bg-white border-2 border-[#FF8C5A] text-[#FF8C5A] text-xl font-bold rounded-lg hover:bg-[#FFE0D5] hover:border-[#e67848] transition-all duration-300 whitespace-nowrap">
+                                 <button onClick={handleListenerConnect} className="w-full sm:w-auto px-4 sm:px-6 py-2 bg-white border-2 border-[#FF8C5A] text-[#FF8C5A] text-sm sm:text-base lg:text-xl font-bold rounded-lg hover:bg-[#FFE0D5] hover:border-[#e67848] transition-all duration-300 whitespace-nowrap">
                                    Connect
                                  </button>
                                )
                              )} 
                             </div>
-                            <div className="flex items-center justify-between gap-4">
-                              <div className="flex flex-wrap gap-2">
+                            <div className="flex justify-center sm:justify-start">
+                              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                                 {(listener?.languages || ['English', 'Hindi']).map((language) => (
                                   <span
                                     key={language}
-                                    className="px-3 py-1.5 bg-gradient-to-r from-[#FF8C5A] to-[#e67848] text-white text-sm font-medium rounded-full shadow-sm"
+                                    className="px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-[#FF8C5A] to-[#e67848] text-white text-xs sm:text-sm font-medium rounded-full shadow-sm"
                                   >
                                     {language}
                                   </span>
@@ -257,7 +255,7 @@ export default function FeaturedListeners() {
             </div>
           </div>
         </div>
-        <div className="flex justify-center gap-3 mt-12">
+        <div className="flex justify-center gap-2 sm:gap-3 mt-8 sm:mt-12">
           {Array.from({ length: totalSlides }).map((_, index) => (
             <button
               key={index}
@@ -271,8 +269,8 @@ export default function FeaturedListeners() {
               }}
               disabled={isTransitioning}
               className={`transition-all duration-300 rounded-full ${index === currentIndex
-                  ? "w-8 h-4 bg-[#FF8C5A] shadow-md"
-                  : "w-4 h-4 bg-white/70 hover:bg-white shadow-sm hover:scale-110"
+                  ? "w-6 h-3 sm:w-8 sm:h-4 bg-[#FF8C5A] shadow-md"
+                  : "w-3 h-3 sm:w-4 sm:h-4 bg-white/70 hover:bg-white shadow-sm hover:scale-110"
                 }`}
             />
           ))}

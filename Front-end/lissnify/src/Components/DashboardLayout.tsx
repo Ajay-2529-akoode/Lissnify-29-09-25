@@ -16,13 +16,15 @@ export default function DashboardLayout({ userType, children }: DashboardLayoutP
       <div className="min-h-screen bg-gradient-to-br from-[#FFF8B5] to-[#FFB88C]">
         <Navbar />
         
-        <div className="flex pt-20">
+        <div className="flex pt-16 sm:pt-20">
           {/* Left Sidebar */}
           <DashboardSidebar userType={userType} />
           
           {/* Main Content Area */}
-          <div className="md:ml-64 flex-1 p-4 md:p-8">
-            {children}
+          <div className="w-full lg:ml-64 flex-1 p-2 sm:p-4 lg:p-6 xl:p-8">
+            <div className="max-w-7xl mx-auto">
+              {children}
+            </div>
           </div>
         </div>
       </div>

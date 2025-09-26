@@ -80,7 +80,7 @@ export default function CommunitySection() {
           </h2>
           
           <div className="relative">
-            <p className="text-gray-700 text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed font-medium">
+            <p className="text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular">
               We're a <span className="text-orange-600 font-semibold">judgement-free</span>, virtual support group for different mental health concerns where members 
               <span className="text-orange-600 font-semibold"> support each other</span> on their mental health journeys.
             </p>

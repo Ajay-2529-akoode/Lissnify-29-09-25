@@ -6,7 +6,7 @@ export default function ListenerPage() {
       <section className="container mx-auto px-6 py-16 max-w-5xl">
         <div className="rounded-3xl bg-white/90 shadow-xl border border-white/40 p-10">
           <h1 className="text-4xl md:text-5xl font-bold text-[#2E2E2E] mb-6">Share Your Light</h1>
-          <p className="text-[#555] text-lg leading-relaxed mb-8">
+          <p className="text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular mb-8">
             Become a supportive listener. Offer empathy and guidance based on your
             lived experience and help someone feel less alone.
           </p>

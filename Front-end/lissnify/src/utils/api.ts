@@ -106,7 +106,6 @@ export const loginUser = async (credentials: LoginData): Promise<ApiResponse> =>
 };
 
 export const sendOTP = async (email: string): Promise<ApiResponse> => {
-  console.log("Sending OTP request to:", getApiUrl('/api/send-otp/'));
   return apiCall('/api/send-otp/', {
     method: 'POST',
     body: JSON.stringify({ email }),
@@ -131,7 +130,6 @@ export const getDashboardUrl = (userType: string): string => {
     case 'listener':
       return '/dashboard/listener';
     default:
-      console.warn('Unknown or invalid user type:', userType, 'redirecting to seeker dashboard as fallback');
       return '/dashboard/seeker';
   }
 };
@@ -148,7 +146,6 @@ export const listenerCarouselData = async () => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching listener carousel data:", error);
     return [];
   }
 };

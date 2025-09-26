@@ -30,7 +30,6 @@ export default function LoginPage() {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-    // Clear error when user starts typing
     if (error) setError("");
   };
 
@@ -52,39 +51,34 @@ export default function LoginPage() {
       });
 
       if (response.success) {
-        // Store user data in auth context - map from response data
         const userData = {
-          full_name: response.data?.user?.name || formData.email.split("@")[0], // Use response name or email prefix
+          full_name: response.data?.user?.name || formData.email.split("@")[0],
           email: response.data?.user?.email || formData.email,
-          user_type: response.data?.user?.user_type || "seeker", // Default to seeker if not specified
+          user_type: response.data?.user?.user_type || "seeker",
+          
         };
         login(userData, response.data?.access);
 
-        // Determine redirect URL
+       
+  
         const userType = response.data.user?.user_type || "seeker";
         const dashboardUrl = getDashboardUrl(userType);
-        console.log(
-          "Redirecting to:",
-          dashboardUrl,
-          "for user type:",
-          userType
-        );
         localStorage.setItem("adminToken", response.data?.access);
 
-        // 1. Show the success message
+       
         toast.success("Login successful!");
 
-        // 2. Wait a moment before redirecting
+
         setTimeout(() => {
           router.push(dashboardUrl);
-        }, 1000); // Delay of 1 second (1000ms)
+        }, 1000); 
+        
       } else {
         setError(
           response.error || "Login failed. Please check your credentials."
         );
       }
     } catch (err) {
-      console.log("Login error:", err);
       setError("An unexpected error occurred. Please try again.");
     } finally {
       setIsLoading(false);
@@ -95,7 +89,7 @@ export default function LoginPage() {
     <div className="min-h-screen relative overflow-hidden">
       <Navbar />
 
-      {/* Background Image - Adjusted to fit between navbar and footer */}
+     
       <div className="absolute inset-0 z-0 min-h-screen">
         <Image
           src="/EmotionalSupportLogIn.png"
@@ -104,14 +98,14 @@ export default function LoginPage() {
           className="object-contain object-center"
           priority
         />
-        {/* Gradient Overlay */}
+        
         <div className="absolute inset-0 bg-gradient-to-br from-orange-100/60 via-yellow-100/50 to-white/40"></div>
       </div>
 
-      {/* Form Container */}
+      
       <div className="relative z-10 min-h-screen flex items-center justify-center p-4 pt-24">
         <div className="w-[400px] max-w-[90%] bg-white/30 backdrop-blur-lg rounded-2xl shadow-lg border border-white/40 p-8">
-          {/* Header */}
+         
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
               Welcome Back
@@ -120,17 +114,12 @@ export default function LoginPage() {
               Login to continue your soulful journey
             </p>
 
-            {/* Debug Info - Remove in production */}
-            {/* {process.env.NODE_ENV === 'development' && (
-              <div className="mt-4 p-2 bg-gray-100 rounded-lg text-xs text-gray-600">
-                <p><strong>Debug:</strong> Login will redirect based on backend user_type response</p>
-              </div>
-            )} */}
+           
           </div>
 
-          {/* Login Form */}
+        
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Email Input */}
+           
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Email Address or Username
@@ -149,7 +138,7 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Password Input */}
+          
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Password
@@ -179,7 +168,7 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Remember Me & Forgot Password */}
+          
             <div className="flex items-center justify-between">
               <label className="flex items-center">
                 <input
@@ -199,14 +188,14 @@ export default function LoginPage() {
               </Link>
             </div>
 
-            {/* Error Message */}
+
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl">
                 {error}
               </div>
             )}
 
-            {/* Login Button */}
+
             <button
               type="submit"
               disabled={isLoading}
@@ -230,7 +219,7 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Footer Links */}
+
           <div className="mt-8 text-center space-y-2">
             <p className="text-gray-600">
               Don't have an account?{" "}

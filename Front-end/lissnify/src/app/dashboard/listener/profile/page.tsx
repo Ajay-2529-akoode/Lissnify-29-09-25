@@ -68,7 +68,6 @@ export default function ListenerProfilePage() {
 
         if (response.success && response.data) {
           const profile = response.data;
-          console.log("Fetched profile:", profile?.listener);
           setFormData({
             full_name: profile?.user.full_name || '',
             description: profile?.listener.description || '',
@@ -76,7 +75,6 @@ export default function ListenerProfilePage() {
             DOB: profile?.user.DOB || '',
           });
           setInitialData(profile?.user);
-          console.log("Initial data set to:", profile);
           setProfileImageUrl(`${API_CONFIG.BASE_URL}/` + profile?.user?.profile_image || null);
         } else {
           setError(response.error || 'Failed to load profile. Please try again.');

@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Elysian",
+  title: "Lissnify",
   description: "Mental Wellness Platform",
 };
 

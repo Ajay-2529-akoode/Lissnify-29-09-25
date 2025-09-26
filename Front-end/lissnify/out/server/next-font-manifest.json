@@ -4,6 +4,18 @@
       "static/media/b0a57561b6cb5495-s.p.1a6fa3e1.woff2",
       "static/media/8ee3a1ba4ed5baee-s.p.be19f591.woff2"
     ],
+    "[project]/src/app/about/page": [
+      "static/media/b0a57561b6cb5495-s.p.1a6fa3e1.woff2",
+      "static/media/8ee3a1ba4ed5baee-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/blog/[slug]/page": [
+      "static/media/b0a57561b6cb5495-s.p.1a6fa3e1.woff2",
+      "static/media/8ee3a1ba4ed5baee-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/blog/page": [
+      "static/media/b0a57561b6cb5495-s.p.1a6fa3e1.woff2",
+      "static/media/8ee3a1ba4ed5baee-s.p.be19f591.woff2"
+    ],
     "[project]/src/app/community/page": [
       "static/media/b0a57561b6cb5495-s.p.1a6fa3e1.woff2",
       "static/media/8ee3a1ba4ed5baee-s.p.be19f591.woff2"
@@ -16,7 +28,7 @@
       "static/media/b0a57561b6cb5495-s.p.1a6fa3e1.woff2",
       "static/media/8ee3a1ba4ed5baee-s.p.be19f591.woff2"
     ],
-    "[project]/src/app/dashboard/seeker/chats/page": [
+    "[project]/src/app/dashboard/seeker/listeners/[categorySlug]/page": [
       "static/media/b0a57561b6cb5495-s.p.1a6fa3e1.woff2",
       "static/media/8ee3a1ba4ed5baee-s.p.be19f591.woff2"
     ],
@@ -28,11 +40,35 @@
       "static/media/b0a57561b6cb5495-s.p.1a6fa3e1.woff2",
       "static/media/8ee3a1ba4ed5baee-s.p.be19f591.woff2"
     ],
+    "[project]/src/app/help/page": [
+      "static/media/b0a57561b6cb5495-s.p.1a6fa3e1.woff2",
+      "static/media/8ee3a1ba4ed5baee-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/listener/[id]/page": [
+      "static/media/b0a57561b6cb5495-s.p.1a6fa3e1.woff2",
+      "static/media/8ee3a1ba4ed5baee-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/listeners/[category]/page": [
+      "static/media/b0a57561b6cb5495-s.p.1a6fa3e1.woff2",
+      "static/media/8ee3a1ba4ed5baee-s.p.be19f591.woff2"
+    ],
     "[project]/src/app/login/page": [
       "static/media/b0a57561b6cb5495-s.p.1a6fa3e1.woff2",
       "static/media/8ee3a1ba4ed5baee-s.p.be19f591.woff2"
     ],
     "[project]/src/app/page": [
+      "static/media/b0a57561b6cb5495-s.p.1a6fa3e1.woff2",
+      "static/media/8ee3a1ba4ed5baee-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/privacy/page": [
+      "static/media/b0a57561b6cb5495-s.p.1a6fa3e1.woff2",
+      "static/media/8ee3a1ba4ed5baee-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/signup/page": [
+      "static/media/b0a57561b6cb5495-s.p.1a6fa3e1.woff2",
+      "static/media/8ee3a1ba4ed5baee-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/terms/page": [
       "static/media/b0a57561b6cb5495-s.p.1a6fa3e1.woff2",
       "static/media/8ee3a1ba4ed5baee-s.p.be19f591.woff2"
     ]

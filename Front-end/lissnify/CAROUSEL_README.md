@@ -228,7 +228,6 @@ Add console logs to check if the swiper instance is properly initialized:
 ```tsx
 useEffect(() => {
   if (swiperRef.current?.swiper) {
-    console.log('Swiper initialized:', swiperRef.current.swiper);
   }
 }, []);
 ```

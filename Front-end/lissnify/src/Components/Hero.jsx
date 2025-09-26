@@ -94,16 +94,16 @@ export default function Hero() {
 
       {/* Main Content - Centered */}
       <div className="relative z-10 h-full">
-        <div className="flex items-center justify-center px-4 py-8">
+        <div className="flex items-center justify-center px-4 py-20">
           <div className="text-center space-y-8 max-w-5xl w-full">
             {/* Headline */}
-            <h1 className="text-5xl md:text-7xl font-bold leading-tight text-shadow-soft">
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-shadow-soft">
               <span className="text-white drop-shadow-lg">Find Support. </span>
               <span className="text-black">Share Balance</span>
             </h1>
 
             {/* Subheadline */}
-            <p className="text-2xl text-gray-800 leading-relaxed max-w-3xl mx-auto text-shadow-soft font-medium">
+            <p className="text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular text-shadow-soft px-4">
               Lissnify is your safe space to heal, share, and grow. 
               <span className="font-bold"> Seekers</span> find empathy, and 
               <span className="font-bold"> Listeners</span> offer their light — 
@@ -111,7 +111,7 @@ export default function Hero() {
             </p>
 
             {/* Cards */}
-            <div className={`${isAuthenticated ? 'flex justify-center' : 'grid sm:grid-cols-2 max-w-4xl'} gap-8 max-w-2xl mx-auto`}>
+            <div className={`${isAuthenticated ? 'flex justify-center' : 'grid grid-cols-1 sm:grid-cols-2 max-w-4xl'} gap-4 sm:gap-6 lg:gap-8 max-w-2xl mx-auto px-4`}>
               
               {/* Seeker Card - Hide if user is a listener */}
               {(!isAuthenticated || user?.user_type !== 'listener') && (
@@ -120,12 +120,12 @@ export default function Hero() {
                     <div className="flex justify-center mb-6">
                       <HeartHandshake className="w-12 h-12 text-[#FF8C5A] drop-shadow-lg" />
                     </div>
-                    <h3 className="text-3xl font-bold text-black text-center mb-4">Support Seeker</h3>
-                    <p className="mt-3 text-black text-lg opacity-90 text-center flex-grow leading-relaxed">
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-black text-center mb-3 sm:mb-4">Support Seeker</h3>
+                    <p className="mt-3 text-black text-sm sm:text-base lg:text-lg opacity-90 text-center flex-grow leading-relaxed">
                       Connect with people who understand your journey. Find empathy, clarity, and comfort.
                     </p>
-                    <div className="text-center mt-6">
-                      <span className="inline-block text-black font-medium underline-animate text-xl">
+                    <div className="text-center mt-4 sm:mt-6">
+                      <span className="inline-block text-black font-medium underline-animate text-base sm:text-lg lg:text-xl">
                         {isAuthenticated ? "I Need Support →" : "I Need Support →"}
                       </span>
                     </div>
@@ -140,12 +140,12 @@ export default function Hero() {
                     <div className="flex justify-center mb-6">
                       <Ear className="w-12 h-12 text-[#FF8C5A] drop-shadow-lg" />
                     </div>
-                    <h3 className="text-3xl font-bold text-black text-center mb-4">Listener with Empathy</h3>
-                    <p className="mt-3 text-black text-lg opacity-90 text-center flex-grow leading-relaxed">
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-black text-center mb-3 sm:mb-4">Listener with Empathy</h3>
+                    <p className="mt-3 text-black text-sm sm:text-base lg:text-lg opacity-90 text-center flex-grow leading-relaxed">
                       Guide others through their struggles with the wisdom of your own experiences.
                     </p>
-                    <div className="text-center mt-6">
-                      <span className="inline-block text-black font-medium underline-animate text-xl">
+                    <div className="text-center mt-4 sm:mt-6">
+                      <span className="inline-block text-black font-medium underline-animate text-base sm:text-lg lg:text-xl">
                         {isAuthenticated ? "I Want to Listen →" : "I Want to Listen →"}
                       </span>
                     </div>
@@ -155,22 +155,22 @@ export default function Hero() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex gap-4 flex-wrap justify-center text-xl ">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 flex-wrap justify-center text-sm sm:text-base lg:text-xl px-4">
               {isAuthenticated ? (
                 <Link href={getDashboardRoute()}>
-                  <button className="px-8 py-4 rounded-full bg-[#FF8C5A] text-white font-semibold hover:bg-[#e67848] transition transform hover:scale-105 shadow-lg hover:shadow-xl text-xl">
+                  <button className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-[#FF8C5A] text-white font-semibold hover:bg-[#e67848] transition transform hover:scale-105 shadow-lg hover:shadow-xl">
                     Go to Dashboard
                   </button>
                 </Link>
               ) : (
                 <>
-                  <Link href="/signup?role=seeker">
-                    <button className="px-6 py-3 rounded-full bg-[#FF8C5A] text-white font-semibold hover:bg-[#e67848] transition transform hover:scale-105 shadow-lg hover:shadow-xl">
+                  <Link href="/signup?role=seeker" className="w-full sm:w-auto">
+                    <button className="w-full px-4 sm:px-6 py-3 rounded-full bg-[#FF8C5A] text-white font-semibold hover:bg-[#e67848] transition transform hover:scale-105 shadow-lg hover:shadow-xl">
                       Join as a Seeker
                     </button>
                   </Link>
-                  <Link href="/signup?role=listener">
-                    <button className="px-6 py-3 rounded-full bg-white border-2 border-[#FF8C5A] text-[#FF8C5A] font-semibold hover:bg-[#FFE0D5] transition transform hover:scale-105 shadow-lg hover:shadow-xl">
+                  <Link href="/signup?role=listener" className="w-full sm:w-auto">
+                    <button className="w-full px-4 sm:px-6 py-3 rounded-full bg-white border-2 border-[#FF8C5A] text-[#FF8C5A] font-semibold hover:bg-[#FFE0D5] transition transform hover:scale-105 shadow-lg hover:shadow-xl">
                       Join as a Listener
                     </button>
                   </Link>

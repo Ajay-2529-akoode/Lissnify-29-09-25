@@ -136,13 +136,10 @@ export default function ListenerDashboard() {
           const pendingConnectionsData = transformedConnections.filter((connection: any) => connection.status === 'Pending');
           setPendingConnections(pendingConnectionsData);
           
-          console.log("Connected Seekers:", acceptedConnections);
-          console.log("Pending Connections:", pendingConnectionsData);
         } else {
           setError("Failed to fetch connections");
         }
       } catch (err) {
-        console.error("Error fetching connections:", err);
         setError("Error fetching connections");
       } finally {
         setLoading(false);
@@ -207,7 +204,6 @@ export default function ListenerDashboard() {
         toast.error(response.error || 'Failed to accept connection request');
       }
     } catch (error) {
-      console.error('Error accepting connection:', error);
       toast.error('Error accepting connection request');
     } finally {
       setPendingLoading(false);
@@ -228,7 +224,6 @@ export default function ListenerDashboard() {
         toast.error(response.error || 'Failed to reject connection request');
       }
     } catch (error) {
-      console.error('Error rejecting connection:', error);
       toast.error('Error rejecting connection request');
     } finally {
       setPendingLoading(false);
@@ -245,7 +240,6 @@ export default function ListenerDashboard() {
       setChatLoading(true);
       setError(null);
       
-      console.log("Starting chat with seeker:", seeker);
       const rooms = await startDirectChat(seeker.user_id);
 
       if (rooms.success) {
@@ -255,7 +249,7 @@ export default function ListenerDashboard() {
         // Fetch existing messages
         const messages = await getMessages(roomId);
         if (messages.success && messages.data) {
-          console.log("Chat room created or fetched successfully:", messages.data);
+          // Chat room created or fetched successfully
         } else {
           setError("Failed to fetch messages");
         }
@@ -264,11 +258,9 @@ export default function ListenerDashboard() {
         router.push(`/dashboard/listener/chats?connectionId=${seeker.connection_id}`);
       } else {
         setError("Failed to start chat");
-        console.error("Failed to start chat:", rooms);
         toast.error("Failed to start chat");
       }
     } catch (error) {
-      console.error("Error starting chat:", error);
       setError("Error starting chat");
       toast.error("Error starting chat");
     } finally {
@@ -292,7 +284,7 @@ export default function ListenerDashboard() {
                   <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
                     Listener Dashboard
                   </h1>
-                  <p className="text-xl text-black/80 max-w-2xl mx-auto">
+                  <p className="text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular">
                     Support seekers, track your impact, and grow your listening practice
                   </p>
                 </div>

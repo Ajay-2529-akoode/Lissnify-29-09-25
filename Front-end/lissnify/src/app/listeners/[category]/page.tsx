@@ -40,12 +40,10 @@ export default function ListenerCategoryPage({ params }: { params: Promise<{ cat
           setData(response.data);
         } else {
           // Handle API errors (e.g., show a message)
-          console.error("Failed to fetch data:", response.error);
           setData([]); // Clear data on failure
         }
       } catch (error) {
         // Handle network or unexpected errors
-        console.error("An error occurred during fetch:", error);
         setData([]);
       } finally {
         setIsLoading(false);
@@ -63,7 +61,7 @@ export default function ListenerCategoryPage({ params }: { params: Promise<{ cat
           }
         }
       } catch (error) {
-        console.error("Error fetching connected listeners:", error);
+        // Error fetching connected listeners
       }
     };
 
@@ -71,8 +69,7 @@ export default function ListenerCategoryPage({ params }: { params: Promise<{ cat
     fetchConnectedListeners();
 
   }, [resolvedParams.category]);
-  
-  // console.log("Category Page Params:", resolvedParams.category);
+
   const category = categories.find((c) => c.id === resolvedParams.category);
   if (!category) return notFound();
 
@@ -80,10 +77,10 @@ export default function ListenerCategoryPage({ params }: { params: Promise<{ cat
   
   if (isLoading) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen pt-10">
         <Navbar />
         <main className="min-h-screen bg-gradient-to-br from-[#FFB88C] to-[#FFF8B5]">
-          <section className="container mx-auto px-6 py-16 max-w-7xl">
+          <section className="container mx-auto px-6 py-16 max-w-7xl ">
             <p className="text-[#222]">Loading listeners...</p>
           </section>
         </main>
@@ -94,10 +91,10 @@ export default function ListenerCategoryPage({ params }: { params: Promise<{ cat
     <div className="min-h-screen">
       <Navbar />
       <main className="min-h-screen bg-gradient-to-br from-[#FFB88C] to-[#FFF8B5]">
-        <section className="container mx-auto px-6 py-16 max-w-7xl">
+        <section className="container mx-auto px-6 py-16 max-w-7xl ">
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#111]">Listeners for {category.title}</h1>
-          <p className="text-[#333] mt-2">Compassionate peers ready to listen.</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-[#111] pt-10">Listeners for {category.title}</h1>
+          <p className="text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular">Compassionate peers ready to listen.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

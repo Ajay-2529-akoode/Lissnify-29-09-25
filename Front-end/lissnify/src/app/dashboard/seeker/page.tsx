@@ -81,13 +81,11 @@ export default function SeekerDashboard() {
         const response = await connectedListeners();
         if (response.success && response.data) {
           setConnectedListenersData(response.data);
-          console.log("Connected Listeners API Response:", response.data);
         } else {
           setError("Failed to fetch connected listeners");
           setConnectedListenersData([]);
         }
       } catch (err) {
-        console.error("Error fetching connected listeners:", err);
         setError("Error fetching connected listeners");
         setConnectedListenersData([]);
       } finally {
@@ -102,13 +100,11 @@ export default function SeekerDashboard() {
         const response = await getCategories();
         if (response.success && response.data) {
           setCategoriesData(response.data);
-          console.log("Categories API Response:", response.data);
         } else {
           setCategoriesError("Failed to fetch categories");
           setCategoriesData([]);
         }
       } catch (err) {
-        console.error("Error fetching categories:", err);
         setCategoriesError("Error fetching categories");
         setCategoriesData([]);
       } finally {
@@ -186,7 +182,6 @@ export default function SeekerDashboard() {
       setChatLoading(true);
       setError(null);
       
-      console.log("Starting chat with listener:", listener);
       const rooms = await startDirectChat(listener.user_id);
 
       if (rooms.success) {
@@ -196,7 +191,7 @@ export default function SeekerDashboard() {
         // Fetch existing messages
         const messages = await getMessages(roomId);
         if (messages.success && messages.data) {
-          console.log("Chat room created or fetched successfully:", messages.data);
+          // Chat room created or fetched successfully
         } else {
           setError("Failed to fetch messages");
         }
@@ -205,10 +200,8 @@ export default function SeekerDashboard() {
         router.push(`/dashboard/seeker/chats?connectionId=${listener.connection_id}`);
       } else {
         setError("Failed to start chat");
-        console.error("Failed to start chat:", rooms);
       }
     } catch (error) {
-      console.error("Error starting chat:", error);
       setError("Error starting chat");
     } finally {
       setChatLoading(false);
@@ -217,14 +210,12 @@ export default function SeekerDashboard() {
 
   const handleReconnect = (listenerId: number) => {
     // In a real app, this would send a reconnection request
-    console.log('Reconnecting with listener:', listenerId);
     // You could show a toast notification or modal here
     alert('Reconnection request sent! The listener will be notified.');
   };
 
   const handleViewPreviousChats = (listenerId: number) => {
     // In a real app, this would open the chat history
-    console.log('Viewing previous chats with listener:', listenerId);
     setSelectedChat(listenerId);
     router.push('/dashboard/seeker/chats');
   };
@@ -247,8 +238,8 @@ export default function SeekerDashboard() {
                   <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
                     Welcome to Your Support Dashboard
                   </h1>
-                  <p className="text-xl text-black/80 max-w-2xl mx-auto">
-                    Connect with your listeners, explore support categories, and engage with our  ty
+                  <p className="text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular">
+                    Connect with your listeners, explore support categories, and engage with our community
                   </p>
                 </div>
 

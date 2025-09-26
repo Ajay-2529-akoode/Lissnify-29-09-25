@@ -59,66 +59,73 @@ export default function DashboardSidebar({ userType }: DashboardSidebarProps) {
       {/* Mobile Toggle Button */}
       <button
         onClick={() => setIsMobileOpen(!isMobileOpen)}
-        className="md:hidden fixed top-24 left-4 z-50 p-2 bg-white/90 backdrop-blur-md rounded-lg shadow-lg border border-white/50"
+        className="lg:hidden fixed top-20 sm:top-24 left-2 sm:left-4 z-50 p-2 bg-white/90 backdrop-blur-md rounded-lg shadow-lg border border-white/50"
         aria-label="Toggle sidebar"
       >
-        <Menu className="w-5 h-5 text-gray-600" />
+        <Menu className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
       </button>
 
+      {/* Mobile Overlay */}
+      {isMobileOpen && (
+        <div 
+          className="lg:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <div className={`fixed left-0 top-20 h-full bg-white/90 backdrop-blur-md shadow-xl border-r border-white/50 z-10 transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'
-        } ${isMobileOpen ? 'block' : 'hidden'} md:block`}>
-        <div className="p-6">
+      <div className={`fixed left-0 top-16 sm:top-20 h-full bg-white/90 backdrop-blur-md shadow-xl border-r border-white/50 z-50 transition-all duration-300 ${isCollapsed ? 'w-16 sm:w-20' : 'w-56 sm:w-64'
+        } ${isMobileOpen ? 'block' : 'hidden'} lg:block`}>
+        <div className="p-3 sm:p-6">
           {/* Brand Section */}
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center justify-between mb-6 sm:mb-8">
             {!isCollapsed && (
-              <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity duration-300">
+              <Link href="/" className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity duration-300">
                 <img 
                   src="/logo.png" 
                   alt="Lissnify Logo" 
-                  className="h-15 w-auto"
+                  className="h-10 w-auto sm:h-12"
                 />
-              
               </Link>
             )}
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-1.5 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors"
               aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
-              {isCollapsed ? <Menu className="w-5 h-5 text-gray-600" /> : <X className="w-5 h-5 text-gray-600" />}
+              {isCollapsed ? <Menu className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" /> : <X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />}
             </button>
           </div>
 
           {/* Navigation Items */}
-          <nav className="space-y-4">
+          <nav className="space-y-2 sm:space-y-4">
             {navItems.map((item) => {
               const IconComponent = item.icon;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleNavigation(item.path)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${isActive(item.path)
+                  className={`w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-xl font-medium transition-all duration-200 text-sm sm:text-base ${isActive(item.path)
                       ? 'bg-gradient-to-r from-[#FFB88C] to-[#FFF8B5] text-black shadow-lg'
                       : 'text-gray-600 hover:bg-gray-50 hover:text-black'
                     }`}
                   aria-label={item.label}
                 >
-                  <IconComponent className="w-5 h-5 flex-shrink-0" />
-                  {!isCollapsed && <span>{item.label}</span>}
+                  <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                  {!isCollapsed && <span className="truncate">{item.label}</span>}
                 </button>
               );
             })}
           </nav>
 
           {/* Logout Button */}
-          <div className={`absolute bottom-6 ${isCollapsed ? 'left-6 right-6' : 'left-6 right-6'}`}>
+          <div className={`absolute bottom-4 sm:bottom-6 ${isCollapsed ? 'left-3 right-3 sm:left-6 sm:right-6' : 'left-3 right-3 sm:left-6 sm:right-6'}`}>
             <button
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-red-600 hover:bg-red-50 transition-all duration-200"
+              className="w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-xl font-medium text-red-600 hover:bg-red-50 transition-all duration-200 text-sm sm:text-base"
               aria-label="Logout"
             >
-              <LogOut className="w-5 h-5 flex-shrink-0" />
-              {!isCollapsed && <span>Logout</span>}
+              <LogOut className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+              {!isCollapsed && <span className="truncate">Logout</span>}
             </button>
           </div>
         </div>

@@ -19,7 +19,7 @@ interface Blog {
   image: string;
   date: string;
   category?: {
-    Category_name: string;
+  Category_name: string;
   };
 }
  
@@ -132,7 +132,6 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
         }
       } catch (err) {
         setError('An error occurred while fetching the blog');
-        console.error('Error fetching blog:', err);
       } finally {
         setLoading(false);
       }
@@ -151,7 +150,6 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
         setIsLiked(response.data?.is_liked || false);
       }
     } catch (err) {
-      console.error('Error fetching blog likes:', err);
     }
   };
  
@@ -218,7 +216,6 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
         setShowFallback(true);
       }
     } catch (err) {
-      console.error('Error fetching recent posts:', err);
       // On error, prepare fallback
       setRecentPosts([]);
       setFallbackPosts([]);
@@ -243,10 +240,8 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
         setIsLiked(!isLiked);
         setLikeCount(prev => isLiked ? prev - 1 : prev + 1);
       } else {
-        console.error('Failed to toggle like:', response.error);
       }
     } catch (err) {
-      console.error('Error toggling like:', err);
       alert('Failed to update like. Please try again.');
     } finally {
       setLikeLoading(false);

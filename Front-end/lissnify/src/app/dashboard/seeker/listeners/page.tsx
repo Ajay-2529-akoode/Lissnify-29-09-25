@@ -35,7 +35,6 @@ export default function ListenersLandingPage() {
           setError(response.error || "Failed to fetch categories");
         }
       } catch (err) {
-        console.error("Error fetching categories:", err);
         setError("Error fetching categories");
       } finally {
         setLoading(false);
@@ -95,7 +94,7 @@ export default function ListenersLandingPage() {
             <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
               Find a Listener by Category
             </h1>
-            <p className="text-xl text-gray-600">
+            <p className="text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular">
               Choose a category that matches your needs to find the right listener
             </p>
           </div>

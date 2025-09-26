@@ -80,7 +80,6 @@ export class CommunityService {
 
       return await response.json();
     } catch (error) {
-      console.error('Error fetching categories:', error);
       throw error;
     }
   }
@@ -105,7 +104,6 @@ export class CommunityService {
 
       return await response.json();
     } catch (error) {
-      console.error('Error fetching community posts:', error);
       throw error;
     }
   }
@@ -123,7 +121,6 @@ export class CommunityService {
 
       return await response.json();
     } catch (error) {
-      console.error('Error fetching community post:', error);
       throw error;
     }
   }
@@ -143,7 +140,6 @@ export class CommunityService {
 
       return await response.json();
     } catch (error) {
-      console.error('Error creating community post:', error);
       throw error;
     }
   }
@@ -163,7 +159,6 @@ export class CommunityService {
 
       return await response.json();
     } catch (error) {
-      console.error('Error updating community post:', error);
       throw error;
     }
   }
@@ -180,7 +175,6 @@ export class CommunityService {
         throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
       }
     } catch (error) {
-      console.error('Error deleting community post:', error);
       throw error;
     }
   }
@@ -200,7 +194,6 @@ export class CommunityService {
 
       return await response.json();
     } catch (error) {
-      console.error('Error liking post:', error);
       throw error;
     }
   }
@@ -219,7 +212,6 @@ export class CommunityService {
 
       return await response.json();
     } catch (error) {
-      console.error('Error unliking post:', error);
       throw error;
     }
   }
@@ -238,7 +230,6 @@ export class CommunityService {
 
       return await response.json();
     } catch (error) {
-      console.error('Error fetching post comments:', error);
       throw error;
     }
   }
@@ -258,7 +249,6 @@ export class CommunityService {
 
       return await response.json();
     } catch (error) {
-      console.error('Error creating comment:', error);
       throw error;
     }
   }

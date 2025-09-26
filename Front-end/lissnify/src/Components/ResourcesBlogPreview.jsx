@@ -125,7 +125,6 @@ export default function ResourcesBlogPreview() {
         }
       } catch (err) {
         setError('An error occurred while fetching data');
-        console.error('Error fetching data:', err);
       } finally {
         setLoading(false);
       }
@@ -158,7 +157,6 @@ export default function ResourcesBlogPreview() {
 
   // Handle blog click navigation
   const handleBlogClick = (blogSlug) => {
-    console.log("Navigating to blog:", blogSlug);
     router.push(`/blog/${blogSlug}`);
   };
 
@@ -203,7 +201,7 @@ export default function ResourcesBlogPreview() {
           </h2>
 
           <div className="max-w-4xl mx-auto mb-6">
-            <p className="text-2xl md:text-2xl text-black leading-relaxed font-medium mb-4">
+            <p className="text-lg md:text-xl text-black leading-relaxed font-regular mb-4">
               Discover gentle, evidence-based insights on mental health, self-care, and emotional wellness. Created with care by our community of healers and helpers.
               {/* <span className="font-bold text-black px-3 py-1 bg-[#FFB88C] rounded-lg mx-1 border border-[#FFB88C]/30"> Created with care</span>  */}
 

@@ -46,28 +46,28 @@ export default function Navbar() {
       <div className="container mx-auto flex justify-between items-center relative z-10">
 
         {/* Enhanced Logo with warm styling */}
-        <div className="flex items-center gap-4 ">
+        <div className="flex items-center gap-2 sm:gap-4">
           <Link href="/" className="flex items-center hover:opacity-60 transition-opacity duration-600">
             <img 
               src="/logo.png" 
               alt="Lissnify Logo" 
-              className="h-16 w-auto"
+              className="h-12 w-auto sm:h-14 md:h-16"
             />
           </Link>
         </div>
 
         {/* Enhanced Desktop Menu with warm styling */}
-        <div className="hidden md:flex items-center space-x-2">
+        <div className="hidden lg:flex items-center space-x-1 xl:space-x-2">
           {navItems.map((item, index) => {
             const IconComponent = item.icon;
             return (
               <Link
                 key={index}
                 href={item.href}
-                className="group relative px-5 py-3 rounded-2xl text-black font-bold transition-all duration-300 hover:bg-white/70"
+                className="group relative px-3 xl:px-5 py-2 xl:py-3 rounded-2xl text-black font-bold transition-all duration-300 hover:bg-white/70"
               >
-                <div className="flex items-center gap-3">
-                  <span className="transition-colors duration-300 text-lg">{item.name}</span>
+                <div className="flex items-center gap-2 xl:gap-3">
+                  <span className="transition-colors duration-300 text-sm xl:text-lg">{item.name}</span>
                 </div>
                 <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-gradient-to-r from-[#FFB88C] to-[#F9E79F] group-hover:w-3/4 transition-all duration-300 rounded-full"></div>
               </Link>
@@ -75,7 +75,7 @@ export default function Navbar() {
           })}
 
           {/* Authentication Section */}
-          <div className="ml-8 pl-4 border-l-3 border-[#FFB88C]/40 flex items-center gap-3 relative">
+          <div className="ml-4 xl:ml-8 pl-2 xl:pl-4 border-l-2 xl:border-l-3 border-[#FFB88C]/40 flex items-center gap-2 xl:gap-3 relative">
             {!isLoading && (
               <>
                 {isAuthenticated ? (
@@ -88,16 +88,16 @@ export default function Navbar() {
                   // Show login/signup buttons when not logged in
                   <>
                     <Link href="/login">
-                      <button className="group relative px-6 py-2 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 transform hover:scale-110 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30">
-                        <span className="relative flex items-center gap-2">
+                      <button className="group relative px-3 xl:px-6 py-1.5 xl:py-2 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 transform hover:scale-110 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30 text-xs xl:text-sm">
+                        <span className="relative flex items-center gap-1 xl:gap-2">
                           Login
                         </span>
                       </button>
                     </Link>
                     <Link href="/signup">
-                      <button className="group relative px-6 py-2 rounded-2xl text-white font-bold bg-gradient-to-r from-[#CD853F] to-[#D2691E] hover:from-[#D2691E] hover:to-[#CD853F] transition-all duration-300 transform hover:scale-110 shadow-2xl hover:shadow-3xl overflow-hidden border-2 border-white/30">
+                      <button className="group relative px-3 xl:px-6 py-1.5 xl:py-2 rounded-2xl text-white font-bold bg-gradient-to-r from-[#CD853F] to-[#D2691E] hover:from-[#D2691E] hover:to-[#CD853F] transition-all duration-300 transform hover:scale-110 shadow-2xl hover:shadow-3xl overflow-hidden border-2 border-white/30 text-xs xl:text-sm">
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                        <span className="relative flex items-center gap-2">
+                        <span className="relative flex items-center gap-1 xl:gap-2">
                           Sign Up
                         </span>
                       </button>
@@ -112,39 +112,39 @@ export default function Navbar() {
         {/* Enhanced Mobile Hamburger with warm styling */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden relative w-14 h-14 bg-white/70 backdrop-blur-sm rounded-2xl flex items-center justify-center hover:bg-white/90 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#FFB88C]/30 group shadow-lg border-2 border-[#FFB88C]/20"
+          className="lg:hidden relative w-10 h-10 sm:w-12 sm:h-12 bg-white/70 backdrop-blur-sm rounded-2xl flex items-center justify-center hover:bg-white/90 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#FFB88C]/30 group shadow-lg border-2 border-[#FFB88C]/20"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8B5]/10 to-[#FFB88C]/5 rounded-2xl"></div>
           {isOpen ? (
-            <X className="w-7 h-7 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10" />
+            <X className="w-5 h-5 sm:w-6 sm:h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10" />
           ) : (
-            <Menu className="w-7 h-7 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10" />
+            <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10" />
           )}
         </button>
       </div>
 
       {/* Enhanced Mobile Menu with warm, nurturing design */}
       {isOpen && (
-        <div className="md:hidden mt-6 bg-white/95 backdrop-blur-md rounded-3xl border-3 border-[#FFB88C]/30 shadow-2xl p-6 mx-4 animate-fadeIn relative overflow-hidden">
+        <div className="lg:hidden mt-4 sm:mt-6 bg-white/95 backdrop-blur-md rounded-3xl border-3 border-[#FFB88C]/30 shadow-2xl p-4 sm:p-6 mx-2 sm:mx-4 animate-fadeIn relative overflow-hidden">
 
           {/* Mobile menu background decoration */}
           <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#FFF8B5]/20 to-[#F9E79F]/10 rounded-full blur-2xl"></div>
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-br from-[#FFB88C]/15 to-[#FFD1A9]/10 rounded-full blur-2xl"></div>
 
-          <div className="space-y-3 relative z-10">
+          <div className="space-y-2 sm:space-y-3 relative z-10">
             {navItems.map((item, index) => {
               const IconComponent = item.icon;
               return (
                 <Link
                   key={index}
                   href={item.href}
-                  className="group flex items-center gap-4 px-5 py-4 rounded-2xl text-[#8B4513] font-bold hover:bg-gradient-to-r hover:from-[#FFF8B5]/20 hover:to-[#FFB88C]/15 transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 border-transparent hover:border-[#FFB88C]/20"
+                  className="group flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-3 sm:py-4 rounded-2xl text-[#8B4513] font-bold hover:bg-gradient-to-r hover:from-[#FFF8B5]/20 hover:to-[#FFB88C]/15 transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 border-transparent hover:border-[#FFB88C]/20"
                   onClick={() => setIsOpen(false)}
                 >
-                  <div className="w-12 h-12 bg-gradient-to-br from-[#FFF8B5]/30 to-[#F9E79F]/20 rounded-2xl flex items-center justify-center group-hover:from-[#FFB88C]/30 group-hover:to-[#F9E79F]/30 transition-all duration-300 group-hover:scale-110 shadow-lg">
-                    <IconComponent className="w-6 h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#FFF8B5]/30 to-[#F9E79F]/20 rounded-2xl flex items-center justify-center group-hover:from-[#FFB88C]/30 group-hover:to-[#F9E79F]/30 transition-all duration-300 group-hover:scale-110 shadow-lg">
+                    <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300" />
                   </div>
-                  <span className="group-hover:text-[#A0522D] transition-colors duration-300 text-xl">{item.name}</span>
+                  <span className="group-hover:text-[#A0522D] transition-colors duration-300 text-lg sm:text-xl">{item.name}</span>
                   <div className="ml-auto w-2 h-2 bg-gradient-to-r from-[#FFB88C] to-[#F9E79F] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </Link>
               );
@@ -152,22 +152,22 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Authentication Section */}
-          <div className="mt-8 pt-6 border-t-2 border-[#FFB88C]/30 relative z-10 space-y-3">
+          <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t-2 border-[#FFB88C]/30 relative z-10 space-y-2 sm:space-y-3">
             {!isLoading && (
               <>
                 {isAuthenticated ? (
                   // Show user info in mobile menu when logged in
                   <div className="text-center">
-                    <div className="flex items-center justify-center gap-4 mb-4">
+                    <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                       <div 
                         onClick={() => {
                           const profileUrl = getDashboardUrlLocal() + '/profile';
                           router.push(profileUrl);
                           setIsOpen(false);
                         }}
-                        className="w-16 h-16 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-200"
+                        className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-200"
                       >
-                        <User className="w-8 h-8 text-white" />
+                        <User className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                       </div>
                       <div className="flex items-center">
                         <NotificationBell />
@@ -179,7 +179,7 @@ export default function Navbar() {
                         router.push(profileUrl);
                         setIsOpen(false);
                       }}
-                      className="text-lg font-bold text-black mb-4 cursor-pointer hover:text-orange-600 transition-colors duration-200"
+                      className="text-base sm:text-lg font-bold text-black mb-3 sm:mb-4 cursor-pointer hover:text-orange-600 transition-colors duration-200"
                     >
                       Hello, {user?.full_name}
                     </p>
@@ -193,10 +193,10 @@ export default function Navbar() {
                         // 3. Finally, close the menu.
                         setIsOpen(false);
                       }}
-                      className="group w-full relative px-8 py-4 rounded-2xl text-red-600 font-bold bg-white/70 hover:bg-red-50 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-red-200 hover:border-red-300"
+                      className="group w-full relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-red-600 font-bold bg-white/70 hover:bg-red-50 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-red-200 hover:border-red-300"
                     >
-                      <span className="relative flex items-center justify-center gap-3 text-xl">
-                        <LogOut className="w-6 h-6" />
+                      <span className="relative flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-xl">
+                        <LogOut className="w-5 h-5 sm:w-6 sm:h-6" />
                         Sign Out
                       </span>
                     </button>
@@ -205,16 +205,16 @@ export default function Navbar() {
                   // Show login/signup buttons when not logged in
                   <>
                     <Link href="/login" onClick={() => setIsOpen(false)}>
-                      <button className="group w-full relative px-8 py-4 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30">
-                        <span className="relative flex items-center justify-center gap-3 text-xl">
+                      <button className="group w-full relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30">
+                        <span className="relative flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-xl">
                           Login
                         </span>
                       </button>
                     </Link>
                     <Link href="/signup" onClick={() => setIsOpen(false)}>
-                      <button className="group w-full relative px-8 py-4 rounded-2xl text-white font-bold bg-gradient-to-r from-[#CD853F] to-[#D2691E] hover:from-[#D2691E] hover:to-[#CD853F] transition-all duration-300 shadow-2xl hover:shadow-3xl overflow-hidden hover:scale-105 border-2 border-white/30">
+                      <button className="group w-full relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-white font-bold bg-gradient-to-r from-[#CD853F] to-[#D2691E] hover:from-[#D2691E] hover:to-[#CD853F] transition-all duration-300 shadow-2xl hover:shadow-3xl overflow-hidden hover:scale-105 border-2 border-white/30">
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                        <span className="relative flex items-center justify-center gap-3 text-xl">
+                        <span className="relative flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-xl">
                           Sign Up
                         </span>
                       </button>

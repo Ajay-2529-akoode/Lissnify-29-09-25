@@ -56,9 +56,7 @@ export default function ListenerProfilePage() {
         setLoading(true);
         setError(null);
         
-        console.log('Fetching listener profile for ID:', listenerId);
         const response = await listener(listenerId);
-        console.log('API Response:', response);
         
         if (response.success && response.data) {
           // Handle different response structures
@@ -82,7 +80,6 @@ export default function ListenerProfilePage() {
           setError(response.error || "Oops! Profile not found. Please try again later.");
         }
       } catch (err) {
-        console.error("Error fetching listener profile:", err);
         setError("Oops! Profile not found. Please try again later.");
       } finally {
         setLoading(false);
@@ -111,7 +108,6 @@ export default function ListenerProfilePage() {
         setFeedbacks(feedbacksResponse.data);
       }
     } catch (error) {
-      console.error("Error fetching ratings and feedbacks:", error);
       // Don't show error to user as this is supplementary data
     } finally {
       setLoadingFeedbacks(false);
@@ -127,7 +123,6 @@ export default function ListenerProfilePage() {
       
       if (response.success) {
         toast.success("Connection request sent successfully");
-        console.log("Connection request sent successfully");
       } else {
         // Check for specific error messages
         if(response.error && response.error.includes("already sent")) {
@@ -140,10 +135,9 @@ export default function ListenerProfilePage() {
             router.push('/login');
           }, 500);
         }
-        console.error("Failed to send connection request:", response.error);
+        // Failed to send connection request
       }
     } catch (err) {
-      console.error("Error sending connection request:", err);
       toast.error("Error sending connection request");
     } finally {
       setIsConnecting(false);
@@ -177,7 +171,6 @@ export default function ListenerProfilePage() {
         throw new Error(response.error || "Failed to submit feedback");
       }
     } catch (error) {
-      console.error("Error submitting rating:", error);
       throw error;
     }
   };
@@ -260,6 +253,8 @@ export default function ListenerProfilePage() {
 
   const displayName = listenerData.name || listenerData.full_name || listenerData.user?.full_name || "Listener";
   const ratingValue = averageRating > 0 ? averageRating : (listenerData.rating ?? 0);
+  // Ensure ratingValue is a valid number
+  const numericRatingValue = typeof ratingValue === 'number' && !isNaN(ratingValue) ? ratingValue : 0;
   const description = listenerData.description || "This listener is here to provide emotional support and guidance. They bring their personal experiences and empathy to help others navigate through challenging times.";
   const tags = listenerData.preferences || [];
   const languages = listenerData.languages || ["English", "Hindi"];
@@ -280,15 +275,15 @@ export default function ListenerProfilePage() {
       </div> */}
 
       {/* Main Profile Card */}
-      <div className="max-w-4xl mx-auto px-6 pb-20">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 mt-8 sm:mt-12 pb-16 sm:pb-20 py-12 sm:py-20">
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-[#FFE0D5] hover:border-[#FF8C5A] transition-all duration-500">
           
           {/* Profile Header */}
-          <div className="bg-gradient-to-r from-[#FFF8B5]/30 to-[#FFE0D5]/30 p-8 border-b border-[#FFE0D5]">
+          <div className="bg-gradient-to-r from-[#FFF8B5]/30 to-[#FFE0D5]/30 p-4 sm:p-6 lg:p-8 border-b border-[#FFE0D5]">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
               {/* Profile Picture */}
               <div className="relative">
-                <div className="w-32 h-32 rounded-full overflow-hidden shadow-2xl ring-4 ring-[#FFE0D5] group-hover:ring-[#FF8C5A] transition-all duration-300">
+                <div className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full overflow-hidden shadow-2xl ring-4 ring-[#FFE0D5] group-hover:ring-[#FF8C5A] transition-all duration-300">
                   <img
                     src={buildImageUrl(listenerData.user?.profile_image)}
                     alt={displayName}
@@ -306,7 +301,7 @@ export default function ListenerProfilePage() {
               <div className="flex-1">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                   <div>
-                    <h1 className="text-4xl font-bold text-[#8B4513] mb-2">{displayName}</h1>
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#8B4513] mb-2">{displayName}</h1>
                     
                     {/* Rating */}
                     <div className="flex items-center gap-3 mb-4">
@@ -315,9 +310,9 @@ export default function ListenerProfilePage() {
                           <Star
                             key={i}
                             className={`w-6 h-6 ${
-                              i < Math.floor(ratingValue)
+                              i < Math.floor(numericRatingValue)
                                 ? "text-yellow-500 fill-current"
-                                : i === Math.floor(ratingValue) && ratingValue % 1 !== 0
+                                : i === Math.floor(numericRatingValue) && numericRatingValue % 1 !== 0
                                 ? "text-yellow-500 fill-current opacity-50"
                                 : "text-gray-300"
                             }`}
@@ -325,7 +320,7 @@ export default function ListenerProfilePage() {
                         ))}
                       </div>
                       <span className="text-2xl font-bold text-[#8B4513]">
-                        {ratingValue > 0 ? ratingValue.toFixed(1) : "0.0"}
+                        {numericRatingValue > 0 ? numericRatingValue.toFixed(1) : "0.0"}
                       </span>
                       {totalReviews > 0 && (
                         <span className="text-sm text-[#8B4513]/70">
@@ -376,7 +371,7 @@ export default function ListenerProfilePage() {
           </div>
 
           {/* Profile Content */}
-          <div className="p-8">
+          <div className="p-4 sm:p-6 lg:p-8">
             {/* Description */}
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-[#8B4513] mb-4 flex items-center gap-2">

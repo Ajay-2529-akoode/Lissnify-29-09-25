@@ -114,7 +114,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toa
 ;
 ;
 const metadata = {
-    title: "Elysian",
+    title: "Lissnify",
     description: "Mental Wellness Platform"
 };
 function RootLayout({ children }) {

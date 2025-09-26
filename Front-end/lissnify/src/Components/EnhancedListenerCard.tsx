@@ -58,7 +58,7 @@ export default function EnhancedListenerCard({
       }
 
       const data = await connection(listener.l_id);
-      console.log("Connecting to listener:", listener.l_id, data);
+      // Connecting to listener
       
       if (data.success) {
         toast.success("Connection request sent successfully");
@@ -79,7 +79,6 @@ export default function EnhancedListenerCard({
         }
       }
     } catch (error) {
-      console.error("Error connecting to listener:", error);
       toast.error("Network error. Please check your connection and try again.");
     }
   };

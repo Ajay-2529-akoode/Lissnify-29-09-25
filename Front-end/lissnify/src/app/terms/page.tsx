@@ -27,7 +27,7 @@ export default function TermsOfService() {
         {/* Page Title */}
         <div className="relative z-10 px-6 mt-8 text-center">
           <h1 className="text-5xl font-bold text-[#8B4513] mb-4">Terms of Service</h1>
-          <p className="text-xl text-[#8B4513]/80 max-w-3xl mx-auto">
+          <p className="text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular">
             Please read these terms carefully before using our mental health support platform.
           </p>
         </div>

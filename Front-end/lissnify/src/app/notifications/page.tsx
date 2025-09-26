@@ -71,13 +71,13 @@ export default function NotificationsPage() {
   };
 
   const filteredNotifications = notifications.filter(notification => {
-    // Filter by type
+
     if (filter === 'unread' && notification.is_read) return false;
     if (filter === 'message' && notification.notification_type !== 'message') return false;
     if (filter === 'connection' && !['connection_request', 'connection_accepted', 'connection_rejected'].includes(notification.notification_type)) return false;
     if (filter === 'system' && notification.notification_type !== 'system') return false;
 
-    // Filter by search term
+
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
       return (
@@ -94,7 +94,6 @@ export default function NotificationsPage() {
     try {
       await markAsRead(notificationId);
     } catch (error) {
-      console.error('Error marking notification as read:', error);
     }
   };
 
@@ -102,7 +101,6 @@ export default function NotificationsPage() {
     try {
       await markAllAsRead();
     } catch (error) {
-      console.error('Error marking all notifications as read:', error);
     }
   };
 
@@ -110,7 +108,6 @@ export default function NotificationsPage() {
     try {
       await deleteNotification(notificationId);
     } catch (error) {
-      console.error('Error deleting notification:', error);
     }
   };
 
@@ -118,14 +115,13 @@ export default function NotificationsPage() {
     try {
       await updateSettings(newSettings);
     } catch (error) {
-      console.error('Error updating settings:', error);
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto py-8 px-4">
-        {/* Header */}
+
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
