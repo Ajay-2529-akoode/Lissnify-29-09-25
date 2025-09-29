@@ -60,3 +60,11 @@ backend/lissnify/chat_api/migrations/__pycache__
 backend/lissnify/lissnify/__pycache__
 backend/lissnify/lissnify/*.pyc.
 backend/env/
+backend/.env
+backend/.env.local
+backend/.env.production
+backend/lissnify/.env
+backend/lissnify/.env.local
+backend/lissnify/.env.production
+backend/lissnify/db.sqlite3
+backend/lissnify/media/
