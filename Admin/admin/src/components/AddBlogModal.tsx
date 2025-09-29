@@ -34,7 +34,6 @@ export default function AddBlogModal({ isOpen, onClose, onBlogAdded, categories 
   const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
 
   // Debug log to check categories
-  console.log("AddBlogModal - Categories received:", categories);
   //const API_BASE = process.env.NEXT_PUBLIC_API_URL1;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -74,16 +73,12 @@ export default function AddBlogModal({ isOpen, onClose, onBlogAdded, categories 
       formDataToSend.append("meta_description", formData.meta_description);
       formDataToSend.append("category_id", formData.category_id);
       if (formData.image) {
-        console.log("Adding image file:", formData.image);
         formDataToSend.append("image", formData.image);
       } else {
-        console.log("No image file selected");
       }
 
       // Debug: Log FormData contents
-      console.log("FormData contents:");
       for (let [key, value] of formDataToSend.entries()) {
-        console.log(key, value);
       }
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/`, {

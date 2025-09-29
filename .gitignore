@@ -32,6 +32,7 @@ yarn-error.log*
 next-env.d.ts
 Front-end/lissnify/node_modules
 Front-end/lissnify/.next
+Front-end/lissnify/out
 Admin/admin/node_modules
 Admin/admin/.next
 Admin/admin/.vercel

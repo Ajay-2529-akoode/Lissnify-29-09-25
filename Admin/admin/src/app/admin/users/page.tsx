@@ -108,7 +108,7 @@ export default function UsersPage() {
         onClose={() => setIsModalOpen(false)}
         onUserAdded={(user) => {
           // Handle user added callback if needed
-          console.log('User added:', user);
+          
         }}
       />
     </div>

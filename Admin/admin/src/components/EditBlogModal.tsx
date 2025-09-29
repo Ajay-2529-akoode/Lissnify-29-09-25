@@ -35,7 +35,6 @@ export default function EditBlogModal({ isOpen, onClose, onBlogUpdated, blog, ca
   const [isLoading, setIsLoading] = useState(false);
 
   // Debug log to check categories
-  console.log("EditBlogModal - Categories received:", categories);
 
   // Reset form when modal opens/closes or blog changes
   useEffect(() => {
@@ -83,20 +82,15 @@ export default function EditBlogModal({ isOpen, onClose, onBlogUpdated, blog, ca
       formData.append('category_id', categoryId.trim());
       
       if (imageFile) {
-        console.log("Adding image file:", imageFile);
         formData.append('image', imageFile);
       } else if (imageUrl && imageUrl.startsWith('http')) {
-        console.log("Using image URL:", imageUrl);
         // If using URL, we might need to handle this differently
         // For now, let's not append anything if no file is selected
       } else {
-        console.log("No image file or valid URL provided");
       }
 
       // Debug: Log FormData contents
-      console.log("FormData contents:");
       for (let [key, value] of formData.entries()) {
-        console.log(key, value);
       }
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${blog.id}/`, {

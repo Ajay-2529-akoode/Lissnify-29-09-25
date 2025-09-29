@@ -51,13 +51,13 @@ export default function TestimonialPage() {
   // ✅ Fetch testimonials
   const fetchTestimonials = async () => {
     try {
-      console.log('Fetching testimonials from:', `${process.env.NEXT_PUBLIC_API_URL}/testimonials/`);
+    
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/testimonials/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) throw new Error("Failed to fetch testimonials");
       const data = await res.json();
-      console.log('Fetched testimonials:', data);
+    
       setTestimonials(data);
     } catch (err) {
       console.error('Fetch testimonials error:', err);
@@ -87,8 +87,7 @@ export default function TestimonialPage() {
   const handleDeleteTestimonial = async (id: number) => {
     if (!window.confirm("Are you sure you want to delete this testimonial?")) return;
     try {
-      console.log('Deleting testimonial with ID:', id);
-      console.log('Delete URL:', `${process.env.NEXT_PUBLIC_API_URL}/testimonials/${id}/`);
+
       
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/testimonials/${id}/`, {
         method: "DELETE",
@@ -98,8 +97,6 @@ export default function TestimonialPage() {
         },
       });
       
-      console.log('Delete response status:', res.status);
-      console.log('Delete response ok:', res.ok);
       
       if (!res.ok) {
         const errorText = await res.text();
@@ -108,7 +105,6 @@ export default function TestimonialPage() {
       }
       
       const result = await res.json();
-      console.log('Delete success:', result);
       setTestimonials(testimonials.filter((t) => t.id !== id));
     } catch (err) {
       console.error('Delete error:', err);

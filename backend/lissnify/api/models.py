@@ -107,12 +107,9 @@ class Blog(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True, null=True)
     image = models.ImageField(upload_to="blogs/", null=True, blank=True)
-
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name="blogs")
-
     description = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
-
     meta_title = models.CharField(max_length=255, blank=True, null=True)
     meta_description = models.TextField(blank=True, null=True)
 

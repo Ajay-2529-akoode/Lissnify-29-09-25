@@ -2,7 +2,7 @@
 
 export const API_CONFIG = {
   // Update this URL to match your backend server
-  BASE_URL: "https://lissnify-v2.onrender.com", // Real backend URL
+  BASE_URL: "http://localhost:8000", // Real backend URL
   
   // API Endpoints
   ENDPOINTS: {

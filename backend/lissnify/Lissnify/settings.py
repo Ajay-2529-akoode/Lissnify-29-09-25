@@ -35,10 +35,11 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(','
 ALLOWED_HOSTS.extend(['.onrender.com', '.render.com'])
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
-     'daphne',
+    'daphne',
     'rest_framework',
     'admin_api',
     'corsheaders',
@@ -163,12 +164,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Media files
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Public files (for serving uploaded files)
 PUBLIC_ROOT = os.path.join(BASE_DIR, "public")
@@ -209,11 +208,12 @@ CHANNEL_LAYERS = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.sendgrid.net')
 EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='apikey')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='hello@lissnify.com')
 
 # Security settings
 SECURE_BROWSER_XSS_FILTER = True

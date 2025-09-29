@@ -37,7 +37,6 @@ export default function Sidebar() {
       localStorage.removeItem('adminToken');
       localStorage.removeItem('adminRefresh');
       router.push('/admin/login');
-      console.log("Logout complete");
     } catch (error) {
       console.error("An error occurred during logout:", error);
       localStorage.removeItem('adminToken');

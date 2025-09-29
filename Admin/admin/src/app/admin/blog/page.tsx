@@ -55,7 +55,6 @@ export default function BlogPage() {
       });
       if (!res.ok) throw new Error("Failed to fetch categories");
       const data = await res.json();
-      console.log("Fetched categories:", data); // Debug log
       setCategories(data);
     } catch (err) {
       console.error("Error fetching categories:", err);

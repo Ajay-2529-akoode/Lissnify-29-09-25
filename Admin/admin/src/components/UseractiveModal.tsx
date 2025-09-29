@@ -18,7 +18,6 @@ export default function ToggleUserStatusModal({ isOpen, onClose, onSuccess, user
   if (!isOpen || !user) return null;
 
   // Determine target action based on current status
-  console.log("User status in modal:", user.is_active);
   const targetActive = !user.is_active; // what we will set on confirm
   const actionText = user.is_active ? "Deactivate" : "Activate";
   const actionColorClasses = user.is_active
@@ -30,7 +29,7 @@ export default function ToggleUserStatusModal({ isOpen, onClose, onSuccess, user
 
   const handleToggleStatus = async () => {
     try {
-      console.log("Toggling user status for user ID:", user.id);
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/users/toggle-active/`,
         {

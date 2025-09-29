@@ -482,7 +482,7 @@ class BlogDetailView(APIView):
             path = os.path.join('public/blogs', safe_name)
             saved_path = default_storage.save(path, ContentFile(image_file.read()))
             data['image'] = saved_path
-        print(data)
+        # Data processed
         serializer = BlogSerializer(blog, data=data)
         if serializer.is_valid():
             serializer.save(user=request.user)  # ✅ ensure user is saved

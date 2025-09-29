@@ -73,7 +73,7 @@ export default function UserTable({ searchTerm = "", filterType = "all" }) {
   };
 
   const handleDeleteUser = async (user) => {
-    if (window.confirm(`Are you sure you want to delete the user: ${user.username}?`)) {
+    if (window.confirm(`Are you sure you want to delete the user: ${user.full_name}?`)) {
       const adminToken = localStorage.getItem("adminToken");
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${user.u_id}/delete/`, {
@@ -92,7 +92,7 @@ export default function UserTable({ searchTerm = "", filterType = "all" }) {
 
   // Filter users based on search term and filter type
   const filteredUsers = users.filter((user) => {
-    const matchesSearch = user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesSearch = user.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           user.email.toLowerCase().includes(searchTerm.toLowerCase());
     
     const matchesFilter = filterType === 'all' || (
@@ -225,10 +225,10 @@ export default function UserTable({ searchTerm = "", filterType = "all" }) {
                 <td className="px-6 py-4">
                   <div className="flex items-center">
                     <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-                      {user.username.charAt(0).toUpperCase()}
+                      {user.full_name.charAt(0).toUpperCase()}
                     </div>
                     <div className="ml-4">
-                      <div className="text-sm font-medium text-white">{user.username}</div>
+                      <div className="text-sm font-medium text-white">{user.full_name}</div>
                       <div className="text-sm text-gray-400">{user.email}</div>
                     </div>
                   </div>

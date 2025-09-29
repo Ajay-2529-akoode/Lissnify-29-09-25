@@ -23,15 +23,15 @@ services:
       - key: FRONTEND_URL
         value: https://your-frontend-url.com
       - key: EMAIL_HOST
-        value: smtp.gmail.com
+        value: smtp.sendgrid.net
       - key: EMAIL_PORT
         value: 587
       - key: EMAIL_USE_TLS
         value: True
       - key: EMAIL_HOST_USER
-        value: devakoode@gmail.com
+        value: apikey
       - key: EMAIL_HOST_PASSWORD
-        value: dqixhlddcbwsbgjx
+        value: your-sendgrid-api-key
 
   - type: pserv
     name: lissnify-db

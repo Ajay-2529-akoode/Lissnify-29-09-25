@@ -42,16 +42,16 @@ class UserLoginSerializer(serializers.Serializer):
  
     def validate(self, data):
         try:
-            # Try login with full_name
+           
             user = User.objects.get(full_name=data['username_or_email'])
         except User.DoesNotExist:
             try:
-                # Try login with email
+               
                 user = User.objects.get(email=data['username_or_email'])
             except User.DoesNotExist:
                 raise serializers.ValidationError("Invalid full name/email or password")
  
-        # Check password using Django's built-in method
+        
         if not user.check_password(data['password']):
             raise serializers.ValidationError("Invalid full name/email or password")
  
@@ -128,7 +128,7 @@ class SeekerSerializer(serializers.ModelSerializer):
             's_id',
             'user',
             'user_id',
-              # example extra field
+              
             # include other fields relevant to your model
         ]
         read_only_fields = ['id', 'user']
@@ -160,8 +160,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'u_id', 'full_name', 'email', 'first_name', 'last_name', 
             'DOB', 'user_type', 'user_status', 'date_joined','profile_image'
         ]
-        read_only_fields = ['u_id', 'email', 'date_joined']  # Email cannot be changed
-
+        read_only_fields = ['u_id', 'email', 'date_joined']  
     def update(self, instance, validated_data):
         # Only allow updating specific fields
         allowed_fields = ['full_name', 'first_name', 'last_name', 'DOB', 'user_status','profile_image']

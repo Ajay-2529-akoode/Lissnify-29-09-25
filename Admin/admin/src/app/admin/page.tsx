@@ -72,10 +72,10 @@ export default function Dashboard() {
         setData(result);
       } catch (err) {
         if (err.name === "AbortError") {
-          console.log("Fetch aborted");
+        
         } else {
           setError(err.message);
-          console.error("Fetch error:", err);
+        
         }
       } finally {
         setIsLoading(false);

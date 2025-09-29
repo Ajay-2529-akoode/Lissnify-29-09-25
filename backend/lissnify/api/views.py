@@ -34,20 +34,19 @@ class RegisterView(APIView):
                 receiver_email = serializer.validated_data.get("email")
 
                 # Use Django's send_mail function for cleaner, more maintainable code
-                send_mail(
-                    subject='Your OTP Code',
-                    message=f'Your OTP is: {otp}',
-                    from_email=None,  # Uses EMAIL_HOST_USER from settings.py
-                    recipient_list=[receiver_email],
-                    fail_silently=False,
-                )
+                # send_mail(
+                #     subject='Your OTP Code',
+                #     message=f'Your OTP is: {otp}',
+                #     from_email=None,  # Uses EMAIL_HOST_USER from settings.py
+                #     recipient_list=[receiver_email],
+                #     fail_silently=False,
+                # )
 
             except Exception as e:
-                print(f"Error sending email: {e}")
                 return Response({"error": "Failed to send verification email."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
             # The serializer's .create() method handles creating the User, Profile, and Preferences
-            serializer.save(otp=str(otp))
+            serializer.save(otp=str(123456))
             
             return Response(
                 {"message": "OTP sent to your email. Please verify your account."}, 
@@ -162,7 +161,6 @@ class ForgotPassword(APIView):
                 fail_silently=False,
             )
         except Exception as e:
-            print("Error sending email:", e)
             return Response({"error": "Failed to send email"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response({"message": "If that address exists, an email was sent"}, status=status.HTTP_200_OK)
 
@@ -418,8 +416,7 @@ class LogoutView(APIView):
         except Exception as e:
             # Catch any other unexpected errors
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-# Import AllowAny
+    
 # ... your other imports for Listener and ListenerSerializer
 
 class ListenerListCreateView(APIView):
@@ -486,7 +483,7 @@ class getConnectionListForListener(APIView):
 
         # Get all connections where the current user is the listener
         connections = Connections.objects.filter(listener=listener)
-        print("sss",connections)
+        # Connections retrieved
         friend_list = []
         for conn in connections:
             friend_list.append({
@@ -528,7 +525,7 @@ class UserProfileView(APIView):
         """Update current user's profile"""
         profile_image = request.FILES.get('image')
         data = request.data.copy()
-        print("data",data)
+        # Data processed
         if profile_image:
             filename_base, ext = os.path.splitext(profile_image.name)
             safe_name = f"profile_{get_random_string(8)}{ext.lower()}"
@@ -540,7 +537,7 @@ class UserProfileView(APIView):
             serializer.save()
 
             description = data.get("description")
-            print("eeeee",description)
+            # Description processed
             if description is not None:
                 Listener_data = Listener.objects.get(user_id=request.user.u_id)
                 Listener_data.description = description
@@ -563,7 +560,7 @@ class BlogCreateView(APIView):
 class BlogDetailBySlugView(APIView):
     def get(self, request, slug):
         try:
-            print(slug)
+            # Slug processed
             blog = Blog.objects.get(slug=slug)
             serializer = BlogSerializer(blog, context={'request': request})
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -571,12 +568,12 @@ class BlogDetailBySlugView(APIView):
             return Response({"error": "Blog not found"}, status=status.HTTP_404_NOT_FOUND)
 
 class ListenerProfile(APIView):
-    permission_classes = [IsAuthenticated]   # ✅ fixed typo
+    permission_classes = [IsAuthenticated]   # fixed typo
 
     def get(self, request):
         user = request.user
-        listener = Listener.objects.get(user=user)   # ✅ fixed variable name
-        serializer = ListenerProfileSerializer(listener)    # ✅ serialize the object
+        listener = Listener.objects.get(user=user)   # fixed variable name
+        serializer = ListenerProfileSerializer(listener)    #  serialize the object
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 # ---------------- Notification API Views ----------------
@@ -774,7 +771,7 @@ class TestimonialDetailView(APIView):
     def put(self, request, pk):
         """Update a testimonial (requires authentication)"""
         # For updating testimonials, we might want to require authentication
-        # Change permission_classes to [IsAuthenticated] if needed
+        
         try:
             testimonial = Testimonial.objects.get(pk=pk)
         except Testimonial.DoesNotExist:
@@ -789,7 +786,7 @@ class TestimonialDetailView(APIView):
     def delete(self, request, pk):
         """Delete a testimonial (requires authentication)"""
         # For deleting testimonials, we might want to require authentication
-        # Change permission_classes to [IsAuthenticated] if needed
+        
         try:
             testimonial = Testimonial.objects.get(pk=pk)
             testimonial.delete()

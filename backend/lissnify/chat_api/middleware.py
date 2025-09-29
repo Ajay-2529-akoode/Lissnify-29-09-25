@@ -33,19 +33,12 @@ class JWTAuthMiddleware:
         query_params = parse_qs(scope.get('query_string', b'').decode("utf-8"))
         token = query_params.get('token', [None])[0]
         
-        print(f"🔧 JWT Middleware - Path: {scope.get('path')}")
-        print(f"🔧 JWT Middleware - Token present: {bool(token)}")
-        if token:
-            print(f"🔧 JWT Middleware - Token preview: {token[:20]}...")
-
         if token:
             # Asynchronously get the user and attach it to the scope.
             user = await get_user_from_token(token)
             scope['user'] = user
-            print(f"🔧 JWT Middleware - User: {user}, Authenticated: {user.is_authenticated}")
         else:
             scope['user'] = AnonymousUser()
-            print(f"🔧 JWT Middleware - No token, using AnonymousUser")
 
         # Call the next application in the stack.
         return await self.app(scope, receive, send)
