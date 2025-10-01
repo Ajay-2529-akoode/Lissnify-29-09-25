@@ -1032,9 +1032,8 @@ class CommunityPostCommentView(APIView):
         
         data = request.data.copy()
         data['post'] = post.id
-        data['author'] = request.user.u_id
         
-        serializer = CommunityPostCommentSerializer(data=data)
+        serializer = CommunityPostCommentSerializer(data=data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

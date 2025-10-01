@@ -5,6 +5,8 @@ import Link from "next/link";
 import Navbar from "@/Components/Navbar";
 import DashboardSidebar from "@/Components/DashboardSidebar";
 import ProtectedRoute from "@/Components/ProtectedRoute";
+import MetaHead from "@/Components/MetaHead";
+import { getMetaData } from "@/utils/meta";
 import { 
   MessageCircle, 
   Users, 
@@ -42,6 +44,9 @@ interface ConnectedListener {
 export default function SeekerPage() {
   const [selectedChat, setSelectedChat] = useState<number | null>(null);
   const [activeView, setActiveView] = useState<'dashboard' | 'chats' | 'community'>('dashboard');
+
+  // Get meta data for the seeker page
+  const metaData = getMetaData('seeker');
   
   // Mock data for connected listeners
   const connectedListeners: ConnectedListener[] = [
@@ -123,6 +128,7 @@ export default function SeekerPage() {
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-gradient-to-br from-[#FFF8B5] to-[#FFB88C]">
+        <MetaHead meta={metaData} />
         <Navbar />
 
         <div className="flex pt-20">

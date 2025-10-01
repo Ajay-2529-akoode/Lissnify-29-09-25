@@ -3,9 +3,11 @@
 
 import { useState, useEffect, useRef } from "react";
 import DashboardLayout from "@/Components/DashboardLayout";
+import MetaHead from "@/Components/MetaHead";
 import { useAuth } from "@/contexts/AuthContext";
 import { CommunityService, Category, CommunityPost } from "@/services/communityService";
 import CommentModal from "@/Components/CommentModal";
+import { getMetaData } from "@/utils/meta";
 import { 
   Send, 
   Users, 
@@ -25,6 +27,9 @@ export default function CommunityPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Get meta data for the community page
+  const metaData = getMetaData('community');
   const [commentModal, setCommentModal] = useState<{
     isOpen: boolean;
     postId: number | null;
@@ -219,6 +224,7 @@ export default function CommunityPage() {
 
   return (
     <DashboardLayout userType={userType}>
+      <MetaHead meta={metaData} />
       <div className="max-w-6xl mx-auto">
             {/* Header */}
             <div className="text-center mb-8">

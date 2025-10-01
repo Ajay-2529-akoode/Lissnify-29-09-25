@@ -1,4 +1,5 @@
 import { getApiUrl } from '@/config/api';
+import { SEOData, BlogSEOData, ListenerSEOData, PageSEOData, SEOResponse } from '@/types/seo';
 
 
 // API Response types
@@ -462,3 +463,28 @@ export const getUnreadCounts = async (): Promise<ApiResponse<{[roomId: number]: 
     },
   });
 }
+
+// SEO API functions
+export const getBlogListingSEO = async (): Promise<SEOResponse> => {
+  return apiCall<SEOData>('/api/seo/blog-listing/', {
+    method: 'GET',
+  });
+};
+
+export const getBlogDetailSEO = async (slug: string): Promise<SEOResponse> => {
+  return apiCall<BlogSEOData>(`/api/seo/blog-detail/${slug}/`, {
+    method: 'GET',
+  });
+};
+
+export const getListenerListingSEO = async (): Promise<SEOResponse> => {
+  return apiCall<SEOData>('/api/seo/listener-listing/', {
+    method: 'GET',
+  });
+};
+
+export const getListenerDetailSEO = async (id: string): Promise<SEOResponse> => {
+  return apiCall<ListenerSEOData>(`/api/seo/listener-detail/${id}/`, {
+    method: 'GET',
+  });
+};

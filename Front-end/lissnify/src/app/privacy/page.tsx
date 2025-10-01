@@ -5,10 +5,16 @@ import Image from "next/image";
 import { ArrowLeft, Shield, Lock, Eye, Users, FileText, Phone, Mail } from "lucide-react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
+import MetaHead from "@/Components/MetaHead";
+import { getMetaData } from "@/utils/meta";
 
 export default function PrivacyPolicy() {
+  // Get meta data for the privacy page
+  const metaData = getMetaData('privacy');
+
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
+      <MetaHead meta={metaData} />
       <Navbar />
       {/* Header with background image */}
       <div className="relative h-96 bg-gradient-to-r from-[#FFB88C]/20 via-[#FFF8B5]/20 to-[#FFD1A9]/20 mt-20">
