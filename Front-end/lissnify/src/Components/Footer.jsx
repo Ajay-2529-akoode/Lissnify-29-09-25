@@ -9,8 +9,8 @@ export default function Footer() {
     <footer className="bg-white text-[#000000] relative overflow-hidden">
       
       {/* Decorative background elements with warm tones */}
-      <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-[#FFB88C] via-[#FFF8B5] to-[#FFD1A9]"></div>
-      <div className="absolute top-12 left-16 w-40 h-40 bg-gradient-to-br from-[#FFB88C]/20 to-[#F9E79F]/15 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#FFB88C] via-[#FFF8B5] to-[#FFD1A9]"></div>
+      <div className="absolute top-12 left-16 w-40 h-20 bg-gradient-to-br from-[#FFB88C]/20 to-[#F9E79F]/15 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-16 right-20 w-48 h-48 bg-gradient-to-br from-[#FFF8B5]/25 to-[#FFD1A9]/20 rounded-full blur-3xl animate-pulse delay-700"></div>
       <div className="absolute top-1/3 left-1/2 w-32 h-32 bg-gradient-to-br from-[#F9E79F]/20 to-[#FFB88C]/15 rounded-full blur-2xl animate-pulse delay-1000"></div>
       
@@ -18,7 +18,7 @@ export default function Footer() {
       <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%23D2691E%22 fill-opacity=%220.03%22%3E%3Cpath d=%22m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
 
       
-      <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-20 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-8 relative z-10">
         <div className="grid gap-8 sm:gap-12 md:grid-cols-2 lg:grid-cols-4">
           
           {/* Enhanced Logo + Tagline with warm colors */}
@@ -150,7 +150,7 @@ export default function Footer() {
                 <div className="w-8 h-8 bg-[#FFB88C]/30 rounded-xl flex items-center justify-center">
                   <Mail className="w-5 h-5 text-[#000000]" />
                 </div>
-                <span className="font-semibold text-lg">support@Lissnify.com</span>
+                <span className="font-semibold text-lg">hello@lissnify.com</span>
               </div>
               <div className="flex items-center gap-4 text-[#000000]/80">
                 <div className="w-8 h-8 bg-[#F9E79F]/30 rounded-xl flex items-center justify-center">
@@ -165,14 +165,16 @@ export default function Footer() {
               <p className="text-[#000000]/70 text-sm mb-5 font-semibold">Follow our healing journey</p>
               <div className="flex gap-4">
                 {[
-                  { image: "/facebook.png", name: "Facebook" },
-                  { image: "/instagram.png", name: "Instagram" },
-                  { image: "/twitter.png", name: "Twitter" },
-                  { image: "/linkedin.png", name: "LinkedIn" }
-                ].map(({ image, name }, index) => (
+                  { image: "/facebook.png", name: "Facebook", url: "https://www.facebook.com/lissnify" },
+                  { image: "/instagram.png", name: "Instagram", url: "https://www.instagram.com/lissnify" },
+                  { image: "/twitter.png", name: "Twitter", url: "https://twitter.com/lissnify" },
+                  { image: "/linkedin.png", name: "LinkedIn", url: "https://www.linkedin.com/company/lissnify" }
+                ].map(({ image, name, url }, index) => (
                   <a
                     key={index}
-                    href="#"
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`group w-14 h-14 bg-white/70 rounded-2xl flex items-center justify-center hover:bg-gradient-to-br hover:from-[#FFB88C] hover:to-[#F9E79F] transition-all duration-300 hover:scale-110 hover:shadow-xl backdrop-blur-sm border-2 border-[#FFB88C]/20 hover:border-[#000000]/30`}
                     aria-label={name}
                   >

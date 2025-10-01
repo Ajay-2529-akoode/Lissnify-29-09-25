@@ -191,7 +191,7 @@ export default function HelpCenter() {
                 <Mail className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-[#8B4513] mb-2">Email Support</h3>
-              <p className="text-[#8B4513]/70 text-center mb-4">support@lissnify.gov.in</p>
+              <p className="text-[#8B4513]/70 text-center mb-4">hello@lissnify.com</p>
               <a 
                 href="mailto:support@lissnify.gov.in"
                 className="px-6 py-3 bg-[#8B4513] text-white rounded-2xl hover:bg-[#A0522D] transition-colors inline-block"
@@ -204,7 +204,7 @@ export default function HelpCenter() {
                 <Phone className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-[#8B4513] mb-2">Toll-Free Helpline</h3>
-              <p className="text-[#8B4513]/70 text-center mb-4">1800-XXX-XXXX<br/>(8 AM to 8 PM, Mon-Sat)</p>
+              <p className="text-[#8B4513]/70 text-center mb-4">+919899300017<br/>(8 AM to 8 PM, Mon-Sat)</p>
               <a 
                 href="tel:1800-XXX-XXXX"
                 className="px-6 py-3 bg-[#8B4513] text-white rounded-2xl hover:bg-[#A0522D] transition-colors inline-block"

@@ -141,13 +141,13 @@ export default function TermsOfService() {
                   <div className="w-10 h-10 bg-[#8B4513] rounded-full flex items-center justify-center">
                     <Users className="w-5 h-5 text-white" />
                   </div>
-                  <span className="text-lg font-semibold text-[#8B4513]">legal@lissnify.com</span>
+                  <span className="text-lg font-semibold text-[#8B4513]">help@lissnify.com</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-[#8B4513] rounded-full flex items-center justify-center">
                     <Shield className="w-5 h-5 text-white" />
                   </div>
-                  <span className="text-lg font-semibold text-[#8B4513]">support@lissnify.com</span>
+                  <span className="text-lg font-semibold text-[#8B4513]">help@lissnify.com</span>
                 </div>
               </div>
             </div>
