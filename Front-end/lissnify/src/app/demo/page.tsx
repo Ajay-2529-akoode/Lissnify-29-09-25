@@ -3,9 +3,14 @@
 import { useAuth } from '@/contexts/AuthContext';
 import Navbar from '@/Components/Navbar';
 import Footer from '@/Components/Footer';
+import MetaHead from '@/Components/MetaHead';
+import { getMetaData } from '@/utils/meta';
 
 export default function DemoPage() {
   const { user, isAuthenticated, isLoading, login, logout } = useAuth();
+
+  // Get meta data for the demo page
+  const metaData = getMetaData('demo');
 
   const handleDemoLogin = () => {
     login({
@@ -21,6 +26,7 @@ export default function DemoPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-100">
+      <MetaHead meta={metaData} />
       <Navbar />
       
       <div className="container mx-auto px-6 py-16">

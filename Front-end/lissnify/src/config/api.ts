@@ -53,6 +53,12 @@ export const API_CONFIG = {
     // Testimonial endpoints
     TESTIMONIALS: "/api/testimonials/",
     TESTIMONIAL_DETAIL: "/api/testimonials/",
+    
+    // SEO endpoints
+    SEO_BLOG_LISTING: "/api/seo/blog-listing/",
+    SEO_BLOG_DETAIL: "/api/seo/blog-detail/",
+    SEO_LISTENER_LISTING: "/api/seo/listener-listing/",
+    SEO_LISTENER_DETAIL: "/api/seo/listener-detail/",
   }
 };
 

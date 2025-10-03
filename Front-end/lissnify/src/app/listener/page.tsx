@@ -1,8 +1,15 @@
+"use client";
 import Link from "next/link";
+import MetaHead from "@/Components/MetaHead";
+import { getMetaData } from "@/utils/meta";
 
 export default function ListenerPage() {
+  // Get meta data for the listener page
+  const metaData = getMetaData('listener');
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-[#FFB88C] to-[#FFF8B5]">
+      <MetaHead meta={metaData} />
       <section className="container mx-auto px-6 py-16 max-w-5xl">
         <div className="rounded-3xl bg-white/90 shadow-xl border border-white/40 p-10">
           <h1 className="text-4xl md:text-5xl font-bold text-[#2E2E2E] mb-6">Share Your Light</h1>

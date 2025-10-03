@@ -257,6 +257,10 @@ class CommunityPostCommentSerializer(serializers.ModelSerializer):
         model = CommunityPostComment
         fields = ['id', 'author', 'content', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at']
+    
+    def create(self, validated_data):
+        validated_data['author'] = self.context['request'].user
+        return super().create(validated_data)
 
 class CommunityPostSerializer(serializers.ModelSerializer):
     author = UserSummarySerializer(read_only=True)

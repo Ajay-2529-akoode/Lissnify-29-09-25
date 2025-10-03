@@ -4,10 +4,15 @@ import Link from "next/link";
 import { ArrowLeft, Search, MessageCircle, Phone, Mail, HelpCircle, BookOpen, Users, Shield, Heart, ChevronDown, ChevronUp } from "lucide-react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
+import MetaHead from "@/Components/MetaHead";
+import { getMetaData } from "@/utils/meta";
 
 export default function HelpCenter() {
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+
+  // Get meta data for the help page
+  const metaData = getMetaData('help');
 
   const faqData = [
     {
@@ -65,6 +70,7 @@ export default function HelpCenter() {
 
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
+      <MetaHead meta={metaData} />
       <Navbar />
       {/* Header with background */}
       <div className="relative h-96 bg-gradient-to-r from-[#FFB88C]/20 via-[#FFF8B5]/20 to-[#FFD1A9]/20 mt-20">

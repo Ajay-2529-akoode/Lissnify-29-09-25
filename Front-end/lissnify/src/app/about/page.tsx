@@ -4,10 +4,16 @@ import Link from "next/link";
 import { ArrowLeft, Heart, Users, Shield, MessageCircle, Star, Sun, Leaf, Phone, Mail, MapPin } from "lucide-react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
+import MetaHead from "@/Components/MetaHead";
+import { getMetaData } from "@/utils/meta";
 
 export default function AboutPage() {
+  // Get meta data for the about page
+  const metaData = getMetaData('about');
+
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
+      <MetaHead meta={metaData} />
       <Navbar />
       
       {/* Header with background */}

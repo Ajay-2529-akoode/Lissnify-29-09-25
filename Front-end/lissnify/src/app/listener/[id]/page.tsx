@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Star, Phone, Users, ArrowLeft, Clock, MapPin, Heart, MessageCircle, StarIcon } from "lucide-react";
@@ -7,10 +6,12 @@ import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import RatingFeedbackModal from "@/Components/RatingFeedbackModal";
 import FeedbackDisplay from "@/Components/FeedbackDisplay";
-import { listener, connection, submitRatingFeedback, getListenerRatings, getListenerRatingStats, RatingFeedback } from "@/utils/api";
+import { listener, connection, submitRatingFeedback, getListenerRatings, getListenerRatingStats, RatingFeedback, getListenerDetailSEO } from "@/utils/api";
 import { API_CONFIG } from "@/config/api";
 import { toast } from 'react-toastify';
 import { useAuth } from "@/contexts/AuthContext";
+import { Metadata } from "next";
+import Head from "next/head";
 
 interface ListenerProfile {
   l_id: string;
@@ -29,8 +30,13 @@ interface ListenerProfile {
   experience_hours?: number;
   location?: string;
   badge?: string;
+  meta_title?: string;
+  meta_description?: string;
 }
 
+// Generate metadata for SEO
+
+// Helper function for image URL building (needed for metadata)
 export default function ListenerProfilePage() {
   const params = useParams();
   const router = useRouter();
@@ -261,6 +267,10 @@ export default function ListenerProfilePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-orange-50 to-amber-50">
+      <Head>
+      <title>{listenerData.meta_title ? listenerData.meta_title : `${displayName} - Listener Profile | Lissnify`}</title>
+      <meta name="description" content={listenerData.meta_description ? listenerData.meta_description : description} />
+      </Head>
       <Navbar />
       
       {/* Back Button

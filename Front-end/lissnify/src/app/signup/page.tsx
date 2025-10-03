@@ -6,8 +6,10 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
+import MetaHead from "@/Components/MetaHead";
 import { registerUser, sendOTP, verifyOTP, getDashboardUrl, isValidUserType, getCategories } from "@/utils/api";
 import { useAuth } from "@/contexts/AuthContext";
+import { getMetaData } from "@/utils/meta";
 import { 
   User, 
   Mail, 
@@ -40,6 +42,9 @@ function SignupForm() {
     description:"",
     DOB: ""
   });
+
+  // Get meta data for the signup page
+  const metaData = getMetaData('signup');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -234,6 +239,7 @@ function SignupForm() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-100">
+      <MetaHead meta={metaData} />
       <Navbar />
       
       <div className="p-4">

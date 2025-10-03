@@ -1,5 +1,4 @@
 "use client";
- 
 import React, { useState, useEffect, use } from "react";
 // import "./blog-detail.css";
 import { useRouter } from "next/navigation";
@@ -9,6 +8,8 @@ import { API_CONFIG } from "@/config/api";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import ShareDropdown from "@/Components/ShareDropdown";
+import MetaHead from "@/Components/MetaHead";
+import { getBlogPostMeta } from "@/utils/meta";
  
 // Types
 interface Blog {
@@ -21,6 +22,8 @@ interface Blog {
   category?: {
   Category_name: string;
   };
+  meta_title: string;
+  meta_description: string;
 }
  
 interface RecentPost {
@@ -94,7 +97,7 @@ const getRandomBlogStyling = (index: number) => {
  
   return colorSchemes[index % colorSchemes.length];
 };
- 
+
 export default function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const router = useRouter();
   const resolvedParams = use(params);
@@ -289,9 +292,22 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
   const styling = getRandomBlogStyling(blog.id);
   const readTime = estimateReadTime(blog.description);
   const formattedDate = formatDate(blog.date);
- 
+
+  // Get meta data for the blog post
+  const metaData = getBlogPostMeta(
+    blog.meta_title || blog.title,
+    blog.meta_description || blog.description,
+    blog.category?.Category_name
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FFF8B5] to-[#FFB88C] relative overflow-hidden">
+      <MetaHead 
+        meta={metaData}
+        canonicalUrl={`https://lissnify.com/blog/${blog.slug}`}
+        ogImage={blog.image ? `${API_CONFIG.BASE_URL}/${blog.image}` : undefined}
+        ogType="article"
+      />
       <Navbar />
      
       {/* Decorative background elements */}

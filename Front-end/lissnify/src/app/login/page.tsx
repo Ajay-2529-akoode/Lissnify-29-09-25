@@ -6,9 +6,11 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
+import MetaHead from "@/Components/MetaHead";
 import { loginUser } from "@/utils/api";
 import { useAuth } from "@/contexts/AuthContext";
 import { getDashboardUrl } from "@/utils/api";
+import { getMetaData } from "@/utils/meta";
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 import { toast } from "react-toastify";
 export default function LoginPage() {
@@ -23,6 +25,9 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // Get meta data for the login page
+  const metaData = getMetaData('login');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -87,6 +92,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
+      <MetaHead meta={metaData} />
       <Navbar />
 
      

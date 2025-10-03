@@ -1,0 +1,124 @@
+{
+  "pages": {
+    "home": {
+      "title": "Lissnify - Mental Health Support & Emotional Wellness Platform",
+      "description": "Connect with compassionate listeners, access mental health resources, and find support in a safe community. Professional emotional support when you need it most.",
+      "keywords": "mental health, emotional support, listeners, therapy, wellness, community, mental health resources"
+    },
+    "blog": {
+      "title": "Mental Health Resources & Insights | Lissnify Blog",
+      "description": "Discover articles, guides, and resources to support your mental wellness journey. Expert insights, practical tips, and community stories to help you thrive.",
+      "keywords": "mental health blog, wellness articles, mental health resources, emotional wellness, self-care tips"
+    },
+    "blog-slug": {
+      "title": "{{title}} | Lissnify Blog",
+      "description": "{{description}}",
+      "keywords": "mental health, wellness, {{category}}, emotional support"
+    },
+    "login": {
+      "title": "Login to Lissnify | Mental Health Support Platform",
+      "description": "Sign in to access your Lissnify account and connect with compassionate listeners for emotional support and mental wellness resources.",
+      "keywords": "login, mental health platform, emotional support, account access"
+    },
+    "signup": {
+      "title": "Join Lissnify | Mental Health Support Community",
+      "description": "Create your Lissnify account to access compassionate listeners, mental health resources, and join a supportive community focused on emotional wellness.",
+      "keywords": "signup, register, mental health community, emotional support, join platform"
+    },
+    "listener": {
+      "title": "Become a Listener | Lissnify Mental Health Platform",
+      "description": "Share your light and become a supportive listener. Offer empathy and guidance based on your lived experience to help others feel less alone.",
+      "keywords": "become listener, mental health support, emotional guidance, volunteer, help others"
+    },
+    "listeners": {
+      "title": "Find a Listener | Lissnify Mental Health Support",
+      "description": "Connect with compassionate listeners by category. Find the right emotional support for your specific needs and mental wellness journey.",
+      "keywords": "find listener, mental health support, emotional guidance, listener categories, support matching"
+    },
+    "listener-category": {
+      "title": "{{categoryName}} Listeners | Lissnify Mental Health Support",
+      "description": "Connect with experienced {{categoryName}} listeners who understand your challenges and can provide compassionate emotional support.",
+      "keywords": "{{categoryName}} support, mental health listeners, emotional guidance, {{categoryName}} help"
+    },
+    "listener-profile": {
+      "title": "{{listenerName}} | {{categoryName}} Listener | Lissnify",
+      "description": "Connect with {{listenerName}}, a compassionate {{categoryName}} listener ready to provide emotional support and guidance.",
+      "keywords": "{{listenerName}}, {{categoryName}} listener, emotional support, mental health guidance"
+    },
+    "seeker": {
+      "title": "Find Support | Lissnify Mental Health Platform",
+      "description": "Access compassionate listeners and mental health resources tailored to your needs. Find emotional support and guidance on your wellness journey.",
+      "keywords": "mental health support, emotional guidance, seeker, find help, wellness resources"
+    },
+    "community": {
+      "title": "Mental Health Community | Lissnify Support Forum",
+      "description": "Join our supportive mental health community. Share experiences, find understanding, and connect with others on similar wellness journeys.",
+      "keywords": "mental health community, support forum, peer support, wellness community, emotional support"
+    },
+    "community-topic": {
+      "title": "{{topicName}} Discussion | Lissnify Community",
+      "description": "Join the conversation about {{topicName}} in our supportive mental health community. Share experiences and find understanding.",
+      "keywords": "{{topicName}}, mental health discussion, community support, peer support"
+    },
+    "help": {
+      "title": "Help Center | Lissnify Support & FAQ",
+      "description": "Get help with Lissnify. Find answers to common questions, learn how to use our platform, and access support resources.",
+      "keywords": "help center, FAQ, support, platform guide, Lissnify help"
+    },
+    "crisis": {
+      "title": "Crisis Support Resources | Lissnify Emergency Help",
+      "description": "Immediate mental health crisis support resources. Find emergency helplines, crisis intervention services, and urgent mental health support.",
+      "keywords": "crisis support, emergency mental health, suicide prevention, crisis intervention, urgent help"
+    },
+    "about": {
+      "title": "About Lissnify | Mental Health Support Platform",
+      "description": "Learn about Lissnify's mission to provide accessible mental health support through compassionate listeners and community resources.",
+      "keywords": "about Lissnify, mental health platform, mission, compassionate support, accessible therapy"
+    },
+    "privacy": {
+      "title": "Privacy Policy | Lissnify Mental Health Platform",
+      "description": "Learn how Lissnify protects your privacy and handles your personal information in our mental health support platform.",
+      "keywords": "privacy policy, data protection, mental health privacy, personal information"
+    },
+    "terms": {
+      "title": "Terms of Service | Lissnify Mental Health Platform",
+      "description": "Read Lissnify's terms of service and user agreement for our mental health support and community platform.",
+      "keywords": "terms of service, user agreement, platform terms, mental health platform rules"
+    },
+    "dashboard-seeker": {
+      "title": "Seeker Dashboard | Lissnify Mental Health Platform",
+      "description": "Access your personal dashboard to connect with listeners, track your wellness journey, and manage your mental health support.",
+      "keywords": "seeker dashboard, mental health tracking, listener connections, wellness journey"
+    },
+    "dashboard-listener": {
+      "title": "Listener Dashboard | Lissnify Mental Health Platform",
+      "description": "Manage your listener profile, connect with seekers, and track your impact in providing mental health support to the community.",
+      "keywords": "listener dashboard, mental health support, seeker connections, listener profile"
+    },
+    "chats": {
+      "title": "Chats | Lissnify Mental Health Support",
+      "description": "Access your ongoing conversations with listeners and seekers. Continue your mental health support journey through secure messaging.",
+      "keywords": "mental health chats, listener conversations, support messaging, emotional support chat"
+    },
+    "notifications": {
+      "title": "Notifications | Lissnify Mental Health Platform",
+      "description": "Stay updated with your mental health support activities, community updates, and important platform notifications.",
+      "keywords": "notifications, mental health updates, platform alerts, support reminders"
+    },
+    "demo": {
+      "title": "Platform Demo | Lissnify Mental Health Support",
+      "description": "Experience Lissnify's mental health support platform through our interactive demo. See how listeners and seekers connect.",
+      "keywords": "platform demo, mental health demo, Lissnify trial, support platform preview"
+    },
+    "support-category": {
+      "title": "{{categoryName}} Support | Lissnify Mental Health",
+      "description": "Find specialized support for {{categoryName}} challenges. Connect with listeners who understand your specific mental health needs.",
+      "keywords": "{{categoryName}} support, mental health help, specialized guidance, emotional support"
+    }
+  },
+  "default": {
+    "title": "Lissnify - Mental Health Support & Emotional Wellness",
+    "description": "Connect with compassionate listeners and access mental health resources for your emotional wellness journey.",
+    "keywords": "mental health, emotional support, listeners, wellness, community"
+  }
+}

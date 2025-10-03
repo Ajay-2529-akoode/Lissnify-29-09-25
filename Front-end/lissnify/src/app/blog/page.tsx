@@ -1,12 +1,13 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Calendar, Clock, Tag, Search, Filter, ArrowRight, Heart, Eye } from "lucide-react";
-import { getBlogs, getCategories } from "@/utils/api";
+import { getBlogs, getCategories, getBlogListingSEO } from "@/utils/api";
 import { API_CONFIG } from "@/config/api";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
+import MetaHead from "@/Components/MetaHead";
+import { getMetaData } from "@/utils/meta";
 
 // Types
 interface Blog {
@@ -100,6 +101,9 @@ export default function BlogListingPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [sortBy, setSortBy] = useState<"newest" | "oldest">("newest");
+
+  // Get meta data for the blog page
+  const metaData = getMetaData('blog');
 
   // Fetch blogs and categories on component mount
   useEffect(() => {
@@ -196,6 +200,7 @@ export default function BlogListingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FFF8B5] to-[#FFB88C] relative overflow-hidden">
+      <MetaHead meta={metaData} />
       <Navbar />
       
       {/* Decorative background elements */}

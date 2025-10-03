@@ -4,10 +4,16 @@ import Link from "next/link";
 import { ArrowLeft, Phone, MessageCircle, Heart, AlertTriangle, Clock, Shield, Users, BookOpen } from "lucide-react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
+import MetaHead from "@/Components/MetaHead";
+import { getMetaData } from "@/utils/meta";
 
 export default function CrisisSupport() {
+  // Get meta data for the crisis page
+  const metaData = getMetaData('crisis');
+
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
+      <MetaHead meta={metaData} />
       <Navbar />
       {/* Header with background */}
       <div className="relative h-96 bg-gradient-to-r from-red-500/20 via-orange-500/20 to-yellow-500/20 mt-20">
