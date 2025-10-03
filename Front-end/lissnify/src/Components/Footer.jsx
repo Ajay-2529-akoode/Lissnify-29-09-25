@@ -66,104 +66,181 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Enhanced Quick Links with warm hover effects */}
-          <div>
-            <div className="flex items-center gap-3 mb-6">
-              {/* <div className="w-10 h-10 bg-gradient-to-br from-[#FFB88C]/30 to-[#FFF8B5]/30 rounded-xl flex items-center justify-center border border-[#FFB88C]/40">
-                <Star className="w-5 h-5 text-[#000000]" />
-              </div> */}
-              <h3 className="text-2xl font-bold text-[#000000]">Quick Links</h3>
-            </div>
-            <ul className="space-y-2">
-              {[
-                { name: "Home", href: "/" },
-                { name: "About Us", href: "/about" },
-                { name: "Community", href: "/community" },
-                // { name: "Resources", href: "/resources" },
-                { name: "Blog", href: "/blog" }
-              ].map((link, index) => (
-                <li key={index}>
-                  <a 
-                    href={link.href} 
-                    className="group flex items-center gap-3 text-[#000000]/70 hover:text-[#000000] transition-all duration-300 hover:translate-x-2 py-1"
-                  >
-                    <div className="w-2 h-2 bg-gradient-to-r from-[#FFB88C] to-[#F9E79F] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-125"></div>
-                    <span className="font-semibold text-base group-hover:font-bold">{link.name}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Enhanced Support with crisis hotline */}
-          <div>
-            <div className="flex items-center gap-3 mb-6">
-              {/* <div className="w-10 h-10 bg-gradient-to-br from-[#FFF8B5]/30 to-[#FFD1A9]/30 rounded-xl flex items-center justify-center border border-[#FFF8B5]/40">
-                <MessageCircle className="w-5 h-5 text-[#000000]" />
-              </div> */}
-              <h3 className="text-2xl font-bold text-[#000000]">Support</h3>
-            </div>
-            <ul className="space-y-2 mb-6">
-              {[
-                { name: "Help Center", href: "/help" },
-                { name: "Privacy Policy", href: "/privacy" },
-                { name: "Terms of Service", href: "/terms" },
-                // { name: "Crisis Support", href: "/crisis" }
-              ].map((link, index) => (
-                <li key={index}>
-                  <a 
-                    href={link.href} 
-                    className="group flex items-center gap-3 text-[#000000]/70 hover:text-[#000000] transition-all duration-300 hover:translate-x-2 py-1"
-                  >
-                    <div className="w-2 h-2 bg-gradient-to-r from-[#FFF8B5] to-[#FFD1A9] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-125"></div>
-                    <span className="font-semibold text-base group-hover:font-bold">{link.name}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-            
-            {/* Emergency contact with warm, reassuring styling */}
-            {/* <div className="p-6 bg-gradient-to-br from-[#FFB88C]/20 to-[#F9E79F]/20 rounded-2xl border-2 border-[#FFB88C]/30 backdrop-blur-sm shadow-xl">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center">
-                  <Phone className="w-4 h-4 text-[#000000] animate-pulse" />
-                </div>
-                <span className="text-sm font-bold text-[#000000]">Crisis Hotline</span>
+          {/* Mobile/Tablet Layout: Quick Links and Support side by side */}
+          <div className="lg:hidden flex flex-row gap-4 md:gap-6">
+            {/* Enhanced Quick Links with warm hover effects */}
+            <div className="w-1/2">
+              <div className="flex items-center gap-3 mb-3 md:mb-6">
+                {/* <div className="w-10 h-10 bg-gradient-to-br from-[#FFB88C]/30 to-[#FFF8B5]/30 rounded-xl flex items-center justify-center border border-[#FFB88C]/40">
+                  <Star className="w-5 h-5 text-[#000000]" />
+                </div> */}
+                <h3 className="text-lg md:text-2xl font-bold text-[#000000]">Quick Links</h3>
               </div>
-              <p className="text-[#000000] font-bold text-xl">1-800-HELP-NOW</p>
-              <p className="text-[#000000]/60 text-sm font-medium">Available 24/7 • You're never alone</p>
-            </div> */}
+              <ul className="space-y-0.5 md:space-y-1">
+                {[
+                  { name: "Home", href: "/" },
+                  { name: "About Us", href: "/about" },
+                  { name: "Community", href: "/community" },
+                  // { name: "Resources", href: "/resources" },
+                  { name: "Blog", href: "/blog" }
+                ].map((link, index) => (
+                  <li key={index}>
+                    <a 
+                      href={link.href} 
+                      className="group flex items-center gap-3 text-[#000000]/70 hover:text-[#000000] transition-all duration-300 hover:translate-x-2 py-1"
+                    >
+                      <div className="w-2 h-2 bg-gradient-to-r from-[#FFB88C] to-[#F9E79F] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-125"></div>
+                      <span className="font-semibold text-sm md:text-base group-hover:font-bold">{link.name}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Enhanced Support with crisis hotline */}
+            <div className="w-1/2">
+              <div className="flex items-center gap-3 mb-3 md:mb-6">
+                {/* <div className="w-10 h-10 bg-gradient-to-br from-[#FFF8B5]/30 to-[#FFD1A9]/30 rounded-xl flex items-center justify-center border border-[#FFF8B5]/40">
+                  <MessageCircle className="w-5 h-5 text-[#000000]" />
+                </div> */}
+                <h3 className="text-lg md:text-2xl font-bold text-[#000000]">Support</h3>
+              </div>
+              <ul className="space-y-0.5 md:space-y-1 mb-3 md:mb-6">
+                {[
+                  { name: "Help Center", href: "/help" },
+                  { name: "Privacy Policy", href: "/privacy" },
+                  { name: "Terms of Service", href: "/terms" },
+                  // { name: "Crisis Support", href: "/crisis" }
+                ].map((link, index) => (
+                  <li key={index}>
+                    <a 
+                      href={link.href} 
+                      className="group flex items-center gap-3 text-[#000000]/70 hover:text-[#000000] transition-all duration-300 hover:translate-x-2 py-1"
+                    >
+                      <div className="w-2 h-2 bg-gradient-to-r from-[#FFF8B5] to-[#FFD1A9] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-125"></div>
+                      <span className="font-semibold text-sm md:text-base group-hover:font-bold">{link.name}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              
+              {/* Emergency contact with warm, reassuring styling */}
+              {/* <div className="p-6 bg-gradient-to-br from-[#FFB88C]/20 to-[#F9E79F]/20 rounded-2xl border-2 border-[#FFB88C]/30 backdrop-blur-sm shadow-xl">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-8 h-8 bg-gradient-to-r from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center">
+                    <Phone className="w-4 h-4 text-[#000000] animate-pulse" />
+                  </div>
+                  <span className="text-sm font-bold text-[#000000]">Crisis Hotline</span>
+                </div>
+                <p className="text-[#000000] font-bold text-xl">1-800-HELP-NOW</p>
+                <p className="text-[#000000]/60 text-sm font-medium">Available 24/7 • You're never alone</p>
+              </div> */}
+            </div>
           </div>
 
-          {/* Enhanced Contact & Social with warm palette */}
-          <div>
-            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+          {/* Desktop Layout: Original grid structure */}
+          <div className="hidden lg:block">
+            {/* Enhanced Quick Links with warm hover effects */}
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                {/* <div className="w-10 h-10 bg-gradient-to-br from-[#FFB88C]/30 to-[#FFF8B5]/30 rounded-xl flex items-center justify-center border border-[#FFB88C]/40">
+                  <Star className="w-5 h-5 text-[#000000]" />
+                </div> */}
+                <h3 className="text-2xl font-bold text-[#000000]">Quick Links</h3>
+              </div>
+              <ul className="space-y-1">
+                {[
+                  { name: "Home", href: "/" },
+                  { name: "About Us", href: "/about" },
+                  { name: "Community", href: "/community" },
+                  // { name: "Resources", href: "/resources" },
+                  { name: "Blog", href: "/blog" }
+                ].map((link, index) => (
+                  <li key={index}>
+                    <a 
+                      href={link.href} 
+                      className="group flex items-center gap-3 text-[#000000]/70 hover:text-[#000000] transition-all duration-300 hover:translate-x-2 py-1"
+                    >
+                      <div className="w-2 h-2 bg-gradient-to-r from-[#FFB88C] to-[#F9E79F] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-125"></div>
+                      <span className="font-semibold text-base group-hover:font-bold">{link.name}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="hidden lg:block">
+            {/* Enhanced Support with crisis hotline */}
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                {/* <div className="w-10 h-10 bg-gradient-to-br from-[#FFF8B5]/30 to-[#FFD1A9]/30 rounded-xl flex items-center justify-center border border-[#FFF8B5]/40">
+                  <MessageCircle className="w-5 h-5 text-[#000000]" />
+                </div> */}
+                <h3 className="text-2xl font-bold text-[#000000]">Support</h3>
+              </div>
+              <ul className="space-y-1 mb-6">
+                {[
+                  { name: "Help Center", href: "/help" },
+                  { name: "Privacy Policy", href: "/privacy" },
+                  { name: "Terms of Service", href: "/terms" },
+                  // { name: "Crisis Support", href: "/crisis" }
+                ].map((link, index) => (
+                  <li key={index}>
+                    <a 
+                      href={link.href} 
+                      className="group flex items-center gap-3 text-[#000000]/70 hover:text-[#000000] transition-all duration-300 hover:translate-x-2 py-1"
+                    >
+                      <div className="w-2 h-2 bg-gradient-to-r from-[#FFF8B5] to-[#FFD1A9] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-125"></div>
+                      <span className="font-semibold text-base group-hover:font-bold">{link.name}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              
+              {/* Emergency contact with warm, reassuring styling */}
+              {/* <div className="p-6 bg-gradient-to-br from-[#FFB88C]/20 to-[#F9E79F]/20 rounded-2xl border-2 border-[#FFB88C]/30 backdrop-blur-sm shadow-xl">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-8 h-8 bg-gradient-to-r from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center">
+                    <Phone className="w-4 h-4 text-[#000000] animate-pulse" />
+                  </div>
+                  <span className="text-sm font-bold text-[#000000]">Crisis Hotline</span>
+                </div>
+                <p className="text-[#000000] font-bold text-xl">1-800-HELP-NOW</p>
+                <p className="text-[#000000]/60 text-sm font-medium">Available 24/7 • You're never alone</p>
+              </div> */}
+            </div>
+          </div>
+
+          {/* Enhanced Contact & Social with warm palette - Full width on mobile/tablet, original position on desktop */}
+          <div className="lg:col-span-1">
+            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 md:mb-5">
               {/* <div className="w-10 h-10 bg-gradient-to-br from-[#F9E79F]/30 to-[#FFB88C]/30 rounded-xl flex items-center justify-center border border-[#F9E79F]/40">
                 <Heart className="w-5 h-5 text-[#000000]" />
               </div> */}
-              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-[#000000]">Stay Connected</h3>
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#000000]">Stay Connected</h3>
             </div>
             
             {/* Contact info */}
-            <div className="space-y-2 sm:space-y-3 lg:space-y-4 mb-3 sm:mb-4 lg:mb-6">
-              <div className="flex items-center gap-3 sm:gap-4 text-[#000000]/80">
-                <div className="w-6 h-6 sm:w-8 sm:h-8 bg-[#FFB88C]/30 rounded-xl flex items-center justify-center">
-                  <Mail className="w-3 h-3 sm:w-5 sm:h-5 text-[#000000]" />
+            <div className="space-y-2 sm:space-y-3 md:space-y-4 lg:space-y-4 mb-3 sm:mb-4 md:mb-5 lg:mb-6">
+              <div className="flex items-center gap-3 sm:gap-4 text-[#000000]/90">
+                <div className="w-7 h-7 sm:w-9 sm:h-9 bg-[#FFB88C]/40 rounded-xl flex items-center justify-center">
+                  <Mail className="w-4 h-4 sm:w-6 sm:h-6 text-[#000000]" />
                 </div>
-                <span className="font-semibold text-sm sm:text-base lg:text-lg">support@Lissnify.com</span>
+                <span className="font-bold text-base sm:text-lg lg:text-xl">support@Lissnify.com</span>
               </div>
-              <div className="flex items-center gap-3 sm:gap-4 text-[#000000]/80">
-                <div className="w-6 h-6 sm:w-8 sm:h-8 bg-[#F9E79F]/30 rounded-xl flex items-center justify-center">
-                  <MapPin className="w-3 h-3 sm:w-5 sm:h-5 text-[#000000]" />
+              <div className="flex items-center gap-3 sm:gap-4 text-[#000000]/90">
+                <div className="w-7 h-7 sm:w-9 sm:h-9 bg-[#F9E79F]/40 rounded-xl flex items-center justify-center">
+                  <MapPin className="w-4 h-4 sm:w-6 sm:h-6 text-[#000000]" />
                 </div>
-                <span className="font-semibold text-sm sm:text-base lg:text-lg">Worldwide Support</span>
+                <span className="font-bold text-base sm:text-lg lg:text-xl">Worldwide Support</span>
               </div>
             </div>
             
             {/* Enhanced Social Media with warm styling */}
-            <div className="mb-6">
-              <p className="text-[#000000]/70 text-sm mb-4 font-semibold">Follow our healing journey</p>
-              <div className="flex gap-4">
+            <div className="mb-4 sm:mb-6">
+              <p className="text-[#000000]/80 text-base sm:text-lg mb-4 sm:mb-5 font-bold">Follow our healing journey</p>
+              <div className="flex gap-3 sm:gap-4">
                 {[
                   { image: "/facebook.png", name: "Facebook" },
                   { image: "/instagram.png", name: "Instagram" },
@@ -173,15 +250,15 @@ export default function Footer() {
                   <a
                     key={index}
                     href="#"
-                    className={`group w-14 h-14 bg-white/70 rounded-2xl flex items-center justify-center hover:bg-gradient-to-br hover:from-[#FFB88C] hover:to-[#F9E79F] transition-all duration-300 hover:scale-110 hover:shadow-xl backdrop-blur-sm border-2 border-[#FFB88C]/20 hover:border-[#000000]/30`}
+                    className={`group w-14 h-14 sm:w-16 sm:h-16 bg-white/80 rounded-2xl flex items-center justify-center hover:bg-gradient-to-br hover:from-[#FFB88C] hover:to-[#F9E79F] transition-all duration-300 hover:scale-110 hover:shadow-xl backdrop-blur-sm border-2 border-[#FFB88C]/30 hover:border-[#000000]/40`}
                     aria-label={name}
                   >
                     <Image
                       src={image}
                       alt={name}
-                      width={24}
-                      height={24}
-                      className="w-6 h-6 rounded transition-all duration-300 group-hover:scale-110"
+                      width={28}
+                      height={28}
+                      className="w-6 h-6 sm:w-7 sm:h-7 rounded transition-all duration-300 group-hover:scale-110"
                     />
                   </a>
                 ))}

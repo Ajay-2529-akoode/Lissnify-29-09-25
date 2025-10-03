@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Heart, Menu, X, Home, Users, MessageCircle, Shield, Sun, Leaf, User, LogOut, LayoutDashboard, BookOpen } from "lucide-react";
+import { Heart, Menu, X, Home, Users, MessageCircle, Shield, Sun, Leaf, User, LogOut, LayoutDashboard, BookOpen, MessageSquare, UserCircle, MessageSquareText } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { getDashboardUrl } from "@/utils/api";
 import UserDropdown from "./UserDropdown";
@@ -25,6 +25,9 @@ export default function Navbar() {
     { name: "Home", href: "/", icon: Home },
     { name: "Community", href: "/community", icon: Users },
     { name: "Blog", href: "/blog", icon: BookOpen },
+    { name: "Chats", href: isAuthenticated ? getDashboardUrlLocal() + '/chats' : "/chats", icon: MessageSquare },
+    { name: "Profile", href: isAuthenticated ? getDashboardUrlLocal() + '/profile' : "/profile", icon: UserCircle },
+    { name: "Feedback", href: "/feedback", icon: MessageSquareText },
   ];
 
   // Dashboard item (only shown when logged in)
@@ -45,19 +48,6 @@ export default function Navbar() {
 
       <div className="container mx-auto flex justify-between items-center relative z-10">
 
-        {/* Left Mobile Button - Dashboard Sidebar Toggle */}
-        {typeof window !== 'undefined' && window.location.pathname.includes('/dashboard') && (
-          <button
-            onClick={() => {
-              // Trigger sidebar toggle via custom event
-              window.dispatchEvent(new CustomEvent('toggleSidebar'));
-            }}
-            className="lg:hidden relative w-10 h-10 sm:w-12 sm:h-12 bg-white/70 backdrop-blur-sm rounded-2xl flex items-center justify-center hover:bg-white/90 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#FFB88C]/30 group shadow-lg border-2 border-[#FFB88C]/20"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8B5]/10 to-[#FFB88C]/5 rounded-2xl"></div>
-            <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10" />
-          </button>
-        )}
 
         {/* Enhanced Logo with warm styling - Centered */}
         <div className="flex items-center gap-2 sm:gap-4">
@@ -139,13 +129,13 @@ export default function Navbar() {
 
       {/* Enhanced Mobile Menu with warm, nurturing design */}
       {isOpen && (
-        <div className="lg:hidden mt-4 sm:mt-6 bg-white/95 backdrop-blur-md rounded-3xl border-3 border-[#FFB88C]/30 shadow-2xl p-4 sm:p-6 mx-2 sm:mx-4 animate-fadeIn relative overflow-hidden">
+        <div className="lg:hidden mt-4 sm:mt-6 bg-white/95 backdrop-blur-md rounded-3xl border-3 border-[#FFB88C]/30 shadow-2xl p-4 sm:p-6 mx-2 sm:mx-4 animate-fadeIn relative overflow-hidden flex flex-col max-h-[85vh]">
 
           {/* Mobile menu background decoration */}
           <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#FFF8B5]/20 to-[#F9E79F]/10 rounded-full blur-2xl"></div>
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-br from-[#FFB88C]/15 to-[#FFD1A9]/10 rounded-full blur-2xl"></div>
 
-          <div className="space-y-2 sm:space-y-3 relative z-10">
+          <div className="space-y-2 sm:space-y-3 relative z-10 max-h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-[#FFB88C]/50 scrollbar-track-transparent hover:scrollbar-thumb-[#FFB88C]/70 pr-2">
             {navItems.map((item, index) => {
               const IconComponent = item.icon;
               return (
@@ -166,7 +156,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Authentication Section */}
-          <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t-2 border-[#FFB88C]/30 relative z-10 space-y-2 sm:space-y-3">
+          <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t-2 border-[#FFB88C]/30 relative z-10 space-y-2 sm:space-y-3 flex-shrink-0">
             {!isLoading && (
               <>
                 {isAuthenticated ? (
@@ -217,7 +207,7 @@ export default function Navbar() {
                   </div>
                 ) : (
                   // Show login/signup buttons when not logged in
-                  <div className="space-y-4 sm:space-y-5">
+                  <div className="space-y-6 sm:space-y-7">
                     <Link href="/login" onClick={() => setIsOpen(false)}>
                       <button className="group w-full relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30">
                         <span className="relative flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-xl">

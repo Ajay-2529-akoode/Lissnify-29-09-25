@@ -112,7 +112,7 @@ export default function Hero() {
 
       {/* Main Content - Centered */}
       <div className="relative z-10 h-full">
-        <div className="flex items-center justify-center px-3 sm:px-4 pt-12 sm:pt-16 md:pt-18 lg:pt-24 pb-4 sm:pb-6 md:pb-8 lg:pb-20">
+        <div className="flex items-center justify-center px-3 sm:px-4 pt-20 sm:pt-16 md:pt-18 lg:pt-24 pb-4 sm:pb-6 md:pb-8 lg:pb-20">
           <div className="text-center space-y-2 sm:space-y-3 md:space-y-4 lg:space-y-8 max-w-5xl w-full">
             {/* Headline */}
             <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-shadow-soft">
@@ -173,7 +173,7 @@ export default function Hero() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-1.5 sm:gap-2 md:gap-3 lg:gap-4 flex-wrap justify-center text-sm sm:text-base lg:text-xl px-2 sm:px-4">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-2 md:gap-3 lg:gap-4 flex-wrap justify-center text-sm sm:text-base lg:text-xl px-2 sm:px-4">
               {isAuthenticated ? (
                 <Link href={getDashboardRoute()}>
                   <button className="w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-full bg-[#FF8C5A] text-white font-semibold hover:bg-[#e67848] transition transform hover:scale-105 shadow-lg hover:shadow-xl">

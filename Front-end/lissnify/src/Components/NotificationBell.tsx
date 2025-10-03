@@ -185,11 +185,22 @@ export default function NotificationBell({ className = '' }: NotificationBellPro
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+        <div 
+          className="fixed inset-0 sm:absolute sm:right-0 sm:top-0 sm:mt-12 sm:inset-auto bg-black/50 sm:bg-transparent z-50 sm:z-50"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setIsOpen(false);
+            }
+          }}
+        >
+          <div 
+            className="absolute bottom-0 left-0 right-0 sm:relative sm:bottom-auto sm:left-auto sm:right-0 sm:w-80 md:w-96 lg:w-[400px] bg-white rounded-t-3xl sm:rounded-lg shadow-2xl border border-gray-200 max-h-[80vh] sm:max-h-96 overflow-hidden flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
           {/* Header */}
-          <div className="p-4 border-b border-gray-200">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-gray-900">
+          <div className="p-4 sm:p-4 border-b border-gray-200 bg-white sticky top-0 z-10">
+            <div className="flex items-center justify-between gap-2">
+              <h3 className="text-lg sm:text-lg font-semibold text-gray-900">
                 Notifications
                 {stats && stats.unread_notifications > 0 && (
                   <span className="ml-2 text-sm text-gray-500">
@@ -198,25 +209,35 @@ export default function NotificationBell({ className = '' }: NotificationBellPro
                 )}
               </h3>
               <div className="flex items-center space-x-2">
-                <button
-                  onClick={handleTestNotification}
-                  className="p-1 text-blue-400 hover:text-blue-600 rounded text-xs"
-                  title="Test notification"
-                >
-                  🧪
-                </button>
-                <button
-                  onClick={() => setShowSettings(!showSettings)}
-                  className="p-1 text-gray-400 hover:text-gray-600 rounded"
-                >
-                  <Settings className="w-4 h-4" />
-                </button>
+                {/* Mobile close button */}
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1 text-gray-400 hover:text-gray-600 rounded"
+                  className="sm:hidden p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-5 h-5" />
                 </button>
+                {/* Desktop action buttons */}
+                <div className="hidden sm:flex items-center space-x-2">
+                  <button
+                    onClick={handleTestNotification}
+                    className="p-1 text-blue-400 hover:text-blue-600 rounded text-xs"
+                    title="Test notification"
+                  >
+                    🧪
+                  </button>
+                  <button
+                    onClick={() => setShowSettings(!showSettings)}
+                    className="p-1 text-gray-400 hover:text-gray-600 rounded"
+                  >
+                    <Settings className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="p-1 text-gray-400 hover:text-gray-600 rounded"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -244,11 +265,11 @@ export default function NotificationBell({ className = '' }: NotificationBellPro
           )}
 
           {/* Notifications List */}
-          <div className="max-h-96 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto">
             {loading ? (
               <div className="p-4 text-center text-gray-500">Loading...</div>
             ) : notifications.length === 0 ? (
-              <div className="p-4 text-center text-gray-500">No notifications</div>
+              <div className="p-3 sm:p-4 text-center text-gray-500">No notifications</div>
             ) : (
               <>
             {stats && stats.unread_notifications > 0 && (
@@ -264,7 +285,7 @@ export default function NotificationBell({ className = '' }: NotificationBellPro
                 {notifications.map((notification) => (
                   <div
                     key={notification.id}
-                    className={`p-4 border-b border-gray-100 hover:bg-gray-50 ${
+                    className={`p-3 sm:p-4 border-b border-gray-100 hover:bg-gray-50 ${
                       !notification.is_read ? 'bg-blue-50' : ''
                     }`}
                   >
@@ -326,6 +347,7 @@ export default function NotificationBell({ className = '' }: NotificationBellPro
               </div>
             </div>
           )}
+          </div>
         </div>
       )}
     </div>
