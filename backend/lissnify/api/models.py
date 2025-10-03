@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
@@ -13,6 +14,7 @@ class User(AbstractUser):
     password = models.CharField(max_length=255)
     token = models.CharField(max_length=255, blank=True, null=True)
     otp = models.CharField(max_length=6, blank=True, null=True)
+    otp_created_at = models.DateTimeField(blank=True, null=True)  # Track when OTP was generated
     otp_verified = models.BooleanField(default=False)  # Store OTP if needed
     status = models.BooleanField(default=False)  # Active status of the user
     user_type = models.CharField(max_length=255, blank=True, null=True)  # User's preference
@@ -24,6 +26,12 @@ class User(AbstractUser):
     profile_image= models.CharField(max_length=255, blank=True, null=True)  
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['full_name']
+    
+    def is_otp_expired(self):
+        """Check if the OTP has expired (1 minute expiry)"""
+        if not self.otp_created_at:
+            return True  # No timestamp means expired
+        return timezone.now() > self.otp_created_at + timezone.timedelta(minutes=1)
     
     class Meta:
         # This tells Django what to name the table in the database.

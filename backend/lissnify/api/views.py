@@ -21,6 +21,7 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 import os
 from django.utils.crypto import get_random_string
+from django.utils import timezone
 
 #User = get_user_model() 
 
@@ -46,7 +47,7 @@ class RegisterView(APIView):
                 return Response({"error": "Failed to send verification email."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
             # The serializer's .create() method handles creating the User, Profile, and Preferences
-            serializer.save(otp=str(123456))
+            serializer.save(otp=str(123456), otp_created_at=timezone.now())
             
             return Response(
                 {"message": "OTP sent to your email. Please verify your account."}, 
@@ -152,7 +153,8 @@ class ForgotPassword(APIView):
         try:
             otp = random.randint(100000, 999999)
             user.otp = str(otp)
-            user.save(update_fields=["otp"])
+            user.otp_created_at = timezone.now()
+            user.save(update_fields=["otp", "otp_created_at"])
             send_mail(
                 subject='Password Reset OTP',
                 message=f'Your OTP for password reset is: {otp}',

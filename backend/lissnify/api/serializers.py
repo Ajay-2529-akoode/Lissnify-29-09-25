@@ -74,7 +74,11 @@ class OTPSerializer(serializers.Serializer):
  
         if user.status is True:
             raise serializers.ValidationError("This account has already been verified.")
- 
+
+        # Check if OTP has expired (1 minute expiry)
+        if user.is_otp_expired():
+            raise serializers.ValidationError("OTP expired. Please request a new one.")
+
         if user.otp != otp:
             raise serializers.ValidationError("Invalid OTP or email.")
  

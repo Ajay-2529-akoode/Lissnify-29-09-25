@@ -167,8 +167,8 @@ export default function Footer() {
                 {[
                   { image: "/facebook.png", name: "Facebook", url: "https://www.facebook.com/lissnify" },
                   { image: "/instagram.png", name: "Instagram", url: "https://www.instagram.com/lissnify" },
-                  { image: "/twitter.png", name: "Twitter", url: "https://twitter.com/lissnify" },
-                  { image: "/linkedin.png", name: "LinkedIn", url: "https://www.linkedin.com/company/lissnify" }
+                  { image: "/twitter.png", name: "Twitter", url: "https://x.com/lissnify" },
+                  { image: "/linkedin.png", name: "LinkedIn", url: "https://www.linkedin.com/in/lissnify-813055388/" }
                 ].map(({ image, name, url }, index) => (
                   <a
                     key={index}

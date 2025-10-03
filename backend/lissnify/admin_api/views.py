@@ -195,7 +195,7 @@ class CreateUserView(APIView):
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
 
-            serializer.save(otp=str(otp))
+            serializer.save(otp=str(otp), otp_created_at=now())
             return Response(
                 {"message": "OTP sent to your email. Please verify your account."},
                 status=status.HTTP_201_CREATED
