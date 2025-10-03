@@ -94,11 +94,11 @@ const WhyChooseUs = () => {
   const maxIndex = Math.max(0, reasons.length - cardsPerView);
 
   return (
-    <section className="py-20 px-4 bg-yellow-50 min-h-screen">
+    <section className="py-12 sm:py-16 md:py-18 lg:py-20 px-4 bg-yellow-50 min-h-screen">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6 leading-tight">
+        <div className="text-center mb-10 sm:mb-12 md:mb-14 lg:mb-16">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-4 sm:mb-5 md:mb-6 leading-tight">
             Why Choose Lissnify?
           </h2>
           <p className="text-gray-700 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-regular">
@@ -113,7 +113,7 @@ const WhyChooseUs = () => {
           <button
             onClick={prevSlide}
             disabled={currentIndex === 0}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 z-20 w-12 h-12 bg-white/95 backdrop-blur-sm rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 border border-gray-200/50"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 z-20 w-12 h-12 bg-white/95 backdrop-blur-sm rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 border border-gray-200/50 hidden xl:flex"
           >
             <ChevronLeft className="w-6 h-6 text-gray-700 group-hover:text-gray-900 transition-colors duration-200" />
           </button>
@@ -121,7 +121,7 @@ const WhyChooseUs = () => {
           <button
             onClick={nextSlide}
             disabled={currentIndex >= maxIndex}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 z-20 w-12 h-12 bg-white/95 backdrop-blur-sm rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 border border-gray-200/50"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 z-20 w-12 h-12 bg-white/95 backdrop-blur-sm rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 border border-gray-200/50 hidden xl:flex"
           >
             <ChevronRight className="w-6 h-6 text-gray-700 group-hover:text-gray-900 transition-colors duration-200" />
           </button>
@@ -150,7 +150,7 @@ const WhyChooseUs = () => {
                       <div className={`absolute -inset-1 bg-gradient-to-r ${reason.gradient} rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-700 blur-lg`}></div>
                       
                       {/* Main card with subtle light grey border and enhanced yellow hover border */}
-                      <div className="relative bg-white/98 backdrop-blur-xl rounded-3xl p-8 lg:p-10 transition-all duration-700 transform hover:-translate-y-1 border border-gray-200/60 group-hover:border-yellow-500 overflow-hidden h-96 flex flex-col shadow-lg hover:shadow-xl">
+                      <div className="relative bg-white/98 backdrop-blur-xl rounded-3xl p-6 sm:p-7 md:p-8 lg:p-10 transition-all duration-700 transform hover:-translate-y-1 border border-gray-200/60 group-hover:border-yellow-500 overflow-hidden h-80 sm:h-88 md:h-96 flex flex-col shadow-lg hover:shadow-xl">
                         
                         {/* Dynamic background gradient */}
                         <div className={`absolute inset-0 bg-gradient-to-br ${reason.bgGradient} opacity-0 group-hover:opacity-40 transition-opacity duration-700`}></div>
@@ -172,7 +172,7 @@ const WhyChooseUs = () => {
                         </div>
                         
                         {/* Icon container with premium styling */}
-                        <div className="relative flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-white via-gray-50/90 to-white shadow-xl mb-6 group-hover:scale-115 group-hover:rotate-6 transition-all duration-700 border border-gray-100/90 group-hover:border-white group-hover:shadow-2xl">
+                        <div className="relative flex items-center justify-center w-20 h-20 sm:w-22 sm:h-22 md:w-24 md:h-24 rounded-3xl bg-gradient-to-br from-white via-gray-50/90 to-white shadow-xl mb-4 sm:mb-5 md:mb-6 group-hover:scale-115 group-hover:rotate-6 transition-all duration-700 border border-gray-100/90 group-hover:border-white group-hover:shadow-2xl">
                           {/* Multi-layered icon glow */}
                           <div className={`absolute inset-0 bg-gradient-to-r ${reason.gradient} rounded-3xl opacity-0 group-hover:opacity-70 transition-opacity duration-700 blur-xl`}></div>
                           <div className={`absolute inset-2 bg-gradient-to-r ${reason.gradient} rounded-2xl opacity-0 group-hover:opacity-50 transition-opacity duration-500 blur-lg`}></div>
@@ -181,10 +181,10 @@ const WhyChooseUs = () => {
 
                         {/* Content with flex-grow to fill space */}
                         <div className="relative z-10 flex-grow flex flex-col">
-                          <h3 className="text-xl lg:text-2xl font-bold text-slate-800 mb-4 group-hover:text-slate-900 transition-colors duration-300 leading-tight">
+                          <h3 className="text-lg sm:text-xl md:text-xl lg:text-2xl font-bold text-slate-800 mb-3 sm:mb-4 group-hover:text-slate-900 transition-colors duration-300 leading-tight">
                             {reason.title}
                           </h3>
-                          <p className="text-slate-700 leading-relaxed text-base lg:text-lg font-normal group-hover:text-slate-800 transition-colors duration-300 flex-grow">
+                          <p className="text-slate-700 leading-relaxed text-sm sm:text-base md:text-base lg:text-lg font-normal group-hover:text-slate-800 transition-colors duration-300 flex-grow">
                             {reason.description}
                           </p>
 
@@ -204,13 +204,32 @@ const WhyChooseUs = () => {
             </div>
           </div>
 
-          {/* Dot Indicators */}
-          <div className="flex justify-center mt-12 gap-3">
+          {/* Navigation Arrows Below Cards - For screens smaller than 1280px */}
+          <div className="flex justify-center items-center gap-4 mt-4 sm:mt-5 md:mt-6 xl:hidden">
+            <button
+              onClick={prevSlide}
+              disabled={currentIndex === 0}
+              className="w-10 h-10 sm:w-12 sm:h-12 bg-white/95 backdrop-blur-sm rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 border border-gray-200/50"
+            >
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors duration-200" />
+            </button>
+
+            <button
+              onClick={nextSlide}
+              disabled={currentIndex >= maxIndex}
+              className="w-10 h-10 sm:w-12 sm:h-12 bg-white/95 backdrop-blur-sm rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 border border-gray-200/50"
+            >
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors duration-200" />
+            </button>
+          </div>
+
+          {/* Dot Indicators - Hidden on mobile and tablet, visible on desktop */}
+          <div className="hidden lg:flex justify-center mt-4 sm:mt-5 md:mt-6 lg:mt-8 gap-2 sm:gap-3">
             {Array.from({ length: Math.ceil(reasons.length / cardsPerView) }).map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index * cardsPerView)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-1.5 h-1.5 sm:w-2 sm:h-2 lg:w-2.5 lg:h-2.5 rounded-full transition-all duration-300 ${
                   Math.floor(currentIndex / cardsPerView) === index
                     ? 'bg-gradient-to-r from-amber-400 to-orange-500 shadow-lg scale-125'
                     : 'bg-white/60 hover:bg-white/80 shadow-md hover:scale-110'

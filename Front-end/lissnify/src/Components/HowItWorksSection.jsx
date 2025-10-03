@@ -240,14 +240,14 @@ const HealingJourneyCarousel = () => {
           {/* Navigation Arrows - Outside of cards */}
           <button
             onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 z-10 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 border border-orange-200/50"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 z-10 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 border border-orange-200/50 hidden xl:flex"
           >
             <ChevronLeft className="w-6 h-6 text-orange-600 group-hover:text-orange-700 transition-colors" />
           </button>
 
           <button
             onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 z-10 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 border border-orange-200/50"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 z-10 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 border border-orange-200/50 hidden xl:flex"
           >
             <ChevronRight className="w-6 h-6 text-orange-600 group-hover:text-orange-700 transition-colors" />
           </button>
@@ -282,8 +282,25 @@ const HealingJourneyCarousel = () => {
           </div>
         </div>
 
-        {/* Dot Indicators */}
-        <div className="flex justify-center items-center gap-3 mt-12">
+        {/* Navigation Arrows Below Cards - For screens smaller than 1280px */}
+        <div className="flex justify-center items-center gap-4 mt-6 xl:hidden">
+          <button
+            onClick={prevSlide}
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 border border-orange-200/50"
+          >
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-orange-600 group-hover:text-orange-700 transition-colors" />
+          </button>
+
+          <button
+            onClick={nextSlide}
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 border border-orange-200/50"
+          >
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-orange-600 group-hover:text-orange-700 transition-colors" />
+          </button>
+        </div>
+
+        {/* Dot Indicators - Hidden on mobile and tablet, visible on desktop */}
+        <div className="hidden lg:flex justify-center items-center gap-2 sm:gap-3 mt-6 sm:mt-8 lg:mt-12">
           {Array.from({ length: maxSlides }).map((_, index) => (
             <button
               key={index}
@@ -291,8 +308,8 @@ const HealingJourneyCarousel = () => {
               className={`
                 transition-all duration-300 rounded-full
                 ${index === currentSlide 
-                  ? 'w-8 h-3 bg-gradient-to-r from-orange-500 to-amber-500 shadow-lg' 
-                  : 'w-3 h-3 bg-orange-200 hover:bg-orange-300 hover:scale-110'
+                  ? 'w-4 h-1.5 sm:w-6 sm:h-2 bg-gradient-to-r from-orange-500 to-amber-500 shadow-lg' 
+                  : 'w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-200 hover:bg-orange-300 hover:scale-110'
                 }
               `}
             >
