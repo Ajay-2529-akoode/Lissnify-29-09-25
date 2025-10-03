@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import DashboardLayout from "@/Components/DashboardLayout";
 import { connectedListeners, startDirectChat, getMessages, markMessagesAsRead, getUnreadCounts } from "@/utils/api";
@@ -41,7 +41,7 @@ interface Message {
   date?: string;
 }
 
-export default function ListenerChatsPage() {
+function ListenerChatsContent() {
   const searchParams = useSearchParams();
   const [selectedChat, setSelectedChat] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -62,6 +62,7 @@ export default function ListenerChatsPage() {
     // Try to get full_name from localStorage first
     const storedUser = localStorage.getItem('full_name');
     if (storedUser) {
+      console.log('Current user from full_name:', storedUser);
       return storedUser;
     }
     
@@ -71,13 +72,15 @@ export default function ListenerChatsPage() {
       try {
         const userData = JSON.parse(storedUserData);
         const userName = userData.full_name || userData.name || 'listener';
+        console.log('Current user from elysian_user:', userName);
         return userName;
       } catch (error) {
-        // Error parsing stored user data
+        console.error('Error parsing stored user data:', error);
       }
     }
     
     // Fallback to 'listener' if nothing is found
+    console.log('Using fallback user: listener');
     return 'listener';
   };
 
@@ -89,7 +92,7 @@ export default function ListenerChatsPage() {
         setUnreadCounts(response.data);
       }
     } catch (error) {
-      // Error fetching unread counts
+      console.error("Error fetching unread counts:", error);
     }
   };
 
@@ -107,7 +110,9 @@ export default function ListenerChatsPage() {
   //   const accessToken = localStorage.getItem('adminToken');
   //   
   //   // Debug: Check all localStorage keys
-  //
+  //   console.log("🔍 All localStorage keys:", Object.keys(localStorage));
+  //   console.log("🔍 All localStorage values:", Object.fromEntries(Object.entries(localStorage)));
+  //   
   //   // Try multiple possible user ID keys
   //   const userId = localStorage.getItem('userId') || 
   //                 localStorage.getItem('adminUserId') || 
@@ -120,27 +125,29 @@ export default function ListenerChatsPage() {
   //   }
   //   
   //   if (!userId) {
-  
-     
+  //     console.error("❌ No user ID found for notifications");
+  //     console.log("Available keys:", Object.keys(localStorage));
   //     return;
   //   }
 
   //   const wsUrl = `ws://localhost:8000/ws/notifications/${userId}/?token=${accessToken}`;
- 
+  //   console.log(`🔔 Connecting to notifications: ${wsUrl}`);
 
   //   const notificationWs = new WebSocket(wsUrl);
 
   //   notificationWs.onopen = () => {
- 
-  
+  //     console.log("✅ Notification WebSocket connected");
   //   };
 
   //   notificationWs.onmessage = (event) => {
   //     try {
-  //       const data = JSON.parse(event.data);       
+  //       const data = JSON.parse(event.data);
+  //       console.log("🔔 Received notification:", data);
+  //       
   //       if (data.type === 'message_read') {
   //         // Update message status to read
   //         const messageIds = data.message_ids || [];
+  //         console.log('📖 Received read receipt via notifications:', messageIds);
   //         setMessages(prev => prev.map(msg => 
   //           messageIds.includes(msg.id) ? { ...msg, is_read: true } : msg
   //         ));
@@ -155,6 +162,7 @@ export default function ListenerChatsPage() {
   //   };
 
   //   notificationWs.onclose = (event) => {
+  //     console.log(`🔔 Notification WebSocket closed. Code: ${event.code}`);
   //   };
 
   //   return () => {
@@ -168,13 +176,13 @@ export default function ListenerChatsPage() {
         setLoading(true);
         setError(null);
         
-   
+        // Set current user
         const user = getCurrentUser();
         setCurrentUser(user);
         
         const connectedUsers = await connectedListeners();
         if (connectedUsers.success && connectedUsers.data) {
-          
+          // Transform the backend response to match frontend interface
           const transformedConnections = connectedUsers.data.map((conn: any) => ({
             connection_id: conn.connection_id,
             user_id: conn.user_id,
@@ -183,7 +191,7 @@ export default function ListenerChatsPage() {
             status: conn.status,
             seeker_profile: {
               s_id: conn.id,
-              specialty: conn.specialty || "General Support", 
+              specialty: conn.specialty || "General Support", // Use actual specialty if available
               avatar: conn.avatar || conn.full_name.charAt(0).toUpperCase(),
             }
           }));
@@ -191,7 +199,7 @@ export default function ListenerChatsPage() {
           // Filter out pending connections - only show accepted connections in conversations
           const acceptedConnections = transformedConnections.filter((conn: any) => conn.status === 'Accepted');
           setConnectedSeekers(acceptedConnections);
-          // Accepted Seekers for Conversations
+          console.log("Accepted Seekers for Conversations:", acceptedConnections);
           
           // Fetch unread counts
           await fetchUnreadCounts();
@@ -199,6 +207,7 @@ export default function ListenerChatsPage() {
           setError("Failed to fetch connected seekers");
         }
       } catch (err) {
+        console.error("Error fetching connected seekers:", err);
         setError("Error fetching connected seekers");
       } finally {
         setLoading(false);
@@ -207,7 +216,7 @@ export default function ListenerChatsPage() {
     fetchData();
   }, []);
 
-  
+  // Handle URL parameter for pre-selected chat
   useEffect(() => {
     const connectionId = searchParams.get('connectionId');
     if (connectionId && connectedSeekersData.length > 0) {
@@ -219,7 +228,7 @@ export default function ListenerChatsPage() {
     }
   }, [searchParams, connectedSeekersData]);
 
-  
+  // WebSocket connection function with retry logic
   const connectToChat = (roomId: number, retryCount = 0) => {
     const accessToken = localStorage.getItem('adminToken');
     
@@ -233,7 +242,7 @@ export default function ListenerChatsPage() {
       chatSocket.close();
     }
 
-    // Attempting to connect to chat room
+    console.log(`🔄 Attempting to connect to chat room ${roomId} (attempt ${retryCount + 1})`);
 
     // Add a small delay before creating the WebSocket connection
     setTimeout(() => {
@@ -243,6 +252,7 @@ export default function ListenerChatsPage() {
       );
 
     socket.onopen = () => {
+      console.log("✅ Connected to chat room:", roomId);
       setIsConnected(true);
       setError(null);
     };
@@ -250,14 +260,19 @@ export default function ListenerChatsPage() {
     socket.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
-        // Received message
+        console.log("📨 Received message:", data);
         
         // Determine if this message is from the current user or the other user
         // Backend sends author.full_name, so we need to handle both formats
         const messageAuthor = data.author?.full_name || data.author_full_name || data.author;
         const isFromCurrentUser = messageAuthor?.trim().toLowerCase() === currentUser?.trim().toLowerCase();
         
-        // WebSocket message alignment check
+        console.log('WebSocket message alignment check:', {
+          messageAuthor: messageAuthor?.trim().toLowerCase(),
+          currentUser: currentUser?.trim().toLowerCase(),
+          isFromCurrentUser,
+          message: data.message
+        });
         
         // Handle different message types
         if (data.type === 'message_delivered') {
@@ -267,11 +282,12 @@ export default function ListenerChatsPage() {
           ));
         } else if (data.type === 'message_read') {
           // Update existing message to read status
-          const messageIds = data.message_ids || [data.message_id];
-          // Received read receipt for messages
-          setMessages(prev => prev.map(msg => 
-            messageIds.includes(msg.id) ? { ...msg, is_read: true } : msg
-          ));
+          const messageId = data.message_id;
+          const userId = data.user_id;
+          console.log('📖 Received read receipt for message:', messageId, 'by user:', userId);
+          
+          // Update local UI: mark the message as read
+          markMessageAsReadInUI(messageId, userId);
         } else if (data.type === 'new_message') {
           // Only add new message if it's from another user
           if (!isFromCurrentUser) {
@@ -322,17 +338,18 @@ export default function ListenerChatsPage() {
         // Don't automatically mark own messages as read
         // They should only show "Read" when the receiver actually opens the chat
       } catch (error) {
-        // Error parsing WebSocket message
+        console.error("❌ Error parsing WebSocket message:", error);
       }
     };
 
     socket.onclose = (event) => {
+      console.log("🔌 Chat socket closed:", event.code, event.reason);
       setIsConnected(false);
       
       // Only attempt reconnection if it's not a normal closure and we haven't exceeded max retries
       if (event.code !== 1000 && retryCount < 3) {
         const delay = Math.pow(2, retryCount) * 1000; // Exponential backoff: 1s, 2s, 4s
-        // Connection lost, retrying
+        console.log(`🔄 Connection lost. Retrying in ${delay}ms (attempt ${retryCount + 1}/3)`);
         setTimeout(() => {
           connectToChat(roomId, retryCount + 1);
         }, delay);
@@ -342,9 +359,10 @@ export default function ListenerChatsPage() {
     };
 
     socket.onerror = (error) => {
+      console.error("❌ WebSocket error:", error);
       // Don't set error immediately on first attempt - let onclose handle retry logic
       if (retryCount === 0) {
-        // Initial connection failed, will retry
+        console.log("🔄 Initial connection failed, will retry...");
       } else {
         setError("Connection error occurred");
         setIsConnected(false);
@@ -381,7 +399,7 @@ export default function ListenerChatsPage() {
       }
       setLoading(true);
       setError(null);
-      // Starting chat with seeker
+      console.log("Starting chat with seeker:", seeker);
       const rooms = await startDirectChat(seeker.user_id);
 
       if (rooms.success) {
@@ -397,30 +415,24 @@ export default function ListenerChatsPage() {
         // Fetch existing messages
         const messages = await getMessages(roomId);
         if (messages.success && messages.data) {
-          // Mark only OTHER users' messages as read when opening chat
-          const messagesWithReadStatus = messages.data.map((message: Message) => {
-            // Only mark messages from OTHER users as read, not our own messages
-            if (message.author_full_name !== currentUser) {
-              return { ...message, is_read: true };
-            }
-            return message; // Keep our own messages unchanged
-          });
-          setMessages(messagesWithReadStatus);
-          // Chat room created or fetched successfully
+          setMessages(messages.data);
+          console.log("Chat room created or fetched successfully:", messages.data);
           
-          // Mark messages as read when opening chat
-          await markMessagesAsRead(roomId);
+          // Send read_messages event to mark all messages as read when opening chat
+          console.log('🔍 Sending read_messages event for chatroom:', roomId);
+          sendReadMessagesEvent(roomId);
           
-          // Mark messages as read in UI
-          markMessagesAsReadInUI(roomId);
-          
-          // Send read receipts for messages from OTHER users (not our own messages)
+          // Also send mark_messages_read for any unread messages
           const unreadMessageIds = messages.data
             .filter((msg: Message) => !msg.is_read && msg.author_full_name !== currentUser)
             .map((msg: Message) => msg.id);
           
           if (unreadMessageIds.length > 0) {
-            sendReadReceipt(roomId, unreadMessageIds);
+            console.log('📖 Marking unread messages as read when opening chat:', unreadMessageIds);
+            // Use setTimeout to ensure WebSocket is connected
+            setTimeout(() => {
+              sendReadReceipt(roomId, unreadMessageIds);
+            }, 1000);
           }
           
           // Update unread counts
@@ -435,10 +447,10 @@ export default function ListenerChatsPage() {
         }, 800);
       } else {
         setError("Failed to start chat");
-        // Failed to start chat
+        console.error("Failed to start chat:", rooms);
       }
     } catch (error) {
-      // Error starting chat
+      console.error("Error starting chat:", error);
       setError("Error starting chat");
     } finally {
       setLoading(false);
@@ -545,6 +557,16 @@ export default function ListenerChatsPage() {
     });
   };
 
+  // Function to mark a specific message as read in UI
+  const markMessageAsReadInUI = (messageId: number, userId: string) => {
+    setMessages(prev => prev.map(msg => {
+      if (msg.id === messageId) {
+        return { ...msg, is_read: true };
+      }
+      return msg;
+    }));
+  };
+
   // Function to mark messages as read when receiver opens chat
   const markMessagesAsReadInUI = (roomId: number) => {
     setMessages(prev => prev.map(msg => {
@@ -559,7 +581,9 @@ export default function ListenerChatsPage() {
   // Function to send read receipt to sender
   const sendReadReceipt = (roomId: number, messageIds: number[]) => {
     if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
-      // Sending read receipt for messages
+      console.log('📤 Sending read receipt for messages:', messageIds, 'in room:', roomId);
+      console.log('📤 Current user:', currentUser);
+      console.log('📤 WebSocket state:', chatSocket.readyState);
       
       chatSocket.send(JSON.stringify({
         type: 'mark_messages_read',
@@ -567,11 +591,67 @@ export default function ListenerChatsPage() {
         message_ids: messageIds
       }));
       
-      // Read receipt sent successfully
+      console.log('✅ Read receipt sent successfully');
     } else {
-      // WebSocket not connected, cannot send read receipt
+      console.log('❌ WebSocket not connected, cannot send read receipt');
+      console.log('❌ WebSocket state:', chatSocket?.readyState);
     }
   };
+
+  // Function to send read_messages event when opening chat
+  const sendReadMessagesEvent = (roomId: number) => {
+    if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
+      console.log('📤 Sending read_messages event for chatroom:', roomId);
+      console.log('📤 Current user:', currentUser);
+      console.log('📤 WebSocket state:', chatSocket.readyState);
+      
+      chatSocket.send(JSON.stringify({
+        type: 'read_messages',
+        chatroom: roomId,
+        user: currentUser
+      }));
+      
+      console.log('✅ Read messages event sent successfully');
+    } else {
+      console.log('❌ WebSocket not connected, cannot send read_messages event');
+      console.log('❌ WebSocket state:', chatSocket?.readyState);
+    }
+  };
+
+  // Function to mark messages as read when they come into view
+  const markMessagesAsReadOnScroll = useCallback(() => {
+    if (!selectedChat || !chatSocket || chatSocket.readyState !== WebSocket.OPEN) {
+      return;
+    }
+
+    // Get unread messages from other users
+    const unreadMessageIds = messagesData
+      .filter((msg: Message) => !msg.is_read && msg.author_full_name !== currentUser)
+      .map((msg: Message) => msg.id);
+
+    if (unreadMessageIds.length > 0) {
+      console.log('📖 Marking messages as read on scroll:', unreadMessageIds);
+      sendReadReceipt(selectedChat, unreadMessageIds);
+    }
+  }, [selectedChat, chatSocket, messagesData, currentUser]);
+
+  // Scroll detection effect
+  useEffect(() => {
+    const messagesContainer = messagesEndRef.current?.parentElement;
+    if (!messagesContainer) return;
+
+    const handleScroll = () => {
+      // Check if user has scrolled to bottom (within 100px)
+      const isNearBottom = messagesContainer.scrollTop + messagesContainer.clientHeight >= messagesContainer.scrollHeight - 100;
+      
+      if (isNearBottom) {
+        markMessagesAsReadOnScroll();
+      }
+    };
+
+    messagesContainer.addEventListener('scroll', handleScroll);
+    return () => messagesContainer.removeEventListener('scroll', handleScroll);
+  }, [markMessagesAsReadOnScroll]);
 
   const filteredSeekers = sortConversationsByActivity(
     connectedSeekersData.filter(seeker =>
@@ -611,7 +691,7 @@ export default function ListenerChatsPage() {
       // Clear the input field immediately for better UX
       setNewMessage('');
     } catch (error) {
-      
+      console.error("Error sending message:", error);
       setError("Failed to send message");
     } finally {
       setLoading(false);
@@ -654,9 +734,9 @@ export default function ListenerChatsPage() {
           </div>
         </div> */}
         
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 h-[calc(100%-120px)]">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100%-120px)]">
                 {/* Left Panel - Chat List */}
-                <div className={`lg:col-span-1 ${selectedChat ? 'hidden lg:block' : 'block'}`}>
+                <div className="lg:col-span-1">
                   <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-orange-100 h-full flex flex-col">
                     <div className="mb-6">
                       <h3 className="text-xl font-bold text-gray-800 mb-4">Active Conversations</h3>
@@ -730,19 +810,12 @@ export default function ListenerChatsPage() {
                 </div>
 
                 {/* Right Panel - Chat Area */}
-                <div className={`lg:col-span-2 h-full ${selectedChat ? 'block' : 'hidden lg:block'}`}>
+                <div className="lg:col-span-2 h-full">
                   {selectedChat ? (
                     /* Chat Interface */
                     <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/50 h-full flex flex-col">
                       {/* Chat Header */}
-                      <div className="bg-gradient-to-r from-orange-400 to-orange-300 p-4 lg:p-6 border-b border-orange-200 flex-shrink-0 shadow-sm">
-                        {/* Mobile Back Button */}
-                        <button
-                          onClick={handleCloseChat}
-                          className="lg:hidden mb-4 p-2 bg-white/20 rounded-lg hover:bg-white/30 transition-colors"
-                        >
-                          <X className="w-5 h-5 text-white" />
-                        </button>
+                      <div className="bg-gradient-to-r from-orange-400 to-orange-300 p-6 border-b border-orange-200 flex-shrink-0 shadow-sm">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-4">
                             <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-orange-500 font-bold text-lg shadow-md">
@@ -858,15 +931,15 @@ export default function ListenerChatsPage() {
                                           className={`px-4 py-3 rounded-2xl shadow-sm ${
                                             isFromListener
                                               ? 'bg-gradient-to-r from-orange-400 to-orange-500 text-white'
-                                              : message.is_read === false
-                                              ? 'bg-blue-50 text-gray-800 border-2 border-blue-200 shadow-md' // Unread message styling
+                                              : message.is_read === true
+                                              ? ' text-gray-800 border-2 shadow-md' // Unread message styling
                                               : 'bg-white text-gray-800 border border-gray-100'
                                           }`}
                                         >
                                           <p className="text-sm leading-relaxed">{message.content}</p>
                                           {!isFromListener && message.is_read === false && (
-                                            <div className="flex items-center justify-end mt-1">
-                                              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                            <div className="flex items-center justify-end">
+                                              <div className="w-2 h-1 rounded-full"></div>
                                             </div>
                                           )}
                                         </div>
@@ -882,15 +955,6 @@ export default function ListenerChatsPage() {
                                                   </svg>
                                                 </div>
                                                 <span className="text-xs text-blue-600 font-medium">Read</span>
-                                              </div>
-                                            ) : message.is_delivered ? (
-                                              <div className="flex items-center gap-1">
-                                                <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
-                                                  <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                                  </svg>
-                                                </div>
-                                                <span className="text-xs text-green-600 font-medium">Delivered</span>
                                               </div>
                                             ) : (
                                               <div className="flex items-center gap-1">
@@ -975,4 +1039,25 @@ export default function ListenerChatsPage() {
       </div>
     </DashboardLayout>
   );
+}
+
+function ListenerChatsPageContent() {
+  return (
+    <Suspense fallback={
+      <DashboardLayout userType="listener">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading chats...</p>
+          </div>
+        </div>
+      </DashboardLayout>
+    }>
+      <ListenerChatsContent />
+    </Suspense>
+  );
+}
+
+export default function ListenerChatsPage() {
+  return <ListenerChatsPageContent />;
 }
