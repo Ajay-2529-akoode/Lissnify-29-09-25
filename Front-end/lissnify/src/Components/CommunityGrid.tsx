@@ -17,7 +17,7 @@ const communityItems: CommunityItem[] = [
   {
     id: "connect",
     title: "Connect",
-    description: "with 20,000+ peers who can support and listen to you",
+    description: "Join a thriving community of peers ready to support and listen to you.",
     Icon: Users,
     iconBg: "bg-orange-100",
     iconColor: "text-orange-600",

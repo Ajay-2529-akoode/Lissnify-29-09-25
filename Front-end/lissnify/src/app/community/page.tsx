@@ -294,12 +294,12 @@ export default function CommunityPage() {
             
             {/* Messages Area */}
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 mb-6">
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-black">
+              <div className="p-4 sm:p-6">
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <h3 className="text-lg sm:text-xl font-semibold text-black">
                     {selectedCategory === 'All' ? 'All Discussions' : `${selectedCategory} Discussions`}
                   </h3>
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm sm:text-base text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
                 {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''}
               </span>
                 </div>
@@ -314,19 +314,19 @@ export default function CommunityPage() {
 
             {/* Messages List */}
             {!loading && (
-              <div ref={messagesContainerRef} className="space-y-2 max-h-96 overflow-y-auto">
+              <div ref={messagesContainerRef} className="space-y-3 sm:space-y-4 max-h-96 overflow-y-auto">
                 {filteredPosts.map((post, index) => (
                     <div
                     key={post.id || `post-${index}`}
-                      className={`p-3 rounded-2xl transition-all duration-200 hover:shadow-md ${
+                      className={`p-4 sm:p-5 rounded-2xl transition-all duration-200 hover:shadow-md ${
                       post.post_type === 'seeker'
                           ? 'bg-orange-100 border-l-4 border-orange-400'
                           : 'bg-yellow-100 border-l-4 border-yellow-400'
                       }`}
                     >
-                      <div className="flex items-start gap-3">
+                      <div className="flex items-start gap-3 sm:gap-4">
                         <div className="flex-shrink-0">
-                          <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm ${
+                          <div className={`w-12 h-12 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white font-bold text-sm ${
                           post.post_type === 'seeker'
                               ? 'bg-gradient-to-br from-orange-400 to-orange-600'
                               : 'bg-gradient-to-br from-yellow-400 to-yellow-600'
@@ -336,8 +336,8 @@ export default function CommunityPage() {
         </div>
                         
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-2">
-                          <h4 className="font-semibold text-black">{post.author.full_name}</h4>
+                          <div className="flex flex-wrap items-center gap-2 mb-3">
+                          <h4 className="font-semibold text-black text-base sm:text-lg">{post.author.full_name}</h4>
                             <span className={`text-xs px-2 py-1 rounded-full font-medium ${
                             post.post_type === 'seeker'
                                 ? 'bg-blue-200 text-blue-800'
@@ -345,7 +345,7 @@ export default function CommunityPage() {
                             }`}>
                             {post.post_type === 'seeker' ? 'Seeker' : 'Listener'}
                             </span>
-                            <span className="text-xs text-gray-500">•</span>
+                            <span className="text-xs text-gray-500 hidden sm:inline">•</span>
                           <span className="text-xs text-gray-500">
                             {new Date(post.created_at).toLocaleDateString()}
                           </span>
@@ -354,27 +354,27 @@ export default function CommunityPage() {
                             </span>
           </div>
           
-                        <p className="text-gray-800 mb-3 leading-relaxed">{post.content}</p>
+                        <p className="text-gray-800 mb-4 leading-relaxed text-sm sm:text-base">{post.content}</p>
                           
-                          <div className="flex items-center gap-4">
+                          <div className="flex items-center gap-3 sm:gap-4">
                             <button
                             onClick={() => handleLike(post.id)}
-                              className={`flex items-center gap-1 px-3 py-1 rounded-lg transition-all duration-200 ${
+                              className={`flex items-center gap-1 px-3 py-2 rounded-lg transition-all duration-200 ${
                               post.is_liked
                                   ? 'bg-red-100 text-red-600'
                                   : 'bg-gray-100 text-gray-600 hover:bg-red-50 hover:text-red-600'
                               }`}
                             >
                             <Heart className={`w-4 h-4 ${post.is_liked ? 'fill-current' : ''}`} />
-                            <span className="text-sm">{post.likes_count}</span>
+                            <span className="text-sm font-medium">{post.likes_count}</span>
                             </button>
                             
                           <button 
                             onClick={() => openCommentModal(post.id, post.title)}
-                            className="flex items-center gap-1 px-3 py-1 rounded-lg bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+                            className="flex items-center gap-1 px-3 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
                           >
                               <Reply className="w-4 h-4" />
-                            <span className="text-sm">{post.comments_count}</span>
+                            <span className="text-sm font-medium">{post.comments_count}</span>
                             </button>
                     </div>
                       </div>

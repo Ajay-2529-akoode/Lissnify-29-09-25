@@ -220,7 +220,7 @@ export default function BlogListingPage() {
 
         {/* Search and Filter Section */}
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-white/40 p-6 mb-8">
-          <div className="flex flex-col lg:flex-row gap-4 items-center">
+          <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
             {/* Search Bar */}
             <div className="flex-1 relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -233,32 +233,49 @@ export default function BlogListingPage() {
               />
             </div>
 
-            {/* Category Filter */}
-            <div className="flex items-center gap-2">
-              <Filter className="w-5 h-5 text-gray-400" />
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#FF5722]/20 focus:border-[#FF5722] transition-all duration-300 bg-white"
-              >
-                {availableCategories.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {/* Filter and Sort Row */}
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-3">
+              {/* Category Filter */}
+              <div className="flex items-center gap-2 min-w-0 sm:min-w-[200px]">
+                <Filter className="w-5 h-5 text-gray-400 flex-shrink-0 hidden sm:block" />
+                <div className="relative flex-1">
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="w-full px-4 py-3 pr-10 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#FF5722]/20 focus:border-[#FF5722] transition-all duration-300 bg-white appearance-none cursor-pointer"
+                  >
+                    {availableCategories.map((category) => (
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
 
-            {/* Sort Options */}
-            <div className="flex items-center gap-2">
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as "newest" | "oldest")}
-                className="px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#FF5722]/20 focus:border-[#FF5722] transition-all duration-300 bg-white"
-              >
-                <option value="newest">Newest First</option>
-                <option value="oldest">Oldest First</option>
-              </select>
+              {/* Sort Options */}
+              <div className="flex items-center gap-2 min-w-0 sm:min-w-[180px]">
+                <div className="relative flex-1">
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value as "newest" | "oldest")}
+                    className="w-full px-4 py-3 pr-10 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#FF5722]/20 focus:border-[#FF5722] transition-all duration-300 bg-white appearance-none cursor-pointer"
+                  >
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                  </select>
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

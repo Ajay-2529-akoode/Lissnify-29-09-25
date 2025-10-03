@@ -117,7 +117,28 @@ const TestimonialCarousel = () => {
     fetchTestimonials();
   }, []);
 
-  const CARDS_PER_VIEW = 3;
+  // Responsive cards per view - 1 for iPhone SE, 2 for larger screens
+  const getCardsPerView = () => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth >= 640) return 2;  // Tablet and up: 2 cards
+      return 1; // Mobile (including iPhone SE): 1 card
+    }
+    return 1; // Default for SSR
+  };
+
+  const [cardsPerView, setCardsPerView] = useState(1);
+
+  useEffect(() => {
+    const updateCardsPerView = () => {
+      setCardsPerView(getCardsPerView());
+    };
+
+    updateCardsPerView();
+    window.addEventListener('resize', updateCardsPerView);
+    return () => window.removeEventListener('resize', updateCardsPerView);
+  }, []);
+
+  const CARDS_PER_VIEW = cardsPerView;
   const maxIndex = Math.max(0, testimonials.length - CARDS_PER_VIEW);
 
   const nextSlide = () => {
@@ -196,10 +217,10 @@ const TestimonialCarousel = () => {
   }
 
   return (
-    <section className="relative bg-gradient-to-br from-[#FFB88C] to-[#FFF8B5] py-10 px-6">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative bg-gradient-to-br from-[#FFB88C] to-[#FFF8B5] py-8 sm:py-10 lg:py-12 px-4 sm:px-6">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 sm:mb-10 lg:mb-12">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
             Healing Journeys
           </h2>
@@ -217,11 +238,11 @@ const TestimonialCarousel = () => {
 
         {/* Main Carousel Container */}
         <div className="relative max-w-full mx-auto">
-          {/* Navigation Arrows - Positioned Outside */}
+          {/* Navigation Arrows - Responsive Positioning */}
           {/* Left Arrow */}
           <button 
             onClick={prevSlide}
-            className="absolute -left-8 top-1/2 -translate-y-1/2 w-14 h-14 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:shadow-xl hover:scale-105 transition-all duration-300 z-10 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+            className="absolute -left-8 top-1/2 -translate-y-1/2 w-14 h-14 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:shadow-xl hover:scale-105 transition-all duration-300 z-10 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 hidden xl:flex"
             disabled={currentIndex === 0}
           >
             <ChevronLeft className="w-6 h-6 text-gray-700" />
@@ -230,7 +251,7 @@ const TestimonialCarousel = () => {
           {/* Right Arrow */}
           <button 
             onClick={nextSlide}
-            className="absolute -right-8 top-1/2 -translate-y-1/2 w-14 h-14 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:shadow-xl hover:scale-105 transition-all duration-300 z-10 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+            className="absolute -right-8 top-1/2 -translate-y-1/2 w-14 h-14 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:shadow-xl hover:scale-105 transition-all duration-300 z-10 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 hidden xl:flex"
             disabled={currentIndex === maxIndex}
           >
             <ChevronRight className="w-6 h-6 text-gray-700" />
@@ -238,20 +259,20 @@ const TestimonialCarousel = () => {
 
           {/* Cards Container */}
           <div 
-            className="mx-16"
+            className="mx-4 sm:mx-6 lg:mx-8"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <div className="flex gap-6">
+            <div className="flex gap-3 sm:gap-4 lg:gap-6 items-stretch justify-center">
               {getVisibleTestimonials().map((testimonial, index) => (
-                <div key={currentIndex + index} className="flex-1 group">
-                  <div className="bg-white rounded-3xl p-6 shadow-sm border border-white/20 aspect-square flex flex-col justify-between hover:shadow-xl transition-all duration-500 hover:-translate-y-2 backdrop-blur-sm">
+                <div key={currentIndex + index} className={`${cardsPerView === 1 ? 'w-full max-w-sm' : 'flex-1'} group`}>
+                  <div className={`bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 lg:p-6 shadow-sm border border-white/20 ${cardsPerView === 1 ? 'h-[280px] sm:h-[320px] lg:h-[350px]' : 'h-[320px] sm:h-[350px] lg:h-[380px]'} flex flex-col justify-between hover:shadow-xl transition-all duration-500 hover:-translate-y-2 backdrop-blur-sm`}>
                     {/* Star Rating */}
-                    <div className="flex gap-1 justify-center mb-4">
+                    <div className="flex gap-0.5 sm:gap-1 justify-center mb-3 sm:mb-4">
                       {[...Array(5)].map((_, i) => (
                         <Star 
                           key={i} 
-                          className={`w-4 h-4 drop-shadow-sm ${
+                          className={`w-3 h-3 sm:w-4 sm:h-4 drop-shadow-sm ${
                             i < testimonial.rating 
                               ? 'text-amber-400 fill-current' 
                               : 'text-gray-300'
@@ -261,20 +282,20 @@ const TestimonialCarousel = () => {
                     </div>
 
                     {/* Quote Text */}
-                    <div className="flex-1 flex items-center justify-center">
-                      <blockquote className="text-black text-xl leading-relaxed text-center">
-                        <p className="font-semibold">"{testimonial.feedback}"</p>
+                    <div className="flex-1 flex items-center justify-center px-2">
+                      <blockquote className={`text-black leading-relaxed text-center ${cardsPerView === 1 ? 'text-base sm:text-lg lg:text-xl' : 'text-sm sm:text-base lg:text-lg'}`}>
+                        <p className={`font-semibold ${cardsPerView === 1 ? 'line-clamp-4 sm:line-clamp-5' : 'line-clamp-3 sm:line-clamp-4'}`}>"{testimonial.feedback}"</p>
                       </blockquote>
                     </div>
 
                     {/* User Info */}
-                    <div className="flex items-center justify-center gap-3 pt-4 border-t border-gray-100 mt-4">
-                      <div className={`w-12 h-12 ${testimonial.color} rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300`}>
-                        <span className="text-white font-semibold text-lg">{testimonial.avatar}</span>
+                    <div className="flex items-center justify-center gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-gray-100 mt-auto">
+                      <div className={`${cardsPerView === 1 ? 'w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14' : 'w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12'} ${testimonial.color} rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300`}>
+                        <span className={`text-white font-semibold ${cardsPerView === 1 ? 'text-base sm:text-lg lg:text-xl' : 'text-sm sm:text-base lg:text-lg'}`}>{testimonial.avatar}</span>
                       </div>
                       <div className="text-center">
-                        <h4 className="text-black font-semibold text-lg mb-0.5">{testimonial.name}</h4>
-                        <p className="text-black text-sm font-medium">{testimonial.role}</p>
+                        <h4 className={`text-black font-semibold mb-0.5 ${cardsPerView === 1 ? 'text-base sm:text-lg lg:text-xl' : 'text-sm sm:text-base lg:text-lg'}`}>{testimonial.name}</h4>
+                        <p className={`text-black font-medium ${cardsPerView === 1 ? 'text-sm sm:text-base lg:text-lg' : 'text-xs sm:text-sm'}`}>{testimonial.role}</p>
                       </div>
                     </div>
                   </div>
@@ -284,16 +305,35 @@ const TestimonialCarousel = () => {
           </div>
         </div>
 
-        {/* Pagination Dots */}
-        <div className="flex justify-center gap-3 mt-12">
+        {/* Navigation Arrows Below Cards - For screens smaller than 1280px */}
+        <div className="flex justify-center items-center gap-4 mt-8 xl:hidden">
+          <button 
+            onClick={prevSlide}
+            className="w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:shadow-xl hover:scale-105 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+            disabled={currentIndex === 0}
+          >
+            <ChevronLeft className="w-5 h-5 text-gray-700" />
+          </button>
+          
+          <button 
+            onClick={nextSlide}
+            className="w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:shadow-xl hover:scale-105 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+            disabled={currentIndex === maxIndex}
+          >
+            <ChevronRight className="w-5 h-5 text-gray-700" />
+          </button>
+        </div>
+
+        {/* Pagination Dots - Hidden on mobile and tablet, visible on desktop */}
+        <div className="hidden lg:flex justify-center gap-2 sm:gap-3 mt-6 sm:mt-8">
           {Array.from({ length: maxIndex + 1 }, (_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
+              className={`h-1 sm:h-1.5 lg:h-2 rounded-full transition-all duration-300 ${
                 index === currentIndex 
-                  ? 'bg-orange-400 w-10 shadow-sm' 
-                  : 'bg-gray-300 hover:bg-gray-400 w-2.5'
+                  ? 'bg-orange-400 w-4 sm:w-6 lg:w-8 shadow-sm' 
+                  : 'bg-gray-300 hover:bg-gray-400 w-1 sm:w-1.5 lg:w-2'
               }`}
             />
           ))}

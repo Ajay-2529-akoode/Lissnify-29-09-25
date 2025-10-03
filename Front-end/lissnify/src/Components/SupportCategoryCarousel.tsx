@@ -47,8 +47,8 @@ export default function SupportCategoryCarousel({ categories, className }: Props
 
   return (
     <div className={`relative ${className ?? ''}`}>
-      {/* Navigation Arrows */}
-      <div className="flex justify-between items-center mb-6">
+      {/* Navigation Arrows - Hidden on screens smaller than 1280px */}
+      <div className="flex justify-between items-center mb-6 hidden xl:flex">
         <button
           onClick={goPrev}
           className="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 text-gray-600 hover:text-gray-800"
@@ -140,23 +140,65 @@ export default function SupportCategoryCarousel({ categories, className }: Props
         ))}
       </Swiper>
 
+      {/* Navigation Arrows Below Cards - For screens smaller than 1280px */}
+      <div className="flex justify-center items-center gap-4 mt-6 xl:hidden">
+        <button
+          onClick={goPrev}
+          className="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 text-gray-600 hover:text-gray-800"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+        </button>
+        
+        <button
+          onClick={goNext}
+          className="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 text-gray-600 hover:text-gray-800"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+        </button>
+      </div>
+
       {/* Custom Pagination Styles */}
       <style jsx global>{`
         .support-category-swiper .swiper-pagination {
           position: relative;
           margin-top: 2rem;
+          display: none;
+        }
+        
+        @media (min-width: 1024px) {
+          .support-category-swiper .swiper-pagination {
+            display: flex;
+          }
         }
         
         .support-category-swiper .swiper-pagination-bullet {
           background: #d1d5db;
           opacity: 0.5;
           transition: all 0.3s ease;
+          width: 4px !important;
+          height: 4px !important;
         }
         
         .support-category-swiper .swiper-pagination-bullet-active {
           background: #6b7280;
           opacity: 1;
           transform: scale(1.2);
+        }
+        
+        @media (min-width: 640px) {
+          .support-category-swiper .swiper-pagination-bullet {
+            width: 5px !important;
+            height: 5px !important;
+          }
+        }
+        
+        @media (min-width: 1024px) {
+          .support-category-swiper .swiper-pagination-bullet {
+            width: 6px !important;
+            height: 6px !important;
+          }
         }
         
         .support-category-swiper .swiper-slide {

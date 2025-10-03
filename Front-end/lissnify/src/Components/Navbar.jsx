@@ -45,7 +45,21 @@ export default function Navbar() {
 
       <div className="container mx-auto flex justify-between items-center relative z-10">
 
-        {/* Enhanced Logo with warm styling */}
+        {/* Left Mobile Button - Dashboard Sidebar Toggle */}
+        {typeof window !== 'undefined' && window.location.pathname.includes('/dashboard') && (
+          <button
+            onClick={() => {
+              // Trigger sidebar toggle via custom event
+              window.dispatchEvent(new CustomEvent('toggleSidebar'));
+            }}
+            className="lg:hidden relative w-10 h-10 sm:w-12 sm:h-12 bg-white/70 backdrop-blur-sm rounded-2xl flex items-center justify-center hover:bg-white/90 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#FFB88C]/30 group shadow-lg border-2 border-[#FFB88C]/20"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8B5]/10 to-[#FFB88C]/5 rounded-2xl"></div>
+            <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-[#8B4513] group-hover:text-[#A0522D] transition-colors duration-300 relative z-10" />
+          </button>
+        )}
+
+        {/* Enhanced Logo with warm styling - Centered */}
         <div className="flex items-center gap-2 sm:gap-4">
           <Link href="/" className="flex items-center hover:opacity-60 transition-opacity duration-600">
             <img 
@@ -109,7 +123,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Enhanced Mobile Hamburger with warm styling */}
+        {/* Right Mobile Button - Main Navigation Menu */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="lg:hidden relative w-10 h-10 sm:w-12 sm:h-12 bg-white/70 backdrop-blur-sm rounded-2xl flex items-center justify-center hover:bg-white/90 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#FFB88C]/30 group shadow-lg border-2 border-[#FFB88C]/20"
@@ -203,7 +217,7 @@ export default function Navbar() {
                   </div>
                 ) : (
                   // Show login/signup buttons when not logged in
-                  <>
+                  <div className="space-y-4 sm:space-y-5">
                     <Link href="/login" onClick={() => setIsOpen(false)}>
                       <button className="group w-full relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-black font-bold bg-white/70 hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden border-2 border-[#FFB88C]/30">
                         <span className="relative flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-xl">
@@ -219,7 +233,7 @@ export default function Navbar() {
                         </span>
                       </button>
                     </Link>
-                  </>
+                  </div>
                 )}
               </>
             )}

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { BookOpen, Heart, Brain, Shield, Users, ArrowRight, Bookmark, Sparkles, Star, Coffee, Sunrise, Moon, Flower2 } from "lucide-react";
+import { BookOpen, Heart, Brain, Shield, Users, ArrowRight, Bookmark, Sparkles, Star, Coffee, Sunrise, Moon, Flower2, ChevronLeft, ChevronRight, Tag } from "lucide-react";
 import { getBlogs, getCategories } from "@/utils/api";
 import { API_CONFIG } from "@/config/api";
 
@@ -103,6 +103,8 @@ export default function ResourcesBlogPreview() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Fetch blogs and categories on component mount
   useEffect(() => {
@@ -158,6 +160,37 @@ export default function ResourcesBlogPreview() {
   // Handle blog click navigation
   const handleBlogClick = (blogSlug) => {
     router.push(`/blog/${blogSlug}`);
+  };
+
+  // Carousel navigation functions
+  const BLOGS_PER_VIEW = 3;
+  const totalSlides = Math.ceil(filteredPosts.length / BLOGS_PER_VIEW);
+
+  const nextSlide = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => (prev + 1) % totalSlides);
+    setTimeout(() => setIsTransitioning(false), 300);
+  };
+
+  const prevSlide = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+    setTimeout(() => setIsTransitioning(false), 300);
+  };
+
+  const goToSlide = (index) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex(index);
+    setTimeout(() => setIsTransitioning(false), 300);
+  };
+
+  // Get visible blogs for current slide
+  const getVisibleBlogs = () => {
+    const startIndex = currentIndex * BLOGS_PER_VIEW;
+    return filteredPosts.slice(startIndex, startIndex + BLOGS_PER_VIEW);
   };
 
   return (
@@ -267,15 +300,42 @@ export default function ResourcesBlogPreview() {
           </div>
         )}
 
-        {/* Blog Posts Grid */}
+        {/* Blog Posts Carousel */}
         {!loading && !error && (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          <div className="relative max-w-7xl mx-auto">
             {filteredPosts.length === 0 ? (
-              <div className="col-span-full text-center py-20">
+              <div className="text-center py-20">
                 <p className="text-lg text-black">No blogs found for the selected category.</p>
               </div>
             ) : (
-              filteredPosts.map((post, index) => (
+              <>
+                {/* Navigation Arrows - Hidden on mobile and tablet */}
+                <button 
+                  onClick={prevSlide}
+                  className="absolute -left-8 top-1/2 -translate-y-1/2 w-14 h-14 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:shadow-xl hover:scale-105 transition-all duration-300 z-10 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 hidden xl:flex"
+                  disabled={currentIndex === 0}
+                >
+                  <ChevronLeft className="w-6 h-6 text-gray-700" />
+                </button>
+
+                <button 
+                  onClick={nextSlide}
+                  className="absolute -right-8 top-1/2 -translate-y-1/2 w-14 h-14 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:shadow-xl hover:scale-105 transition-all duration-300 z-10 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 hidden xl:flex"
+                  disabled={currentIndex >= totalSlides - 1}
+                >
+                  <ChevronRight className="w-6 h-6 text-gray-700" />
+                </button>
+
+                {/* Carousel Container */}
+                <div className="overflow-hidden">
+                  <div 
+                    className="flex transition-transform duration-300 ease-in-out"
+                    style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                  >
+                    {Array.from({ length: totalSlides }).map((_, slideIndex) => (
+                      <div key={slideIndex} className="w-full flex-shrink-0">
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+                          {getVisibleBlogs().map((post, index) => (
                 <article
                   key={post.id}
                   className={`group bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02] border-2 ${post.borderColor} hover:border-opacity-50 overflow-hidden cursor-pointer`}
@@ -351,7 +411,60 @@ export default function ResourcesBlogPreview() {
                   {/* Hover Glow Effect */}
                   <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-500 ${post.bgGradient.replace('/15', '').replace('/10', '')} blur-xl -z-10`}></div>
                 </article>
-              ))
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom Navigation Arrows - Visible on mobile and tablet */}
+                <div className="flex justify-center gap-4 mt-8 xl:hidden">
+                  <button 
+                    onClick={prevSlide}
+                    className="w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:shadow-xl hover:scale-105 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    disabled={currentIndex === 0}
+                  >
+                    <ChevronLeft className="w-5 h-5 text-gray-700" />
+                  </button>
+
+                  <button 
+                    onClick={nextSlide}
+                    className="w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:shadow-xl hover:scale-105 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    disabled={currentIndex >= totalSlides - 1}
+                  >
+                    <ChevronRight className="w-5 h-5 text-gray-700" />
+                  </button>
+                </div>
+
+                {/* Pagination Dots - Hidden on mobile and tablet */}
+                {totalSlides > 1 && (
+                  <div className="hidden lg:flex justify-center mt-8 gap-2">
+                    {Array.from({ length: totalSlides }).map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => goToSlide(index)}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                          index === currentIndex 
+                            ? 'bg-[#FF8C5A] w-8' 
+                            : 'bg-gray-300 hover:bg-gray-400'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                )}
+
+                {/* Show More Blog Button */}
+                <div className="text-center mt-12">
+                  <button 
+                    onClick={() => router.push('/blog')}
+                    className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#FF8C5A] to-[#FF5722] text-white font-bold text-lg rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                  >
+                    <span>Show More Blog</span>
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  </button>
+                </div>
+              </>
             )}
           </div>
         )}
