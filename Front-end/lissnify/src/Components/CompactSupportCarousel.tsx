@@ -67,10 +67,10 @@ export default function CompactSupportCarousel({
 
         {/* Carousel Container */}
         <div className="relative">
-          {/* Navigation Arrows */}
+          {/* Navigation Arrows - Hidden on screens smaller than 1280px */}
           <button
             onClick={goPrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 text-gray-600 hover:text-gray-800 border border-gray-200"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 text-gray-600 hover:text-gray-800 border border-gray-200 hidden xl:flex"
             aria-label="Previous slide"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -78,7 +78,7 @@ export default function CompactSupportCarousel({
           
           <button
             onClick={goNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 text-gray-600 hover:text-gray-800 border border-gray-200"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 text-gray-600 hover:text-gray-800 border border-gray-200 hidden xl:flex"
             aria-label="Next slide"
           >
             <ChevronRight className="w-5 h-5" />
@@ -146,23 +146,65 @@ export default function CompactSupportCarousel({
             ))}
           </Swiper>
 
+          {/* Navigation Arrows Below Cards - For screens smaller than 1280px */}
+          <div className="flex justify-center items-center gap-4 mt-6 xl:hidden">
+            <button
+              onClick={goPrev}
+              className="p-2 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 text-gray-600 hover:text-gray-800 border border-gray-200"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+            
+            <button
+              onClick={goNext}
+              className="p-2 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 text-gray-600 hover:text-gray-800 border border-gray-200"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+          </div>
+
           {/* Custom Pagination Styles */}
           <style jsx global>{`
             .compact-support-swiper .swiper-pagination {
               position: relative;
               margin-top: 2rem;
+              display: none;
+            }
+            
+            @media (min-width: 1024px) {
+              .compact-support-swiper .swiper-pagination {
+                display: flex;
+              }
             }
             
             .compact-support-swiper .swiper-pagination-bullet {
               background: #d1d5db;
               opacity: 0.5;
               transition: all 0.3s ease;
+              width: 4px !important;
+              height: 4px !important;
             }
             
             .compact-support-swiper .swiper-pagination-bullet-active {
               background: #f97316;
               opacity: 1;
               transform: scale(1.2);
+            }
+            
+            @media (min-width: 640px) {
+              .compact-support-swiper .swiper-pagination-bullet {
+                width: 5px !important;
+                height: 5px !important;
+              }
+            }
+            
+            @media (min-width: 1024px) {
+              .compact-support-swiper .swiper-pagination-bullet {
+                width: 6px !important;
+                height: 6px !important;
+              }
             }
             
             .compact-support-swiper .swiper-slide {

@@ -185,7 +185,7 @@ export default function CategoryCarousel() {
             onClick={prevSlide}
             onMouseEnter={() => setIsAutoPlaying(false)}
             onMouseLeave={() => setIsAutoPlaying(true)}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-white/50 flex items-center justify-center hover:bg-white hover:shadow-xl transition-all duration-300 group -translate-x-3 sm:-translate-x-4 lg:-translate-x-6"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-white/50 flex items-center justify-center hover:bg-white hover:shadow-xl transition-all duration-300 group -translate-x-3 sm:-translate-x-4 lg:-translate-x-6 hidden xl:flex"
             disabled={currentIndex === 0 && !isAutoPlaying}
           >
             <svg 
@@ -202,7 +202,7 @@ export default function CategoryCarousel() {
             onClick={nextSlide}
             onMouseEnter={() => setIsAutoPlaying(false)}
             onMouseLeave={() => setIsAutoPlaying(true)}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-white/50 flex items-center justify-center hover:bg-white hover:shadow-xl transition-all duration-300 group translate-x-3 sm:translate-x-4 lg:translate-x-6"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-white/50 flex items-center justify-center hover:bg-white hover:shadow-xl transition-all duration-300 group translate-x-3 sm:translate-x-4 lg:translate-x-6 hidden xl:flex"
             disabled={currentIndex === maxIndex && !isAutoPlaying}
           >
             <svg 
@@ -248,15 +248,52 @@ export default function CategoryCarousel() {
             </div>
           </div>
 
-          {/* Dots Indicator */}
-          <div className="flex justify-center items-center mt-6 sm:mt-8 gap-1.5 sm:gap-2">
+          {/* Navigation Arrows Below Cards - For screens smaller than 1280px */}
+          <div className="flex justify-center items-center gap-4 mt-6 xl:hidden">
+            <button
+              onClick={prevSlide}
+              onMouseEnter={() => setIsAutoPlaying(false)}
+              onMouseLeave={() => setIsAutoPlaying(true)}
+              className="w-10 h-10 sm:w-12 sm:h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-white/50 flex items-center justify-center hover:bg-white hover:shadow-xl transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
+              disabled={currentIndex === 0 && !isAutoPlaying}
+            >
+              <svg 
+                className="w-4 h-4 sm:w-5 sm:h-5 text-slate-600" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            <button
+              onClick={nextSlide}
+              onMouseEnter={() => setIsAutoPlaying(false)}
+              onMouseLeave={() => setIsAutoPlaying(true)}
+              className="w-10 h-10 sm:w-12 sm:h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-white/50 flex items-center justify-center hover:bg-white hover:shadow-xl transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
+              disabled={currentIndex === maxIndex && !isAutoPlaying}
+            >
+              <svg 
+                className="w-4 h-4 sm:w-5 sm:h-5 text-slate-600" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Dots Indicator - Hidden on mobile and tablet, visible on desktop */}
+          <div className="hidden lg:flex justify-center items-center mt-4 sm:mt-6 gap-1 sm:gap-1.5 sm:gap-2">
             {Array.from({ length: maxIndex + 1 }).map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
                 onMouseEnter={() => setIsAutoPlaying(false)}
                 onMouseLeave={() => setIsAutoPlaying(true)}
-                className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
+                className={`w-1 h-1 sm:w-1.5 sm:h-1.5 lg:w-2 lg:h-2 rounded-full transition-all duration-300 ${
                   currentIndex === index
                     ? 'bg-white shadow-lg scale-110'
                     : 'bg-white/50 hover:bg-white/70'

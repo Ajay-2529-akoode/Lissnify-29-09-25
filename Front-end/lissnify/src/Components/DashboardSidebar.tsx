@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import {
@@ -20,13 +20,24 @@ import {
 
 interface DashboardSidebarProps {
   userType: 'seeker' | 'listener';
+  onCollapsedChange?: (isCollapsed: boolean) => void;
 }
 
-export default function DashboardSidebar({ userType }: DashboardSidebarProps) {
+export default function DashboardSidebar({ userType, onCollapsedChange }: DashboardSidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+
+  // Listen for custom toggle event from navbar
+  useEffect(() => {
+    const handleToggleSidebar = () => {
+      setIsMobileOpen(!isMobileOpen);
+    };
+
+    window.addEventListener('toggleSidebar', handleToggleSidebar);
+    return () => window.removeEventListener('toggleSidebar', handleToggleSidebar);
+  }, [isMobileOpen]);
 
   const seekerNavItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard/seeker' },
@@ -50,16 +61,22 @@ export default function DashboardSidebar({ userType }: DashboardSidebarProps) {
     setIsMobileOpen(false); // Close mobile menu after navigation
   };
 
+  const handleCollapseToggle = () => {
+    const newCollapsedState = !isCollapsed;
+    setIsCollapsed(newCollapsedState);
+    onCollapsedChange?.(newCollapsedState);
+  };
+
   const isActive = (path: string) => {
     return pathname === path;
   };
 
   return (
     <>
-      {/* Mobile Toggle Button */}
+      {/* Mobile Toggle Button - Hidden, using navbar button instead */}
       <button
         onClick={() => setIsMobileOpen(!isMobileOpen)}
-        className="lg:hidden fixed top-20 sm:top-24 left-2 sm:left-4 z-50 p-2 bg-white/90 backdrop-blur-md rounded-lg shadow-lg border border-white/50"
+        className="hidden"
         aria-label="Toggle sidebar"
       >
         <Menu className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
@@ -89,7 +106,7 @@ export default function DashboardSidebar({ userType }: DashboardSidebarProps) {
               </Link>
             )}
             <button
-              onClick={() => setIsCollapsed(!isCollapsed)}
+              onClick={handleCollapseToggle}
               className="p-1.5 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors"
               aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
@@ -105,13 +122,13 @@ export default function DashboardSidebar({ userType }: DashboardSidebarProps) {
                 <button
                   key={item.id}
                   onClick={() => handleNavigation(item.path)}
-                  className={`w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-xl font-medium transition-all duration-200 text-sm sm:text-base ${isActive(item.path)
+                  className={`w-full flex items-center ${isCollapsed ? 'justify-center' : 'gap-2 sm:gap-3'} px-3 sm:px-4 py-2 sm:py-3 rounded-xl font-medium transition-all duration-200 text-sm sm:text-base ${isActive(item.path)
                       ? 'bg-gradient-to-r from-[#FFB88C] to-[#FFF8B5] text-black shadow-lg'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-black'
+                      : 'text-gray-700 hover:bg-gray-50 hover:text-black'
                     }`}
                   aria-label={item.label}
                 >
-                  <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                  <IconComponent className={`w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 ${isCollapsed ? 'text-gray-800' : ''}`} />
                   {!isCollapsed && <span className="truncate">{item.label}</span>}
                 </button>
               );
@@ -121,10 +138,10 @@ export default function DashboardSidebar({ userType }: DashboardSidebarProps) {
           {/* Logout Button */}
           <div className={`absolute bottom-4 sm:bottom-6 ${isCollapsed ? 'left-3 right-3 sm:left-6 sm:right-6' : 'left-3 right-3 sm:left-6 sm:right-6'}`}>
             <button
-              className="w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-xl font-medium text-red-600 hover:bg-red-50 transition-all duration-200 text-sm sm:text-base"
+              className={`w-full flex items-center ${isCollapsed ? 'justify-center' : 'gap-2 sm:gap-3'} px-3 sm:px-4 py-2 sm:py-3 rounded-xl font-medium text-red-600 hover:bg-red-50 transition-all duration-200 text-sm sm:text-base`}
               aria-label="Logout"
             >
-              <LogOut className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+              <LogOut className={`w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 ${isCollapsed ? 'text-red-700' : ''}`} />
               {!isCollapsed && <span className="truncate">Logout</span>}
             </button>
           </div>
