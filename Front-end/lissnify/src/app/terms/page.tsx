@@ -48,10 +48,13 @@ export default function TermsOfService() {
               <div className="w-12 h-12 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-2xl flex items-center justify-center">
                 <FileText className="w-6 h-6 text-[#8B4513]" />
               </div>
-              <h2 className="text-3xl font-bold text-[#8B4513]">Terms of Service</h2>
+              <h2 className="text-3xl font-bold text-[#8B4513]">Terms of Use – Lissnify</h2>
             </div>
+            <p className="text-lg text-[#8B4513]/80 leading-relaxed mb-4">
+              <strong>Effective Date:</strong> 8th Oct 24
+            </p>
             <p className="text-lg text-[#8B4513]/80 leading-relaxed">
-              By accessing and using this service, you agree to comply with and be bound by the following terms and conditions.
+              Welcome to Lissnify ("we," "our," "us"). By accessing or using the Lissnify platform ("Platform"), you agree to be bound by these Terms of Use ("Terms"). If you do not agree, please do not use our Platform.
             </p>
           </div>
 
@@ -61,14 +64,27 @@ export default function TermsOfService() {
             <div>
               <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
                 <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">1</span>
-                User Conduct
+                Nature of Services
               </h3>
               <div className="bg-gradient-to-r from-[#FFB88C]/10 to-[#F9E79F]/10 rounded-2xl p-8">
-                <p className="text-lg text-[#8B4513]/80">
-                  You agree to use this service only for lawful purposes. You are prohibited from posting or transmitting any material that is defamatory, 
-                  obscene, fraudulent, or violates any provision of the <strong>Information Technology Act, 2000</strong>, and its subsequent amendments. 
-                  Impersonating any person or entity is strictly forbidden.
-                </p>
+                <ul className="space-y-4 text-[#8B4513]/80">
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">Lissnify is a peer-support and social connection platform. It connects Seekers (individuals seeking support) with Listeners (individuals willing to listen, share experiences, or provide non-professional guidance).</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">We are not a medical, legal, or financial advisory service.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">Content on Lissnify is for informational and emotional support purposes only.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg"><strong>Emergency Use:</strong> If you are experiencing a crisis, please call your local emergency number immediately. Lissnify is not a substitute for professional care or emergency services.</span>
+                  </li>
+                </ul>
               </div>
             </div>
 
@@ -76,13 +92,19 @@ export default function TermsOfService() {
             <div>
               <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
                 <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">2</span>
-                Service Availability
+                Eligibility
               </h3>
               <div className="bg-gradient-to-r from-[#FFF8B5]/10 to-[#FFD1A9]/10 rounded-2xl p-8">
-                <p className="text-lg text-[#8B4513]/80">
-                  We strive to ensure the service is available 24/7. However, the Government of India will not be liable if the service is unavailable 
-                  at any time due to maintenance, technical issues, or circumstances beyond our control.
-                </p>
+                <ul className="space-y-4 text-[#8B4513]/80">
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">You must be 18 years or older to use Lissnify.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">By creating an account, you confirm that all information provided is accurate and complete.</span>
+                  </li>
+                </ul>
               </div>
             </div>
 
@@ -90,12 +112,32 @@ export default function TermsOfService() {
             <div>
               <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
                 <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">3</span>
-                Intellectual Property
+                User Conduct
               </h3>
               <div className="bg-gradient-to-r from-[#FFB88C]/10 to-[#F9E79F]/10 rounded-2xl p-8">
-                <p className="text-lg text-[#8B4513]/80">
-                  All content, logos, emblems, and information on this platform are the intellectual property of the Government of India 
-                  and are protected by applicable copyright and trademark laws. Unauthorized use of this material is a punishable offense.
+                <p className="text-lg text-[#8B4513]/80 mb-4">
+                  You agree not to:
+                </p>
+                <ul className="space-y-4 text-[#8B4513]/80">
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">Harass, abuse, threaten, or harm other users.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">Share illegal, obscene, defamatory, or offensive content.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">Impersonate another person or misrepresent your affiliation.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">Solicit money, products, or services outside of Lissnify-approved channels.</span>
+                  </li>
+                </ul>
+                <p className="text-lg text-[#8B4513]/80 mt-4">
+                  We reserve the right to suspend or terminate accounts that violate these rules.
                 </p>
               </div>
             </div>
@@ -104,13 +146,27 @@ export default function TermsOfService() {
             <div>
               <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
                 <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">4</span>
-                Limitation of Liability
+                Disclaimer of Liability
               </h3>
               <div className="bg-gradient-to-r from-[#FFF8B5]/10 to-[#FFD1A9]/10 rounded-2xl p-8">
-                <p className="text-lg text-[#8B4513]/80">
-                  This service is provided on an "as is" basis. While we make every effort to ensure the accuracy of the information provided, 
-                  the Government of India is not liable for any loss or damage arising from the use of this service.
-                </p>
+                <ul className="space-y-4 text-[#8B4513]/80">
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">Lissnify does not guarantee accuracy, completeness, or reliability of any user-generated content.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">No professional relationship (medical, legal, financial, or therapeutic) is established through Lissnify.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">You use the Platform at your own risk.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">To the fullest extent permitted by law, Lissnify is not liable for any direct, indirect, incidental, or consequential damages arising from your use.</span>
+                  </li>
+                </ul>
               </div>
             </div>
 
@@ -118,12 +174,50 @@ export default function TermsOfService() {
             <div>
               <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
                 <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">5</span>
-                Governing Law and Jurisdiction
+                Intellectual Property
               </h3>
               <div className="bg-gradient-to-r from-[#FFB88C]/10 to-[#F9E79F]/10 rounded-2xl p-8">
                 <p className="text-lg text-[#8B4513]/80">
-                  These terms shall be governed by and construed in accordance with the laws of the Republic of India. 
-                  Any dispute arising under these terms shall be subject to the exclusive jurisdiction of the courts in New Delhi.
+                  All content, branding, and technology on the Platform are owned by Lissnify. Users may not copy, distribute, or exploit content without permission.
+                </p>
+              </div>
+            </div>
+
+            {/* Section 6 */}
+            <div>
+              <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
+                <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">6</span>
+                Account Suspension & Termination
+              </h3>
+              <div className="bg-gradient-to-r from-[#FFF8B5]/10 to-[#FFD1A9]/10 rounded-2xl p-8">
+                <p className="text-lg text-[#8B4513]/80">
+                  We may suspend, restrict, or terminate your account if you violate these Terms or engage in harmful behavior.
+                </p>
+              </div>
+            </div>
+
+            {/* Section 7 */}
+            <div>
+              <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
+                <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">7</span>
+                Modifications
+              </h3>
+              <div className="bg-gradient-to-r from-[#FFB88C]/10 to-[#F9E79F]/10 rounded-2xl p-8">
+                <p className="text-lg text-[#8B4513]/80">
+                  We may update these Terms from time to time. Continued use of the Platform after changes means you accept the revised Terms.
+                </p>
+              </div>
+            </div>
+
+            {/* Section 8 */}
+            <div>
+              <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
+                <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">8</span>
+                Governing Law
+              </h3>
+              <div className="bg-gradient-to-r from-[#FFF8B5]/10 to-[#FFD1A9]/10 rounded-2xl p-8">
+                <p className="text-lg text-[#8B4513]/80">
+                  These Terms shall be governed by and construed under the laws of India.
                 </p>
               </div>
             </div>
@@ -136,18 +230,12 @@ export default function TermsOfService() {
               <p className="text-lg text-[#8B4513]/80 mb-8">
                 If you have any questions about these Terms of Service, please contact us.
               </p>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#8B4513] rounded-full flex items-center justify-center">
-                    <Users className="w-5 h-5 text-white" />
-                  </div>
-                  <span className="text-lg font-semibold text-[#8B4513]">help@lissnify.com</span>
-                </div>
+              <div className="flex justify-center items-center">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-[#8B4513] rounded-full flex items-center justify-center">
                     <Shield className="w-5 h-5 text-white" />
                   </div>
-                  <span className="text-lg font-semibold text-[#8B4513]">help@lissnify.com</span>
+                  <span className="text-lg font-semibold text-[#8B4513]">hello@lissnify.com</span>
                 </div>
               </div>
             </div>

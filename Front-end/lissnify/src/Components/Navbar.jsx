@@ -198,8 +198,8 @@ export default function Navbar() {
                       Hello, {user?.full_name}
                     </p>
                     <button
-                      onClick={() => {
-                        logout();
+                      onClick={async () => {
+                        await logout();
 
                         // 2. Then, clear the browser storage.
                         localStorage.clear();

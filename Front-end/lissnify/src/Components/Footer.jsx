@@ -6,7 +6,7 @@ import { Heart, Phone, Mail, MapPin, Shield, Users, MessageCircle, Star, Sun, Le
 
 export default function Footer() {
   return (
-    <footer className="bg-white text-[#000000] relative overflow-hidden">
+    <footer className="bg-white text-[#000000] relative overflow-hidden mb-0">
       
       {/* Decorative background elements with warm tones */}
       <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#FFB88C] via-[#FFF8B5] to-[#FFD1A9]"></div>
@@ -18,7 +18,7 @@ export default function Footer() {
       <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%23D2691E%22 fill-opacity=%220.03%22%3E%3Cpath d=%22m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
 
       
-      <div className="container mx-auto px-3 sm:px-4 lg:px-6 py-6 sm:py-8 lg:py-12 xl:py-16 relative z-10">
+      <div className="container mx-auto px-3 sm:px-4 lg:px-6 pt-6 sm:pt-8 lg:pt-10 pb-4 sm:pb-5 lg:pb-6 relative z-10">
         <div className="grid gap-4 sm:gap-6 lg:gap-8 md:grid-cols-2 lg:grid-cols-4">
           
           {/* Enhanced Logo + Tagline with warm colors */}
@@ -108,6 +108,8 @@ export default function Footer() {
                 { name: "Help Center", href: "/help" },
                 { name: "Privacy Policy", href: "/privacy" },
                 { name: "Terms of Service", href: "/terms" },
+                { name: "Community Guidelines", href: "/community-guidelines" },
+
                 // { name: "Crisis Support", href: "/crisis" }
               ].map((link, index) => (
                 <li key={index}>
@@ -150,7 +152,7 @@ export default function Footer() {
                 <div className="w-6 h-6 sm:w-8 sm:h-8 bg-[#FFB88C]/30 rounded-xl flex items-center justify-center">
                   <Mail className="w-3 h-3 sm:w-5 sm:h-5 text-[#000000]" />
                 </div>
-                <span className="font-semibold text-sm sm:text-base lg:text-lg">support@Lissnify.com</span>
+                <span className="font-semibold text-sm sm:text-base lg:text-lg">hello@Lissnify.com</span>
               </div>
               <div className="flex items-center gap-3 sm:gap-4 text-[#000000]/80">
                 <div className="w-6 h-6 sm:w-8 sm:h-8 bg-[#F9E79F]/30 rounded-xl flex items-center justify-center">

@@ -49,15 +49,13 @@ export default function PrivacyPolicy() {
               <div className="w-12 h-12 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-2xl flex items-center justify-center">
                 <Shield className="w-6 h-6 text-[#8B4513]" />
               </div>
-              <h2 className="text-3xl font-bold text-[#8B4513]">Privacy Policy</h2>
+              <h2 className="text-3xl font-bold text-[#8B4513]">Privacy Policy – Lissnify</h2>
             </div>
             <p className="text-lg text-[#8B4513]/80 leading-relaxed mb-4">
-              <strong>Last Updated:</strong> 19 September 2025
+              <strong>Effective Date:</strong> 8th Oct 25
             </p>
             <p className="text-lg text-[#8B4513]/80 leading-relaxed">
-              The Government of India, through the Ministry of Health and Family Welfare, is committed to ensuring the privacy of its citizens. 
-              This policy outlines our practices concerning the collection, use, and disclosure of your personal information in accordance with the 
-              <strong> Digital Personal Data Protection Act, 2023</strong>.
+              Your privacy is important to us. This Privacy Policy explains how Lissnify collects, uses, and protects your personal information.
             </p>
           </div>
 
@@ -67,25 +65,23 @@ export default function PrivacyPolicy() {
             <div>
               <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
                 <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">1</span>
-                Information Collection and Use
+                Information We Collect
               </h3>
               <div className="bg-gradient-to-r from-[#FFB88C]/10 to-[#F9E79F]/10 rounded-2xl p-8">
-                <p className="text-lg text-[#8B4513]/80 mb-4">
-                  We collect personal data that is necessary for the delivery of government services and schemes. This may include:
-                </p>
                 <ul className="space-y-4 text-[#8B4513]/80">
                   <li className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
-                    <span className="text-lg"><strong>Personal Identifiable Information (PII):</strong> Name, address, contact number, email address, Aadhaar number, etc.</span>
+                    <span className="text-lg"><strong>Personal Information:</strong> Name, email, phone number, age, and any details you voluntarily share.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
-                    <span className="text-lg"><strong>Usage Data:</strong> Information on how you access and use the service, including IP address, browser type, and pages visited.</span>
+                    <span className="text-lg"><strong>Usage Data:</strong> IP address, device type, browser, and interactions with the Platform.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg"><strong>Chat Data:</strong> Conversations between Seekers and Listeners are stored securely but may be monitored for compliance and safety.</span>
                   </li>
                 </ul>
-                <p className="text-lg text-[#8B4513]/80 mt-4">
-                  This information is collected for the sole purpose of verifying identity, processing requests, and providing public services.
-                </p>
               </div>
             </div>
 
@@ -93,14 +89,31 @@ export default function PrivacyPolicy() {
             <div>
               <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
                 <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">2</span>
-                Data Storage and Security
+                How We Use Your Information
               </h3>
               <div className="bg-gradient-to-r from-[#FFF8B5]/10 to-[#FFD1A9]/10 rounded-2xl p-8">
-                <p className="text-lg text-[#8B4513]/80 mb-4">
-                  Your personal data is stored on secure servers managed by the National Informatics Centre (NIC) located within the geographical boundaries of India. 
-                  We employ state-of-the-art security measures, including encryption and access controls, to prevent unauthorized access, use, or disclosure of your information, 
-                  as per the guidelines issued by CERT-In.
-                </p>
+                <ul className="space-y-4 text-[#8B4513]/80">
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">To provide and improve the Platform.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">To connect Seekers with Listeners.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">To monitor for inappropriate or harmful content.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">To communicate important updates or policy changes.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">To comply with legal obligations.</span>
+                  </li>
+                </ul>
               </div>
             </div>
 
@@ -108,13 +121,25 @@ export default function PrivacyPolicy() {
             <div>
               <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
                 <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">3</span>
-                Data Sharing and Disclosure
+                Data Sharing
               </h3>
               <div className="bg-gradient-to-r from-[#FFB88C]/10 to-[#F9E79F]/10 rounded-2xl p-8">
-                <p className="text-lg text-[#8B4513]/80">
-                  Your personal information will <strong>not</strong> be shared with any private organization for commercial purposes. 
-                  Data may be shared only with other Indian government departments or law enforcement agencies as required for the provision of integrated services or as mandated by law.
+                <p className="text-lg text-[#8B4513]/80 mb-4">
+                  We do not sell your personal data.
                 </p>
+                <p className="text-lg text-[#8B4513]/80 mb-4">
+                  We may share limited information with:
+                </p>
+                <ul className="space-y-4 text-[#8B4513]/80">
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg"><strong>Service Providers:</strong> For hosting, analytics, or support.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg"><strong>Legal Authorities:</strong> If required by law or to protect safety.</span>
+                  </li>
+                </ul>
               </div>
             </div>
 
@@ -122,13 +147,95 @@ export default function PrivacyPolicy() {
             <div>
               <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
                 <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">4</span>
-                Your Rights and Grievance Redressal
+                Data Security
               </h3>
               <div className="bg-gradient-to-r from-[#FFF8B5]/10 to-[#FFD1A9]/10 rounded-2xl p-8">
                 <p className="text-lg text-[#8B4513]/80">
-                  As a user, you have the right to access, correct, and request the erasure of your personal data. 
-                  If you have any concerns about the processing of your data, you may contact our designated Data Protection Officer at dpo@lissnify.gov.in.
+                  We use encryption and secure servers to protect your data. However, no system is 100% secure, and you acknowledge the risks of online communication.
                 </p>
+              </div>
+            </div>
+
+            {/* Section 5 */}
+            <div>
+              <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
+                <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">5</span>
+                Data Retention
+              </h3>
+              <div className="bg-gradient-to-r from-[#FFB88C]/10 to-[#F9E79F]/10 rounded-2xl p-8">
+                <p className="text-lg text-[#8B4513]/80">
+                  We retain data as long as necessary to provide services or comply with legal obligations. You may request deletion of your data by contacting us.
+                </p>
+              </div>
+            </div>
+
+            {/* Section 6 */}
+            <div>
+              <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
+                <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">6</span>
+                Children's Privacy
+              </h3>
+              <div className="bg-gradient-to-r from-[#FFF8B5]/10 to-[#FFD1A9]/10 rounded-2xl p-8">
+                <p className="text-lg text-[#8B4513]/80">
+                  Our Platform is not intended for users under 18 years of age. We do not knowingly collect information from minors.
+                </p>
+              </div>
+            </div>
+
+            {/* Section 7 */}
+            <div>
+              <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
+                <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">7</span>
+                Your Rights
+              </h3>
+              <div className="bg-gradient-to-r from-[#FFB88C]/10 to-[#F9E79F]/10 rounded-2xl p-8">
+                <p className="text-lg text-[#8B4513]/80 mb-4">
+                  Depending on your jurisdiction, you may have rights to:
+                </p>
+                <ul className="space-y-4 text-[#8B4513]/80">
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">Access the data we hold about you.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">Request corrections or deletion.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[#8B4513] rounded-full mt-3 flex-shrink-0"></div>
+                    <span className="text-lg">Opt out of marketing communications.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Section 8 */}
+            <div>
+              <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
+                <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">8</span>
+                Updates to Privacy Policy
+              </h3>
+              <div className="bg-gradient-to-r from-[#FFF8B5]/10 to-[#FFD1A9]/10 rounded-2xl p-8">
+                <p className="text-lg text-[#8B4513]/80">
+                  We may update this Privacy Policy. Changes will be posted with a new effective date.
+                </p>
+              </div>
+            </div>
+
+            {/* Section 9 */}
+            <div>
+              <h3 className="text-2xl font-bold text-[#8B4513] mb-6 flex items-center gap-3">
+                <span className="w-8 h-8 bg-gradient-to-br from-[#FFB88C] to-[#F9E79F] rounded-full flex items-center justify-center text-white font-bold text-sm">9</span>
+                Contact Us
+              </h3>
+              <div className="bg-gradient-to-r from-[#FFB88C]/10 to-[#F9E79F]/10 rounded-2xl p-8">
+                <p className="text-lg text-[#8B4513]/80 mb-4">
+                  For questions about these Terms or Privacy Policy:
+                </p>
+                <div className="flex items-center gap-3">
+                  <Mail className="w-6 h-6 text-[#8B4513]" />
+                  <span className="text-lg font-semibold text-[#8B4513]">hello@lissnify.com</span>
+                </div>
               </div>
             </div>
 
@@ -137,22 +244,16 @@ export default function PrivacyPolicy() {
           {/* Contact Section */}
           <div className="mt-16 p-8 bg-gradient-to-br from-[#FFB88C]/20 to-[#F9E79F]/20 rounded-3xl border-2 border-[#FFB88C]/30">
             <div className="text-center">
-              <h3 className="text-2xl font-bold text-[#8B4513] mb-4">Data Protection Officer</h3>
+              <h3 className="text-2xl font-bold text-[#8B4513] mb-4">Have Questions?</h3>
               <p className="text-lg text-[#8B4513]/80 mb-8">
-                For privacy concerns and data protection queries, contact our designated Data Protection Officer.
+                For any questions about our Privacy Policy or data protection, please reach out to us.
               </p>
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-[#8B4513] rounded-full flex items-center justify-center">
                     <Mail className="w-5 h-5 text-white" />
                   </div>
-                  <span className="text-lg font-semibold text-[#8B4513]">dpo@lissnify.gov.in</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#8B4513] rounded-full flex items-center justify-center">
-                    <Phone className="w-5 h-5 text-white" />
-                  </div>
-                  <span className="text-lg font-semibold text-[#8B4513]">1800-XXX-XXXX</span>
+                  <span className="text-lg font-semibold text-[#8B4513]">hello@lissnify.com</span>
                 </div>
               </div>
             </div>

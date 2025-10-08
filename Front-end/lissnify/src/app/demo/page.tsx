@@ -20,8 +20,8 @@ export default function DemoPage() {
     });
   };
 
-  const handleDemoLogout = () => {
-    logout();
+  const handleDemoLogout = async () => {
+    await logout();
   };
 
   return (

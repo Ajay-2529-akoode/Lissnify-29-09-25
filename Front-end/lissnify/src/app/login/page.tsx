@@ -62,7 +62,7 @@ export default function LoginPage() {
           user_type: response.data?.user?.user_type || "seeker",
           
         };
-        login(userData, response.data?.access);
+        login(userData, response.data?.access, response.data?.refresh);
 
        
   
