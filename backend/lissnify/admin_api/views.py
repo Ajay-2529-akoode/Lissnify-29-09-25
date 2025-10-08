@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated,AllowAny
 from django.utils.timezone import now, timedelta
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
-from django.db.models import Count
+from django.db.models import Count, Q
 from rest_framework import generics, permissions, status
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
@@ -14,10 +14,10 @@ from django.conf import settings
 import os
 from api.models import Category
 from .serializers import CategorySerializer 
-from api.models import Seeker, Listener,Connections, User
+from api.models import Seeker, Listener,Connections, User, UserActivity
 from chat_api.models import ChatRoom
 from chat_api.models import Message
-from .serializers import SeekerSerializer, UserSerializer, UserRegisterSerializer,AdminLoginSerializer,ConnectionSerializer,ListenerSerializer 
+from .serializers import SeekerSerializer, UserSerializer, UserRegisterSerializer,AdminLoginSerializer,ConnectionSerializer,ListenerSerializer, UserActivitySerializer, UserActivitySummarySerializer
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from .serializers import UserSerializer, UserRegisterSerializer
 import random
@@ -43,9 +43,12 @@ class AdminLogin(APIView):
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
 
-            # Save token in DB (if needed)
+            # Update user online status and last seen
+            from django.utils import timezone
             user.token = access_token
-            user.save(update_fields=['token'])
+            user.is_online = True
+            user.last_seen = timezone.now()
+            user.save(update_fields=['token', 'is_online', 'last_seen'])
 
             return Response({
                 "message": "Admin login successful",
@@ -54,6 +57,40 @@ class AdminLogin(APIView):
             }, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class AdminLogoutView(APIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    def post(self, request):
+        try:
+            # Get the refresh token from the request body
+            refresh_token = request.data.get("refresh")
+            if not refresh_token:
+                return Response({"error": "Refresh token not provided."}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Create a RefreshToken instance from the token string
+            token = RefreshToken(refresh_token)
+            
+            # Update user online status to offline before blacklisting token
+            user = request.user
+            from django.utils import timezone
+            user.is_online = False
+            user.last_seen = timezone.now()
+            user.save(update_fields=['is_online', 'last_seen'])
+            
+            # Blacklist the token
+            token.blacklist()
+
+            return Response({"message": "Admin logged out successfully."}, status=status.HTTP_200_OK)
+        
+        except TokenError as e:
+            # This exception is raised if the token is invalid or expired
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+        except Exception as e:
+            # Catch any other unexpected errors
+            return Response({"error": f"An unexpected error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 # ✅ Dashboard summary counts (Admin Only)
 class DashboardStatsView(APIView):
@@ -560,5 +597,180 @@ class TestimonialViewSet(APIView):
         if serializer.is_valid():
             serializer.save()               
             return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)          
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserActivityAPIView(APIView):
+    """API view for user activity data"""
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    def get(self, request):
+        """Get user activity data with filtering and pagination"""
+        try:
+            # Get query parameters
+            search = request.query_params.get('search', '')
+            user_type = request.query_params.get('user_type', 'all')
+            status_filter = request.query_params.get('status', 'all')
+            sort_by = request.query_params.get('sort_by', 'last_seen')
+            sort_order = request.query_params.get('sort_order', 'desc')
+            page = int(request.query_params.get('page', 1))
+            page_size = int(request.query_params.get('page_size', 10))
+            
+            # Start with all users
+            users = User.objects.all()
+            
+            # Apply filters
+            if search:
+                users = users.filter(
+                    Q(full_name__icontains=search) | 
+                    Q(email__icontains=search)
+                )
+            
+            if user_type != 'all':
+                users = users.filter(user_type=user_type)
+            
+            if status_filter != 'all':
+                if status_filter == 'online':
+                    users = users.filter(is_online=True)
+                elif status_filter == 'away':
+                    from django.utils import timezone
+                    five_minutes_ago = timezone.now() - timedelta(minutes=5)
+                    users = users.filter(
+                        is_online=False,
+                        last_seen__gte=five_minutes_ago
+                    )
+                elif status_filter == 'offline':
+                    from django.utils import timezone
+                    five_minutes_ago = timezone.now() - timedelta(minutes=5)
+                    users = users.filter(
+                        is_online=False,
+                        last_seen__lt=five_minutes_ago
+                    )
+            
+            # Apply sorting
+            if sort_by == 'name':
+                sort_field = 'full_name'
+            elif sort_by == 'last_active':
+                sort_field = 'last_seen'
+            elif sort_by == 'activity_score':
+                sort_field = 'activity_score'
+            else:
+                sort_field = 'last_seen'
+            
+            if sort_order == 'asc':
+                users = users.order_by(sort_field)
+            else:
+                users = users.order_by(f'-{sort_field}')
+            
+            # Calculate pagination
+            total_users = users.count()
+            start_index = (page - 1) * page_size
+            end_index = start_index + page_size
+            users_page = users[start_index:end_index]
+            
+            # Serialize data
+            serializer = UserActivitySummarySerializer(users_page, many=True)
+            
+            # Calculate summary statistics
+            total_active_users = User.objects.filter(is_online=True).count()
+            total_seekers = User.objects.filter(user_type='seeker').count()
+            total_listeners = User.objects.filter(user_type='listener').count()
+            
+            # Calculate average session duration
+            users_with_session = User.objects.exclude(session_duration__isnull=True)
+            if users_with_session.exists():
+                avg_session_seconds = sum(
+                    user.session_duration.total_seconds() 
+                    for user in users_with_session
+                ) / users_with_session.count()
+                avg_hours = int(avg_session_seconds // 3600)
+                avg_minutes = int((avg_session_seconds % 3600) // 60)
+                avg_session_duration = f"{avg_hours}h {avg_minutes}m" if avg_hours > 0 else f"{avg_minutes}m"
+            else:
+                avg_session_duration = "0m"
+            
+            # Find peak visit time (mock data for now)
+            peak_visit_time = "7–9 PM"
+            
+            return Response({
+                'users': serializer.data,
+                'pagination': {
+                    'current_page': page,
+                    'page_size': page_size,
+                    'total_users': total_users,
+                    'total_pages': (total_users + page_size - 1) // page_size,
+                    'has_next': end_index < total_users,
+                    'has_previous': page > 1
+                },
+                'summary': {
+                    'total_active_users': total_active_users,
+                    'total_seekers': total_seekers,
+                    'total_listeners': total_listeners,
+                    'avg_session_duration': avg_session_duration,
+                    'peak_visit_time': peak_visit_time
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            return Response({
+                'error': f'Failed to fetch user activity data: {str(e)}'
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UserActivityDetailAPIView(APIView):
+    """API view for detailed user activity logs"""
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    def get(self, request, user_id):
+        """Get detailed activity logs for a specific user"""
+        try:
+            user = User.objects.get(u_id=user_id)
+            activities = UserActivity.objects.filter(user=user).order_by('-created_at')
+            
+            # Get query parameters
+            activity_type = request.query_params.get('activity_type', '')
+            page = int(request.query_params.get('page', 1))
+            page_size = int(request.query_params.get('page_size', 20))
+            
+            # Apply filters
+            if activity_type:
+                activities = activities.filter(activity_type__icontains=activity_type)
+            
+            # Calculate pagination
+            total_activities = activities.count()
+            start_index = (page - 1) * page_size
+            end_index = start_index + page_size
+            activities_page = activities[start_index:end_index]
+            
+            # Serialize data
+            serializer = UserActivitySerializer(activities_page, many=True)
+            
+            return Response({
+                'user': {
+                    'u_id': user.u_id,
+                    'full_name': user.full_name,
+                    'email': user.email,
+                    'user_type': user.user_type,
+                    'is_online': user.is_online,
+                    'last_seen': user.last_seen
+                },
+                'activities': serializer.data,
+                'pagination': {
+                    'current_page': page,
+                    'page_size': page_size,
+                    'total_activities': total_activities,
+                    'total_pages': (total_activities + page_size - 1) // page_size,
+                    'has_next': end_index < total_activities,
+                    'has_previous': page > 1
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except User.DoesNotExist:
+            return Response({
+                'error': 'User not found'
+            }, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({
+                'error': f'Failed to fetch user activity details: {str(e)}'
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
   

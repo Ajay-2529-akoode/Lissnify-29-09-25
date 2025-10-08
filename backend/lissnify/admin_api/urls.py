@@ -4,14 +4,16 @@ from rest_framework.routers import DefaultRouter
 from .views import (
     DashboardStatsView, UserGrowthChartView, ActiveUsersChartView, UserListView, 
     UserDetailView, CreateUserView, UpdateUserView, DeleteUserView, 
-    CategoryListCreateView, CategoryDetailView, AdminLogin, ToggleUserActive, 
-    GetConnectionsList, BlogListCreateView, BlogDetailView, TestimonialViewSet
+    CategoryListCreateView, CategoryDetailView, AdminLogin, AdminLogoutView, ToggleUserActive, 
+    GetConnectionsList, BlogListCreateView, BlogDetailView, TestimonialViewSet,
+    UserActivityAPIView, UserActivityDetailAPIView
 )
 
 
 urlpatterns = [
     # ✅ Dashboard
     path("login/", AdminLogin.as_view(), name="admin-login"),
+    path("logout/", AdminLogoutView.as_view(), name="admin-logout"),
     path("dashboard/", DashboardStatsView.as_view(), name="dashboard-stats"),
     path("user-growth/", UserGrowthChartView.as_view(), name="user-growth"),
     path("active-users/", ActiveUsersChartView.as_view(), name="active-users"),
@@ -35,5 +37,9 @@ urlpatterns = [
     # ✅ Include router URLs
     path("testimonials/", TestimonialViewSet.as_view(), name="testimonial-list-create"),
     path("testimonials/<int:pk>/", TestimonialViewSet.as_view(), name="testimonial-detail"),
+    
+    # ✅ User Activity APIs
+    path("user-activity/", UserActivityAPIView.as_view(), name="user-activity"),
+    path("user-activity/<int:user_id>/", UserActivityDetailAPIView.as_view(), name="user-activity-detail"),
     
 ]

@@ -16,6 +16,9 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             await self.close()
             return
 
+        # Update user online status and last seen
+        await self.update_user_online_status(self.user, True)
+
         # Join notification group
         # print(f"🔔 Joining notification group: {self.notification_group_name}")
         await self.channel_layer.group_add(
@@ -27,6 +30,10 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         # print(f"✅ NotificationConsumer connected for user {self.user.u_id}")
 
     async def disconnect(self, close_code):
+        # Update user online status to offline
+        if hasattr(self, 'user') and self.user:
+            await self.update_user_online_status(self.user, False)
+        
         # Leave notification group
         await self.channel_layer.group_discard(
             self.notification_group_name,
@@ -101,3 +108,11 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             recipient=self.user, 
             is_read=False
         ).count()
+
+    @database_sync_to_async
+    def update_user_online_status(self, user, is_online):
+        """Update user's online status and last seen timestamp"""
+        from django.utils import timezone
+        user.is_online = is_online
+        user.last_seen = timezone.now()
+        user.save(update_fields=['is_online', 'last_seen'])

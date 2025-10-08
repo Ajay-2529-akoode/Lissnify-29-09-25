@@ -20,7 +20,7 @@ export default function Sidebar() {
     const refreshToken = localStorage.getItem('adminRefresh');
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL1}/logout/`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin-api/logout/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,6 +48,7 @@ export default function Sidebar() {
   const navItems = [
     { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
     { href: "/admin/users", icon: Users, label: "Users" },
+    { href: "/admin/useractivity", icon: Activity, label: "User Activity" },
     { href: "/admin/category", icon: ListTodo, label: "Categories" },
     { href: "/admin/connections", icon: Network, label: "Connections" },
     { href: "/admin/blog", icon: Activity, label: "Blog" },
@@ -59,12 +60,10 @@ export default function Sidebar() {
       {/* Header */}
       <div>
         <div className="flex items-center gap-3 mb-8">
-          <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
-            <Shield className="w-6 h-6 text-white" />
-          </div>
+          
           <div>
-            <h2 className="text-xl font-bold text-white">Lissnify</h2>
-            <p className="text-xs text-gray-400">Admin Panel</p>
+            <h2 className="text-xl font-bold text-white p-1">Lissnify</h2>
+            <p className="text-xs text-gray-400 p-1 font-bold">Admin Panel</p>
           </div>
         </div>
 

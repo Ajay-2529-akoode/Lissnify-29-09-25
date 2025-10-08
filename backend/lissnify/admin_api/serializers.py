@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import check_password
-from api.models import User, Seeker, Listener, Connections,Category, Blog, Testimonial, BlogLike
+from api.models import User, Seeker, Listener, Connections,Category, Blog, Testimonial, BlogLike, UserActivity
 import uuid
 import hashlib
 
@@ -268,3 +268,137 @@ class TestimonialSerializer(serializers.ModelSerializer):
             'rating',
             'feedback'
         ]
+
+
+class UserActivitySerializer(serializers.ModelSerializer):
+    """Serializer for user activity data"""
+    user_name = serializers.CharField(source='user.full_name', read_only=True)
+    user_email = serializers.CharField(source='user.email', read_only=True)
+    user_type = serializers.CharField(source='user.user_type', read_only=True)
+    last_seen = serializers.DateTimeField(source='user.last_seen', read_only=True)
+    is_online = serializers.BooleanField(source='user.is_online', read_only=True)
+    session_duration_display = serializers.SerializerMethodField()
+    time_ago = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = UserActivity
+        fields = [
+            'id',
+            'user_name',
+            'user_email', 
+            'user_type',
+            'activity_type',
+            'page_visited',
+            'session_duration_display',
+            'last_seen',
+            'is_online',
+            'time_ago',
+            'created_at'
+        ]
+    
+    def get_session_duration_display(self, obj):
+        """Format session duration for display"""
+        if obj.session_duration:
+            total_seconds = int(obj.session_duration.total_seconds())
+            hours = total_seconds // 3600
+            minutes = (total_seconds % 3600) // 60
+            
+            if hours > 0:
+                return f"{hours}h {minutes}m"
+            else:
+                return f"{minutes}m"
+        return "0m"
+    
+    def get_time_ago(self, obj):
+        """Calculate time ago for display"""
+        from django.utils import timezone
+        now = timezone.now()
+        diff = now - obj.created_at
+        
+        if diff.days > 0:
+            return f"{diff.days} day{'s' if diff.days > 1 else ''} ago"
+        elif diff.seconds > 3600:
+            hours = diff.seconds // 3600
+            return f"{hours} hour{'s' if hours > 1 else ''} ago"
+        elif diff.seconds > 60:
+            minutes = diff.seconds // 60
+            return f"{minutes} minute{'s' if minutes > 1 else ''} ago"
+        else:
+            return "Just now"
+
+
+class UserActivitySummarySerializer(serializers.ModelSerializer):
+    """Serializer for user activity summary data"""
+    user_name = serializers.CharField(source='full_name', read_only=True)
+    user_email = serializers.CharField(source='email', read_only=True)
+    user_type_display = serializers.SerializerMethodField()
+    status_display = serializers.SerializerMethodField()
+    last_seen_display = serializers.SerializerMethodField()
+    session_duration_display = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = User
+        fields = [
+            'u_id',
+            'user_name',
+            'user_email',
+            'user_type_display',
+            'status_display',
+            'is_online',
+            'last_seen_display',
+            'session_duration_display',
+            'total_connections',
+            'messages_sent',
+            'activity_score',
+            'most_active_page'
+        ]
+    
+    def get_user_type_display(self, obj):
+        """Get user type display name"""
+        return "Seeker" if obj.user_type == "seeker" else "Listener"
+    
+    def get_status_display(self, obj):
+        """Get status display name"""
+        print(f"Status check for user {obj.u_id} ({obj.full_name}): is_online={obj.is_online}, last_seen={obj.last_seen}")
+        
+        if obj.is_online:
+            return "Online"
+        elif obj.last_seen:
+            from django.utils import timezone
+            now = timezone.now()
+            diff = now - obj.last_seen
+            if diff.total_seconds() < 300:  # 5 minutes
+                return "Away"
+        return "Offline"
+    
+    def get_last_seen_display(self, obj):
+        """Format last seen for display"""
+        if obj.last_seen:
+            from django.utils import timezone
+            now = timezone.now()
+            diff = now - obj.last_seen
+            
+            if diff.days > 0:
+                return f"{diff.days} day{'s' if diff.days > 1 else ''} ago"
+            elif diff.seconds > 3600:
+                hours = diff.seconds // 3600
+                return f"{hours} hour{'s' if hours > 1 else ''} ago"
+            elif diff.seconds > 60:
+                minutes = diff.seconds // 60
+                return f"{minutes} minute{'s' if minutes > 1 else ''} ago"
+            else:
+                return "Just now"
+        return "Never"
+    
+    def get_session_duration_display(self, obj):
+        """Format session duration for display"""
+        if obj.session_duration:
+            total_seconds = int(obj.session_duration.total_seconds())
+            hours = total_seconds // 3600
+            minutes = (total_seconds % 3600) // 60
+            
+            if hours > 0:
+                return f"{hours}h {minutes}m"
+            else:
+                return f"{minutes}m"
+        return "0m"

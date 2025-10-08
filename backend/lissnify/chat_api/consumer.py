@@ -24,11 +24,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
             await self.close()
             return
 
+        # Update user online status and last seen
+        await self.update_user_online_status(self.user, True)
+
         # Add to group and accept
         await self.channel_layer.group_add(self.room_group_name, self.channel_name)
         await self.accept()
 
     async def disconnect(self, close_code):
+        # Update user online status to offline
+        if hasattr(self, 'user') and self.user:
+            await self.update_user_online_status(self.user, False)
+        
         # Remove from group
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
 
@@ -219,6 +226,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
             return list(participants.values('u_id', 'full_name'))
         except ChatRoom.DoesNotExist:
             return []
+
+    @database_sync_to_async
+    def update_user_online_status(self, user, is_online):
+        """Update user's online status and last seen timestamp"""
+        from django.utils import timezone
+        user.is_online = is_online
+        user.last_seen = timezone.now()
+        user.save(update_fields=['is_online', 'last_seen'])
 
     @database_sync_to_async
     def get_user_notification_settings(self, user_id):

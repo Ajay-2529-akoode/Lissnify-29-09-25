@@ -23,7 +23,17 @@ class User(AbstractUser):
     DOB = models.DateField(null=True, blank=True)  # Date of Birth field
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    profile_image= models.CharField(max_length=255, blank=True, null=True)  
+    profile_image= models.CharField(max_length=255, blank=True, null=True)
+    
+    # Activity tracking fields
+    is_online = models.BooleanField(default=False)  # Online status
+    last_seen = models.DateTimeField(null=True, blank=True)  # Last activity timestamp
+    session_duration = models.DurationField(null=True, blank=True)  # Current session duration
+    total_connections = models.PositiveIntegerField(default=0)  # Total connections count
+    messages_sent = models.PositiveIntegerField(default=0)  # Total messages sent
+    activity_score = models.PositiveIntegerField(default=0)  # Activity score (0-100)
+    most_active_page = models.CharField(max_length=255, blank=True, null=True)  # Most visited page
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['full_name']
     
@@ -58,6 +68,26 @@ class Category(models.Model):
 
     class Meta:
         db_table = 'category'
+
+
+class UserActivity(models.Model):
+    """Model to track detailed user activity"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='activities')
+    activity_type = models.CharField(max_length=100)  # login, logout, message_sent, page_visit, etc.
+    page_visited = models.CharField(max_length=255, blank=True, null=True)  # Page name
+    session_start = models.DateTimeField(null=True, blank=True)
+    session_end = models.DateTimeField(null=True, blank=True)
+    session_duration = models.DurationField(null=True, blank=True)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    user_agent = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table = 'user_activity'
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return f"{self.user.full_name} - {self.activity_type} at {self.created_at}"
 
 class Seeker(models.Model):
     # This defines the structure of the table Django will create.

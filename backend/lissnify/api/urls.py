@@ -1,6 +1,6 @@
 # myapp/urls.py
 from django.urls import path
-from .views import RegisterView,UserProfileView, LoginView,OTPView,ForgotPassword,CategoryList,ListenersBasedOnPreference,ConnectionRequest,ConnectionList,AcceptConnection,AcceptedListSeeker,TestAPIView,LogoutView,ListenerListCreateView,getConnectionListForListener,BlogCreateView,BlogDetailBySlugView,ListenerProfile,NotificationListView,NotificationDetailView,NotificationMarkAllReadView,NotificationStatsView,NotificationSettingsView,CreateMessageNotificationView,TestNotificationView,TestimonialView,TestimonialDetailView,BlogLikeView,BlogLikeToggleView,BlogLikesListView,CommunityPostListView,CommunityPostDetailView,CommunityPostLikeView,CommunityPostCommentView,RatingCreateView,RatingListView,RatingStatsView,RatingUpdateView,RatingDeleteView
+from .views import RegisterView,UserProfileView, LoginView,OTPView,ForgotPassword,CategoryList,ListenersBasedOnPreference,ConnectionRequest,ConnectionList,AcceptConnection,AcceptedListSeeker,TestAPIView,LogoutView,ListenerListCreateView,getConnectionListForListener,BlogCreateView,BlogDetailBySlugView,ListenerProfile,NotificationListView,NotificationDetailView,NotificationMarkAllReadView,NotificationStatsView,NotificationSettingsView,CreateMessageNotificationView,TestNotificationView,TestimonialView,TestimonialDetailView,BlogLikeView,BlogLikeToggleView,BlogLikesListView,CommunityPostListView,CommunityPostDetailView,CommunityPostLikeView,CommunityPostCommentView,RatingCreateView,RatingListView,RatingStatsView,RatingUpdateView,RatingDeleteView,UserHeartbeatView,UserStatusDebugView
 
 urlpatterns = [
     path('register/', RegisterView.as_view(),name='register'),
@@ -15,7 +15,9 @@ urlpatterns = [
     path('accept-connection/', AcceptConnection.as_view()),
     path('accepted-list-seeker/',AcceptedListSeeker.as_view()),
     path('test-api/', TestAPIView.as_view()),
-    path('logout/', LogoutView.as_view()), 
+    path('logout/', LogoutView.as_view()),
+    path('user-activity/heartbeat/', UserHeartbeatView.as_view()),
+    path('user-status-debug/', UserStatusDebugView.as_view()), 
     path('listenerList/', ListenerListCreateView.as_view()), 
     path('get-connection-list/', getConnectionListForListener.as_view()),
     path('user-profile/', UserProfileView.as_view()),

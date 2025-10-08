@@ -72,8 +72,13 @@ class LoginView(APIView):
             # Generate JWT tokens
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
-            user.token = access_token  
-            user.save(update_fields=['token'])
+            
+            # Update user online status and last seen
+            from django.utils import timezone
+            user.token = access_token
+            user.is_online = True
+            user.last_seen = timezone.now()
+            user.save(update_fields=['token', 'is_online', 'last_seen'])
             return Response({
                 "user": {
                     "id": user.u_id,
@@ -400,11 +405,22 @@ class LogoutView(APIView):
         try:
             # Get the refresh token from the request body
             refresh_token = request.data.get("refresh")
+            print(f"LogoutView: User {request.user.u_id} attempting logout with refresh token: {bool(refresh_token)}")
+            
             if not refresh_token:
                 return Response({"error": "Refresh token not provided."}, status=status.HTTP_400_BAD_REQUEST)
 
             # Create a RefreshToken instance from the token string
             token = RefreshToken(refresh_token)
+            
+            # Update user online status to offline before blacklisting token
+            user = request.user
+            from django.utils import timezone
+            print(f"LogoutView: Setting user {user.u_id} ({user.full_name}) to offline")
+            user.is_online = False
+            user.last_seen = timezone.now()
+            user.save(update_fields=['is_online', 'last_seen'])
+            print(f"LogoutView: User {user.u_id} status updated - is_online: {user.is_online}, last_seen: {user.last_seen}")
             
             # Blacklist the token
             token.blacklist()
@@ -1195,4 +1211,65 @@ class RatingDeleteView(APIView):
             {"message": "Rating deleted successfully"}, 
             status=status.HTTP_200_OK
         )
+
+
+class UserHeartbeatView(APIView):
+    """API view for user heartbeat to keep them online"""
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        """Update user's last seen timestamp to keep them online"""
+        try:
+            user = request.user
+            from django.utils import timezone
+            
+            # Update last seen timestamp
+            user.last_seen = timezone.now()
+            user.is_online = True
+            user.save(update_fields=['last_seen', 'is_online'])
+            
+            return Response({"message": "Heartbeat received"}, status=status.HTTP_200_OK)
+        
+        except Exception as e:
+            return Response({"error": f"Failed to update heartbeat: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UserStatusDebugView(APIView):
+    """Debug view to check and update user status"""
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        """Get current user status"""
+        try:
+            user = request.user
+            return Response({
+                "user_id": user.u_id,
+                "full_name": user.full_name,
+                "email": user.email,
+                "is_online": user.is_online,
+                "last_seen": user.last_seen,
+                "status": "Online" if user.is_online else "Offline"
+            }, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def post(self, request):
+        """Manually set user status"""
+        try:
+            user = request.user
+            is_online = request.data.get('is_online', False)
+            
+            from django.utils import timezone
+            user.is_online = is_online
+            user.last_seen = timezone.now()
+            user.save(update_fields=['is_online', 'last_seen'])
+            
+            return Response({
+                "message": f"User status updated to {'Online' if is_online else 'Offline'}",
+                "user_id": user.u_id,
+                "is_online": user.is_online,
+                "last_seen": user.last_seen
+            }, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
