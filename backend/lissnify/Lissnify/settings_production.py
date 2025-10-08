@@ -16,7 +16,8 @@ SECRET_KEY = config('SECRET_KEY')
 # Allowed hosts for production
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost').split(',')
 # Add Render.com domains to ALLOWED_HOSTS
-ALLOWED_HOSTS.extend(['.onrender.com', '.render.com'])
+ALLOWED_HOSTS.extend(['*'])
+
 
 # Ensure we have the required apps in INSTALLED_APPS
 if 'channels' not in INSTALLED_APPS:
