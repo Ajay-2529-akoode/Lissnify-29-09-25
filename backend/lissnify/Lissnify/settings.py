@@ -32,7 +32,8 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
 # Add Render.com domains to ALLOWED_HOSTS
-ALLOWED_HOSTS.extend(['.onrender.com', '.render.com'])
+ALLOWED_HOSTS.extend(['*'])
+
 
 
 
