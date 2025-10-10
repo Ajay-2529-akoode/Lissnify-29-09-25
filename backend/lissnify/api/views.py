@@ -1040,22 +1040,27 @@ class CommunityPostLikeView(APIView):
 
 class CommunityPostCommentView(APIView):
     permission_classes = [IsAuthenticated]
-    
+
     def post(self, request, post_id):
-        """Add a comment to a community post"""
+        """
+        Add a comment to a community post
+        URL: POST /community-posts/<post_id>/comments/
+        """
         try:
-            post = CommunityPost.objects.get(id=post_id)
+            post = CommunityPost.objects.get(pk=post_id)
         except CommunityPost.DoesNotExist:
-            return Response({"error": "Post not found"}, status=status.HTTP_404_NOT_FOUND)
-        
-        data = request.data.copy()
-        data['post'] = post.id
-        
-        serializer = CommunityPostCommentSerializer(data=data, context={'request': request})
+            return Response({"error": "Community post not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = CommunityPostCommentSerializer(
+            data=request.data,
+            context={'request': request, 'post': post}
+        )
         if serializer.is_valid():
-            serializer.save()
+            comment = serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     
     def get(self, request, post_id):
         """Get all comments for a community post"""

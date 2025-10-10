@@ -2,8 +2,8 @@
 
 export const API_CONFIG = {
   // Update this URL to match your backend server
-  BASE_URL: "https://lissnify-backend-ckk3g.ondigitalocean.app", // Real backend URL
-  
+  // BASE_URL: "https://lissnify-backend-ckk3g.ondigitalocean.app", // Real backend URL
+  BASE_URL: "http://localhost:8000", // Local backend URL
   // API Endpoints
   ENDPOINTS: {
     // Auth endpoints
